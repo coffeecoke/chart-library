@@ -11,8 +11,14 @@
   <script src="js/require.config.js"></script>
   <script src="js/index.js"></script>
   <script>
-  
- 
+    var obj = new ChartFactory({
+      doms:[],
+      url:'',
+    })
+    obj.pie({
+      stack:true
+    })
+    obj.line()
   </script>
 </body>
 </html>
