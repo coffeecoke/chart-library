@@ -1,5 +1,16 @@
 (function (root, factory) {
-  root.a = root.a || factory(Jquery)
+  
+  if (typeof define === 'function' && define.amd) {
+      // AMD
+      // define([], factory);
+      define(['jquery'],factory);
+  } else if (typeof exports === 'object') {
+      // Node.js
+      module.exports = factory;
+  } else {
+      // Browser globals
+      root.JSLite = root.JSLite || factory(jQuery);
+  }
 })(this, function ($) {
   function ChartFactory(opts) {
     this.init(opts)
@@ -32,7 +43,7 @@
     }
 
   }
-  ChartFactory.prototype.setChartConfig = function () {
+  ChartFactory.prototype.setChartConfig = function (container, option) {
 
   }
   ChartFactory.prototype.chartDataFormate = function (data) {
@@ -41,8 +52,6 @@
   ChartFactory.prototype.setChartOptionTemplates = function () {
 
   }
-
-  
 
   ChartFactory.prototype.renderChart = function () {
 
