@@ -136,7 +136,7 @@
       this.resize()
     },
     renderMap: function () {
-
+      
     },
     resize: function () {
       var _self = this;
