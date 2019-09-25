@@ -7,21 +7,20 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="textChart" style="width:100%;height:400px;"></div>
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery','chartFactory'],function ($,chartFactory) {
+      var pieChartObj =new chartFactory({
+        id:'textChart',
+        data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
 
-      console.log(chartFactory)
+
+      });
+      pieChartObj.pie()
     })
-    // var obj = new ChartFactory({
-    //   doms:[],
-    //   url:'',
-    // })
-    // obj.pie({
-    //   stack:true
-    // })
-    // obj.line()
+    
   </script>
 </body>
 </html>
