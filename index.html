@@ -7,18 +7,21 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="https://cdn.bootcss.com/require.js/2.3.5/require.js"></script>
+  <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
-  <script src="js/index.js"></script>
   <script>
-    var obj = new ChartFactory({
-      doms:[],
-      url:'',
+    require(['jquery','chartFactory'],function ($,chartFactory) {
+
+      console.log(chartFactory)
     })
-    obj.pie({
-      stack:true
-    })
-    obj.line()
+    // var obj = new ChartFactory({
+    //   doms:[],
+    //   url:'',
+    // })
+    // obj.pie({
+    //   stack:true
+    // })
+    // obj.line()
   </script>
 </body>
 </html>

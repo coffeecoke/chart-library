@@ -3,6 +3,7 @@
   if (typeof define === 'function' && define.amd) {
       // AMD
       // define([], factory);
+      console.log(222)
       define(['jquery'],factory);
   } else if (typeof exports === 'object') {
       // Node.js
@@ -55,7 +56,7 @@
     this.chart = echarts.init(document.getElementById('main'),themes[themeType]);
   }
   ChartFactory.prototype.chartDataFormate = function (data) {
-    
+
 
   }
   ChartFactory.prototype.setChartOptionTemplates = function () {
