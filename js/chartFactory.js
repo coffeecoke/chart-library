@@ -59,7 +59,7 @@
   }
 
   var chartOptionTemplates = {
-    pie: function (name) {
+    pie: function (name,stack) {
       var pie_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
       var option = {
         tooltip: {
@@ -99,7 +99,7 @@
   ChartFactory.prototype = {
     init: function (opts) {
       this.opts = $.extend(ChartFactory._defaultOpts, opts);
-      this.setChartTheme(this.opts.themeType)
+      this.setChartTheme(this.opts.themeType);
       this.setChartOptionTemplates();
     },
     initData: function () {
@@ -118,12 +118,23 @@
     },
     setChartTheme: function (themeType) {
       var themes = {
-        macarons: '' // 配置主题的路径
+        wonderland: '../json/wonderland.json', // 配置主题的路径,
+        essos:'../json/essos.json'
       }
+      $.ajax({
+          url:themes[themeType],
+          async:false,
+          success:function(data){
+            obj = data;
+            if(themeType){
+              echarts.registerTheme(themeType, obj)
+            }
+          }
+      })
       if (!this.opts.id) {
         return
       }
-      this.chart = echarts.init(document.getElementById(this.opts.id), themes[themeType]);
+      this.chart = echarts.init(document.getElementById(this.opts.id),themeType);
     },
     chartDataFormate: function (data) {
 
