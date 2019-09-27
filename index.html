@@ -7,27 +7,34 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="textChart1" style="width:25%;height:400px;"></div>
-  <div id="textChart2" style="width:25%;height:400px;"></div>
+  <div id="textChart1" style="width:50%;height:400px;"></div>
+  <div id="textChart2" style="width:50%;height:400px;"></div>
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery','chartFactory'],function ($,chartFactory) {
       var pieChartObj =new chartFactory({
-        id:'textChart1',
-        themeType:'wonderland',
-        data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
-      });
-      pieChartObj.pie({
-        stack:true
-      })
-      var pieChartObj =new chartFactory({
         id:'textChart2',
         themeType:'essos',
         data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
       });
-      pieChartObj.pie({
-        stack:true
+      pieChartObj.pie()
+      var barChartObj =new chartFactory({
+        id:'textChart1',
+        themeType:'wonderland',
+        data:[
+          { name: 'Mon', value: 12 ,group: 'A'}, 
+          { name: 'Mon', value: 24 ,group: 'B'},
+          { name: 'Wed', value: 36,group: 'A'},
+          { name: 'Wed', value: 28 ,group: 'B'},
+          { name: 'Fri', value: 16 ,group: 'A'}, 
+          { name: 'Fri', value: 22,group: 'B'}, 
+          { name: 'Sun', value: 20,group: 'A'},
+          { name: 'Sun', value: 22,group: 'B'}, 
+          ]
+      });
+      barChartObj.bars({
+        
       })
     })
     
