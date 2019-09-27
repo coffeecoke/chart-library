@@ -22,6 +22,8 @@
     themeType: ''
 
   }
+  var tasks =[];
+
   var chartCommonOption = { //通用的图表基本配置
     tooltip: {
       trigger: 'axis' //tooltip触发方式:axis以X轴线触发,item以每一个数据项触发
@@ -60,6 +62,12 @@
 
   var chartOptionTemplates = {
     pie: function (name) {
+      var _self = this;
+      var fn = (function (name){
+        return function () {
+          _self._next()
+        }
+      })(name)
       var pie_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
       var option = {
         tooltip: {
@@ -84,12 +92,10 @@
       this.renderChart(pieOptions)
     },
     lines: function (name, stack) {
-      this.chartDataFormate(_self.opts.data, title, stack)
-      this.renderChart()
+      
     },
     bars: function (name, stack) {
-      this.chartDataFormate(_self.opts.data, title, stack)
-      this.renderChart()
+         
     },
     map: function () {
       this.renderMap()
@@ -97,6 +103,12 @@
 
   }
   ChartFactory.prototype = {
+    _next:function () {
+      setTimeout(function() {
+        var fn = tasks.shift()
+        fn&fn()
+      },30)
+    },
     init: function (opts) {
       this.opts = $.extend(ChartFactory._defaultOpts, opts);
       this.setChartTheme(this.opts.themeType)
@@ -136,7 +148,7 @@
       this.resize()
     },
     renderMap: function () {
-      
+
     },
     resize: function () {
       var _self = this;

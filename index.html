@@ -14,9 +14,36 @@
     require(['jquery','chartFactory'],function ($,chartFactory) {
       var pieChartObj =new chartFactory({
         id:'textChart',
-        data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
+        // data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
+        yAxis: [
+          {
+            type:'value',
+            name:'亿元'
+          },
+          {
+            type:'value',
+            name:'百分比'
+          }
+        ]
       });
-      pieChartObj.pie()
+      pieChartObj.line(
+        {
+          data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
+          y:'right',
+          color:'',
+          stack:''
+        }
+      ).bar(
+        {
+          data:[{ name: 'olive', value: 20 }, { name: 'only', value: 20 }, { name: 'momo', value: 20}],
+          y:'left',
+          color:'',
+          stack:'',
+        }
+      ).pictorialBar({
+        data:[{ name: 'olive', value: 50 }, { name: 'only', value: 50 }, { name: 'momo', value: 50}],
+        y:'left'
+      })
     })
     
   </script>
