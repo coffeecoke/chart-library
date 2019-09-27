@@ -4,3 +4,4 @@
 /*.js
 .vscode/
 /static/
+.DS_Store/

@@ -15,7 +15,7 @@
 
   }
   ChartFactory._defaultOpts = {
-    id: '',
+    id: '' || [],
     asy: false,
     data: [],
     url: '',
@@ -49,17 +49,15 @@
         categories.push(data[i].name || "");
         datas.push({
           name: data[i].name,
-          value: data[i].value || 0
+          value: data[i].value || 0 
         });
-      }
+      };
       return {
         category: categories,
-        data: datas
+        data: datas  
       };
     },
-
   }
-
   var chartOptionTemplates = {
     pie: function (name) {
       var _self = this;
@@ -91,11 +89,129 @@
       var pieOptions =  $.extend({}, chartCommonOption, option);
       this.renderChart(pieOptions)
     },
-    lines: function (name, stack) {
-      
+    line: function (name, stack) {
+      var line_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
+      var option = {
+        xAxis: [{
+          boundaryGap: true,
+          axisLine: { //坐标轴轴线相关设置。数学上的x轴
+            show:false,
+            lineStyle: {
+              color: 'ransparent'
+            }
+          },
+          splitLine:{
+            show:false
+        },
+          axisLabel: { //坐标轴刻度标签的相关设置
+            show:true,
+              textStyle: {
+                  color: '#000'
+              },
+          },
+          axisTick: {
+              show: false,
+          },
+          data: line_datas.category
+      }],
+      yAxis: [{
+        type: 'value',
+        min: 0,
+        // max: 140,
+        splitNumber: 4,
+        splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#DDD'
+            }
+        },
+        axisLine: {
+            show: true,
+        },
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: '#000',
+
+            },
+        },
+        axisTick: {
+            show: true,
+        },
+    }],
+        series: [{
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 5,
+          showSymbol: false,
+          data: line_datas.data,
+        }]
+      };
+      var lineOptions =  $.extend({}, chartCommonOption, option);
+      this.renderChart(lineOptions)
     },
     bars: function (name, stack) {
-         
+      var bar_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
+      var option = {
+        tooltip : {
+          trigger: 'axis',
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+      },
+      grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+      },
+      xAxis : [
+          {
+              type : 'category',
+              data : bar_datas.category,
+              axisTick: {
+                  alignWithLabel: true
+              }
+          }
+      ],
+      yAxis: [{
+        type: 'value',
+        min: 0,
+        // max: 140,
+        splitNumber: 4,
+        splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#DDD'
+            }
+        },
+        axisLine: {
+            show: true,
+        },
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: '#000',
+
+            },
+        },
+        axisTick: {
+            show: true,
+        },
+    }],
+      series : [
+          {
+              name:'直接访问',
+              type:'bar',
+              barWidth: '60%',
+              data:bar_datas.data,
+          }
+      ]
+      };
+      var barOptions =  $.extend({}, chartCommonOption, option);
+      // this.chartDataFormate(_self.opts.data, title, stack)
+      this.renderChart(barOptions)
     },
     map: function () {
       this.renderMap()
@@ -111,7 +227,7 @@
     },
     init: function (opts) {
       this.opts = $.extend(ChartFactory._defaultOpts, opts);
-      this.setChartTheme(this.opts.themeType)
+      this.setChartTheme(this.opts.themeType);
       this.setChartOptionTemplates();
     },
     initData: function () {
@@ -130,12 +246,23 @@
     },
     setChartTheme: function (themeType) {
       var themes = {
-        macarons: '' // 配置主题的路径
+        wonderland: '../json/wonderland.json', // 配置主题的路径,
+        essos:'../json/essos.json'
       }
+      $.ajax({
+          url:themes[themeType],
+          async:false,
+          success:function(data){
+            obj = data;
+            if(themeType){
+              echarts.registerTheme(themeType, obj)
+            }
+          }
+      })
       if (!this.opts.id) {
         return
       }
-      this.chart = echarts.init(document.getElementById(this.opts.id), themes[themeType]);
+      this.chart = echarts.init(document.getElementById(this.opts.id),themeType);
     },
     chartDataFormate: function (data) {
 
