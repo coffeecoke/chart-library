@@ -11,6 +11,7 @@
   }
 })(this, function ($, echarts) {
   function ChartFactory(opts) {
+    this.tasks = []
     this.init(opts)
 
   }
@@ -22,7 +23,23 @@
     themeType: ''
 
   }
-  var tasks =[];
+  var util = {
+    _unique: function (arr) {
+      if (!arr && !Sco.Type.isArray(arr)) {
+        return false;
+      }
+      var result = [],
+        hash = {};
+      for (var i = 0, elem;
+        (elem = arr[i]) != null; i++) {
+        if (!hash[elem]) {
+          result.push(elem);
+          hash[elem] = true;
+        }
+      }
+      return result;
+    }
+  }
 
   var chartCommonOption = { //通用的图表基本配置
     tooltip: {
@@ -38,7 +55,17 @@
         restore: true, //复原
         saveAsImage: true //是否保存图片
       }
-    }
+    },
+    legend: {
+      data: []
+    },
+    xAxis: [],
+    yAxis: [],
+    series: []
+
+  }
+  var chartPieOption = {
+
   }
 
   var chartDataFormate = {
@@ -49,169 +76,167 @@
         categories.push(data[i].name || "");
         datas.push({
           name: data[i].name,
-          value: data[i].value || 0 
+          value: data[i].value || 0
         });
       };
       return {
         category: categories,
-        data: datas  
+        data: datas
       };
     },
+    // 
+    FormateGroupData: function (data, type, is_stack,yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
+      var chart_type = 'line';
+      if (type)
+        chart_type = type || 'line';
+      var xAxis = []
+      var group = [];
+      var series = [];
+      for (var i = 0; i < data.length; i++) {
+        xAxis.push(data[i].name)
+        group.push(data[i].group)
+      }
+      xAxis = util._unique(xAxis)
+      group = util._unique(group)
+      for (var i = 0; i < group.length; i++) {
+        var temp = [];
+        for (var j = 0; j < data.length; j++) {
+          if (group[i] == data[j].group) {
+            if (type == "map")
+              temp.push({
+                name: data[j].name,
+                value: data[i].value
+              });
+            else
+              temp.push(data[j].value);
+          }
+        }
+        switch (type) {
+          case 'bar':
+            var series_temp = {
+              name: group[i],
+              data: temp,
+              type: chart_type,
+              yAxisIndex:yAxisIndex
+            };
+            if (is_stack)
+              series_temp = $.extend({}, {
+                stack: 'stack'
+              }, series_temp);
+            break;
+          case 'line':
+            var series_temp = {
+              name: group[i],
+              data: temp,
+              type: chart_type,
+              yAxisIndex:yAxisIndex
+            };
+            if (is_stack)
+              series_temp = $.extend({}, {
+                stack: 'stack'
+              }, series_temp);
+            break;
+          default:
+            var series_temp = {
+              name: group[i],
+              data: temp,
+              type: chart_type,
+              yAxisIndex:yAxisIndex
+            };
+        }
+        series.push(series_temp);
+      }
+      return {
+        category: group,
+        xAxis: xAxis,
+        series: series
+      };
+    }
   }
   var chartOptionTemplates = {
-    pie: function (name) {
+    pie: function (obj) {
       var _self = this;
-      var fn = (function (name){
+      var data = this.initData(obj)
+      var fn = (function (obj) {
         return function () {
+          var pie_datas = chartDataFormate.FormateNOGroupData(data);
+          var option = {
+            tooltip: {
+              trigger: 'item',
+              formatter: '{b} : {c} ({d}/%)',
+              show: true
+            },
+            legend: {
+              orient: 'vertical',
+              x: 'left',
+              data: pie_datas.category
+            },
+            series: [{
+              name: obj.name || "",
+              type: 'pie',
+              radius: '65%',
+              center: ['50%', '50%'],
+              data: pie_datas.data
+            }]
+          };
+          var pieOptions = $.extend(chartPieOption, option);
+          _self.renderChart(pieOptions)
           _self._next()
         }
-      })(name)
-      var pie_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
-      var option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {c} ({d}/%)',
-          show: true
-        },
-        legend: {
-          orient: 'vertical',
-          x: 'left',
-          data: pie_datas.category
-        },
-        series: [{
-          name: name || "",
-          type: 'pie',
-          radius: '65%',
-          center: ['50%', '50%'],
-          data: pie_datas.data
-        }]
-      };
-      var pieOptions =  $.extend({}, chartCommonOption, option);
-      this.renderChart(pieOptions)
+      })(obj)
+      this.tasks.push(fn);
+      return this;
     },
-    line: function (name, stack) {
-      var line_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
-      var option = {
-        xAxis: [{
-          boundaryGap: true,
-          axisLine: { //坐标轴轴线相关设置。数学上的x轴
-            show:false,
-            lineStyle: {
-              color: 'ransparent'
-            }
-          },
-          splitLine:{
-            show:false
-        },
-          axisLabel: { //坐标轴刻度标签的相关设置
-            show:true,
-              textStyle: {
-                  color: '#000'
-              },
-          },
-          axisTick: {
-              show: false,
-          },
-          data: line_datas.category
-      }],
-      yAxis: [{
-        type: 'value',
-        min: 0,
-        // max: 140,
-        splitNumber: 4,
-        splitLine: {
-            show: true,
-            lineStyle: {
-              color: '#DDD'
-            }
-        },
-        axisLine: {
-            show: true,
-        },
-        axisLabel: {
-            show: true,
-            textStyle: {
-                color: '#000',
+    line: function (obj) {
+      var _self = this;
+      var data = this.initData(obj)
+      
+      var fn = (function (obj) {
+        return function () {
+          var stackline_datas = chartDataFormate.FormateGroupData(data, 'line', obj.stack,obj.yAxisIndex);
+          var legendData = stackline_datas.category;
+          var xAxis = [{
+            type: 'category', //X轴均为category，Y轴均为value
+            data: stackline_datas.xAxis,
+            boundaryGap: true //数值轴两端的空白策略
+          }];
+          var series = stackline_datas.series
+          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
+          $.extend(true, chartCommonOption.xAxis, xAxis)
+          chartCommonOption.series.push.apply(chartCommonOption.series,series)
+          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
+          _self.renderChart(chartCommonOption)
+          _self._next()
+        }
 
-            },
-        },
-        axisTick: {
-            show: true,
-        },
-    }],
-        series: [{
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          data: line_datas.data,
-        }]
-      };
-      var lineOptions =  $.extend({}, chartCommonOption, option);
-      this.renderChart(lineOptions)
+      })(obj)
+      this.tasks.push(fn);
+      return this;
     },
-    bars: function (name, stack) {
-      var bar_datas = chartDataFormate.FormateNOGroupData(this.opts.data);
-      var option = {
-        tooltip : {
-          trigger: 'axis',
-          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-      },
-      grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-      },
-      xAxis : [
-          {
-              type : 'category',
-              data : bar_datas.category,
-              axisTick: {
-                  alignWithLabel: true
-              }
-          }
-      ],
-      yAxis: [{
-        type: 'value',
-        min: 0,
-        // max: 140,
-        splitNumber: 4,
-        splitLine: {
-            show: true,
-            lineStyle: {
-              color: '#DDD'
-            }
-        },
-        axisLine: {
-            show: true,
-        },
-        axisLabel: {
-            show: true,
-            textStyle: {
-                color: '#000',
+    bars: function (obj) {
+      var _self = this;
+      var data = this.initData(obj)
+      var fn = (function (obj) {
+        return function () {
+          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack,obj.yAxisIndex);
+          var legendData = bars_dates.category;
+          var xAxis = [{
+            type: 'category', //X轴均为category，Y轴均为value
+            data: bars_dates.xAxis,
+            boundaryGap: true //数值轴两端的空白策略
+          }];
+          var series = bars_dates.series
+          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
+          $.extend(true, chartCommonOption.xAxis, xAxis)
+          chartCommonOption.series.push.apply(chartCommonOption.series,series)
+          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
+          _self.renderChart(chartCommonOption)
+          _self._next()
+        }
 
-            },
-        },
-        axisTick: {
-            show: true,
-        },
-    }],
-      series : [
-          {
-              name:'直接访问',
-              type:'bar',
-              barWidth: '60%',
-              data:bar_datas.data,
-          }
-      ]
-      };
-      var barOptions =  $.extend({}, chartCommonOption, option);
-      // this.chartDataFormate(_self.opts.data, title, stack)
-      this.renderChart(barOptions)
+      })(obj)
+      this.tasks.push(fn);
+      return this;
     },
     map: function () {
       this.renderMap()
@@ -219,50 +244,66 @@
 
   }
   ChartFactory.prototype = {
-    _next:function () {
-      setTimeout(function() {
-        var fn = tasks.shift()
-        fn&fn()
-      },30)
+    _next: function () {
+      var fn = this.tasks.shift()
+      fn && fn()
     },
     init: function (opts) {
-      this.opts = $.extend(ChartFactory._defaultOpts, opts);
-      this.setChartTheme(this.opts.themeType);
-      this.setChartOptionTemplates();
-    },
-    initData: function () {
       var _self = this;
-      if (this.opts.asy) {
+      _self.setChartOptionTemplates();
+      var fn = (function (opts) {
+        return function () {
+          _self.opts = $.extend(ChartFactory._defaultOpts, opts);
+          _self.setChartTheme(_self.opts.themeType);
+          _self._extendyAxis()
+          _self._next()
+        }
+      })(opts)
+      this.tasks.unshift(fn)
+      setTimeout(function () {
+        _self._next();
+      }, 0)
+
+    },
+    _extendyAxis: function () {
+      $.extend(true, chartCommonOption.yAxis, this.opts.yAxis)
+    },
+    initData: function (obj) {
+      var data = [];
+      if (obj.asy) {
         $.ajax({
-          url: this.opts.url,
+          url: obj.url,
           type: 'post',
+          async: false,
           success: function (result) {
-            _self.opts.data = result;
+            data = result;
           }
         })
       } else {
-
+        data = obj.data
       }
+
+      return data
     },
     setChartTheme: function (themeType) {
       var themes = {
         wonderland: '../json/wonderland.json', // 配置主题的路径,
-        essos:'../json/essos.json'
+        essos: '../json/essos.json'
       }
       $.ajax({
-          url:themes[themeType],
-          async:false,
-          success:function(data){
-            obj = data;
-            if(themeType){
-              echarts.registerTheme(themeType, obj)
-            }
+        url: themes[themeType],
+        async: false,
+        success: function (data) {
+          obj = data;
+          if (themeType) {
+            echarts.registerTheme(themeType, obj)
           }
+        }
       })
       if (!this.opts.id) {
         return
       }
-      this.chart = echarts.init(document.getElementById(this.opts.id),themeType);
+      this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
     },
     chartDataFormate: function (data) {
 
@@ -271,8 +312,13 @@
       $.extend(ChartFactory.prototype, chartOptionTemplates)
     },
     renderChart: function (chartOptions) {
-      this.chart.setOption(chartOptions)
-      this.resize()
+      
+      if (this.tasks && this.tasks.length === 0) {
+        console.log(chartOptions)
+        this.chart.setOption(chartOptions)
+        this.resize()
+      }
+
     },
     renderMap: function () {
 
