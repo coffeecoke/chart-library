@@ -10,41 +10,47 @@
 
 <body>
   <div id="textChart1" style="width:50%;height:400px;"></div>
-  <div id="textChart2" style="width:80%;height:400px;"></div>
+  <div id="textChart2" style="width:50%;height:400px;"></div>
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
 
-      var pieChart = new chartFactory({
+      var radarChart = new chartFactory({
         id: 'textChart1',
+        themeType:'essos',
       })
-      console.log(pieChart.pie)
-      pieChart.pie({
+      radarChart.radar({
         data: [{
           name: 'olive',
-          value: 20
+          value: [28,39,42,45,78],
+          max:100
         }, {
           name: 'only',
-          value: 20
+          value: [28,59,42,15,78],
+          max:100
         }, {
           name: 'momo',
-          value: 20
+          value: [8,9,4,5,8],
+          max:100
+        }, {
+          name: 'alal',
+          value: [18,90,12,50,8],
+          max:100
         }],
       })
 
 
       var ChartObj = new chartFactory({
         id: 'textChart2',
+        themeType:'wonderland',
         yAxis: [{
             type: 'value',
             name: '亿元'
-          },
-          {
+          },{
             type: 'value',
-            name: '百分比'
-          }
-        ]
+            name: '亿元'
+          }]
       });
       ChartObj.line({
         url: '',
@@ -89,70 +95,55 @@
           name: '2014-05',
           value: 180,
           group: 'B'
-        }, {
-          name: '2014-06',
-          value: 190,
+        }],
+        // yAxisIndex: 1,
+        color: '',
+      }).bars({
+        url: '',
+        asy: false,
+        data: [{
+          name: '2014-01',
+          value: 200,
           group: 'A'
         }, {
-          name: '2014-06',
+          name: '2014-01',
+          value: 400,
+          group: 'B'
+        }, {
+          name: '2014-02',
+          value: 300,
+          group: 'A'
+        }, {
+          name: '2014-02',
+          value: 100,
+          group: 'B'
+        }, {
+          name: '2014-03',
+          value: 120,
+          group: 'A'
+        }, {
+          name: '2014-03',
           value: 160,
+          group: 'B'
+        }, {
+          name: '2014-04',
+          value: 150,
+          group: 'A'
+        }, {
+          name: '2014-04',
+          value: 145,
+          group: 'B'
+        }, {
+          name: '2014-05',
+          value: 120,
+          group: 'A'
+        }, {
+          name: '2014-05',
+          value: 180,
           group: 'B'
         }],
         yAxisIndex: 1,
         color: '',
-        stack: false
-      }).bars({
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'B1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 80,
-          group: 'B1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 60,
-          group: 'B1'
-        }],
-        color: '',
-        stack: '',
         stack: false
       })
     })

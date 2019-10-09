@@ -67,7 +67,9 @@
   var chartPieOption = {
 
   }
+  var chartRadarOption = {
 
+  }
   var chartDataFormate = {
     FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
       var categories = [];
@@ -234,6 +236,57 @@
           _self._next()
         }
 
+      })(obj)
+      this.tasks.push(fn);
+      return this;
+    },
+    radar:function(obj){
+      var _self = this;
+      var data = this.initData(obj)
+      var fn = (function (obj) {
+        return function () {
+          var radar_datas = chartDataFormate.FormateNOGroupData(data);
+          var option = {
+            tooltip: {
+              trigger: 'axis',
+              show:true,
+            },
+            legend: {
+              x: 'left',
+              data: radar_datas.category
+            },
+            radar: [
+              {
+                  indicator: radar_datas.data,
+                  radius: 90,
+                  splitNumber: 4,
+                splitLine: {
+                    lineStyle: {
+                        type: "dashed",
+                        width: 1
+                    }
+                },
+                
+              },
+          ],
+            series: [{
+              type: 'radar',
+              symbol: 'circle',
+              name: obj.name || "",
+              data: radar_datas.data,
+              lineStyle: {
+                  normal: {
+                      type: "dashed",
+                      width: 2
+                  }
+              },
+            }]
+          };
+          console.log(radar_datas.data)
+          var radarOptions = $.extend(chartRadarOption, option);
+          _self.renderChart(radarOptions)
+          _self._next()
+        }
       })(obj)
       this.tasks.push(fn);
       return this;
