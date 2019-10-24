@@ -67,7 +67,9 @@
   var chartPieOption = {
 
   }
+  var chartRadarOption = {
 
+  }
   var chartDataFormate = {
     FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
       var categories = [];
