@@ -11,6 +11,7 @@
 <body>
   <div id="textChart1" style="width:50%;height:400px;"></div>
   <div id="textChart2" style="width:80%;height:400px;"></div>
+  <div id="textChart3" style="width:80%;height:400px;"></div>
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
@@ -51,51 +52,51 @@
         asy: false,
         data: [{
           name: '2014-01',
-          value: 200,
+          value: 20,
           group: 'A'
         }, {
           name: '2014-01',
-          value: 400,
+          value: 40,
           group: 'B'
-        }, {
-          name: '2014-02',
-          value: 300,
-          group: 'A'
         }, {
           name: '2014-02',
           value: 100,
+          group: 'A'
+        }, {
+          name: '2014-02',
+          value: 10,
           group: 'B'
         }, {
           name: '2014-03',
-          value: 120,
+          value: 12,
           group: 'A'
         }, {
           name: '2014-03',
-          value: 160,
+          value: 16,
           group: 'B'
         }, {
           name: '2014-04',
-          value: 150,
+          value: 15,
           group: 'A'
         }, {
           name: '2014-04',
-          value: 145,
+          value: 14.5,
           group: 'B'
         }, {
           name: '2014-05',
-          value: 120,
+          value: 12,
           group: 'A'
         }, {
           name: '2014-05',
-          value: 180,
+          value: 18,
           group: 'B'
         }, {
           name: '2014-06',
-          value: 190,
+          value: 19,
           group: 'A'
         }, {
           name: '2014-06',
-          value: 160,
+          value: 16,
           group: 'B'
         }],
         yAxisIndex: 1,
@@ -153,9 +154,72 @@
         }],
         color: '',
         stack: '',
-        stack: false
+        stack: true
       })
     })
+
+    var horizontalBarChart = new chartFactory({
+      id: 'textChart3',
+      yAxis: [{
+            type: 'category',
+            name: '亿元'
+          }
+      ]
+      
+    })
+    horizontalBarChart.horizontalBar({
+      data:[{
+          name: '2014-01',
+          value: 20,
+          group: 'A1'
+        }, {
+          name: '2014-01',
+          value: 40,
+          group: 'B1'
+        }, {
+          name: '2014-02',
+          value: 30,
+          group: 'A1'
+        }, {
+          name: '2014-02',
+          value: 10,
+          group: 'B1'
+        }, {
+          name: '2014-03',
+          value: 200,
+          group: 'A1'
+        }, {
+          name: '2014-03',
+          value: 60,
+          group: 'B1'
+        }, {
+          name: '2014-04',
+          value: 50,
+          group: 'A1'
+        }, {
+          name: '2014-04',
+          value: 45,
+          group: 'B1'
+        }, {
+          name: '2014-05',
+          value: 110,
+          group: 'A1'
+        }, {
+          name: '2014-05',
+          value: 80,
+          group: 'B1'
+        }, {
+          name: '2014-06',
+          value: 90,
+          group: 'A1'
+        }, {
+          name: '2014-06',
+          value: 60,
+          group: 'B1'
+        }]
+    })
+
+
   </script>
 </body>
 

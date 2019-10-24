@@ -238,6 +238,31 @@
       this.tasks.push(fn);
       return this;
     },
+    horizontalBar:function(obj) {
+      var _self = this;
+      var data = this.initData(obj)
+      var fn = (function (obj) {
+        return function () {
+          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack,obj.yAxisIndex);
+          var legendData = bars_dates.category;
+          var xAxis = [{
+            type: 'category', //X轴均为category，Y轴均为value
+            data: bars_dates.xAxis,
+            boundaryGap: true //数值轴两端的空白策略
+          }];
+          var series = bars_dates.series
+          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
+          $.extend(true, chartCommonOption.xAxis, xAxis)
+          chartCommonOption.series.push.apply(chartCommonOption.series,series)
+          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
+          _self.renderChart(chartCommonOption)
+          _self._next()
+        }
+
+      })(obj)
+      this.tasks.push(fn);
+      return this;
+    },
     map: function () {
       this.renderMap()
     }
@@ -314,7 +339,6 @@
     renderChart: function (chartOptions) {
       
       if (this.tasks && this.tasks.length === 0) {
-        console.log(chartOptions)
         this.chart.setOption(chartOptions)
         this.resize()
       }
