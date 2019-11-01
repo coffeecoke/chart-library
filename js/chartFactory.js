@@ -156,6 +156,40 @@
     }
   }
   var chartOptionTemplates = {
+    scatter:function(obj){
+      var _self = this;
+      var data = this.initData(obj)
+      var fn = (function (obj) {
+        return function () {
+          var scatter_datas = chartDataFormate.FormateNOGroupData(data);
+          var option = {
+            xAxis: {
+              scale: true
+          },
+          yAxis: {
+              scale: true
+          },
+            series: [{
+              type: 'effectScatter',
+              symbolSize: 20,
+              data: [
+                  [172.7, 105.2],
+                  [153.4, 42]
+              ]
+          }, {
+              name: obj.name || "",
+              type: 'scatter',
+              data: scatter_datas.data
+            }]
+          };
+          var scatterOptions = $.extend(chartScatterOption, option);
+          _self.scatterChart(scatterOptions)
+          _self._next()
+        }
+      })(obj)
+      this.tasks.push(fn);
+      return this;
+    },
     pie: function (obj) {
       var _self = this;
       var data = this.initData(obj)
