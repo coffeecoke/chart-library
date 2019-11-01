@@ -9,9 +9,15 @@
 </head>
 
 <body>
+  <div id="textChart0" style="width:50%;height:400px;"></div>
   <div id="textChart1" style="width:50%;height:400px;"></div>
+<<<<<<< HEAD
   <div id="textChart2" style="width:50%;height:400px;"></div>
   <div id="textChart3" style="width:50%;height:400px;"></div>
+=======
+  <div id="textChart2" style="width:80%;height:400px;"></div>
+  <div id="textChart3" style="width:80%;height:400px;"></div>
+>>>>>>> bb65171bb26b38426e46a4d176e9cb85027fc3e3
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
@@ -36,135 +42,199 @@
         }]
       })
       var radarChart = new chartFactory({
-        id: 'textChart1',
+        id: 'textChart0',
         themeType:'essos',
       })
       radarChart.radar({
-        data: [{
-          name: 'olive',
-          value: [28,39,42,45,78],
-          max:100
-        }, {
-          name: 'only',
-          value: [28,59,42,15,78],
-          max:100
-        }, {
-          name: 'momo',
-          value: [8,9,4,5,8],
-          max:100
-        }, {
-          name: 'alal',
-          value: [18,90,12,50,8],
-          max:100
-        }],
+        data: [
+          {
+            name: '小型车',
+            group: '设计车位',
+            value: 40,
+            max:100
+          }, {
+            name: '小型车',
+            group: '车辆数',
+            value: 30,
+            max:100
+          }, {
+            name: '中型车',
+            group: '设计车位',
+            value: 54,
+            max:100
+          }, {
+            name: '中型车',
+            group: '车辆数',
+            value: 53,
+            max:100
+          }, {
+            name: '大型车',
+            group: '设计车位',
+            value: 63,
+            max:100
+          }, {
+            name: '大型车',
+            group: '车辆数',
+            value: 53,
+            max:100
+          }, {
+            name: '货车',
+            group: '设计车位',
+            value: 89,
+            max:100
+          }, {
+            name: '货车',
+            group: '车辆数',
+            value: 73,
+            max:100
+          }
+        ],
+      })
+      var pieChart = new chartFactory({
+        id: 'textChart1',
+        themeType:'essos'
+      })
+      pieChart.pie({
+        data:[
+          { name: 'olive', value: 40 }, 
+          { name: 'only', value: 30 }, 
+          { name: 'momo', value: 20}
+        ]
       })
 
-
-      var ChartObj = new chartFactory({
+      var chartObj = new chartFactory({
         id: 'textChart2',
-        themeType:'wonderland',
+        themeType: 'essos',
         yAxis: [{
-            type: 'value',
-            name: '亿元'
-          },{
-            type: 'value',
-            name: '亿元'
-          }]
+          type: 'value',
+          name: '亿元'
+        }, {
+          type: 'value',
+          name: '亿元'
+        }]
       });
-      ChartObj.line({
+      chartObj.line({
         url: '',
         asy: false,
-        data: [{
-          name: '2014-01',
-          value: 200,
-          group: 'A'
-        }, {
-          name: '2014-01',
-          value: 400,
-          group: 'B'
-        }, {
-          name: '2014-02',
-          value: 300,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 100,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 120,
-          group: 'A'
-        }, {
-          name: '2014-03',
-          value: 160,
-          group: 'B'
-        }, {
-          name: '2014-04',
-          value: 150,
-          group: 'A'
-        }, {
-          name: '2014-04',
-          value: 145,
-          group: 'B'
-        }, {
-          name: '2014-05',
-          value: 120,
-          group: 'A'
-        }, {
-          name: '2014-05',
-          value: 180,
-          group: 'B'
-        }],
-        // yAxisIndex: 1,
+        data: [
+          {
+            name: '2014-01',
+            value: 20,
+            group: 'A'
+          }, {
+            name: '2014-01',
+            value: 40,
+            group: 'B'
+          }, {
+            name: '2014-02',
+            value: 100,
+            group: 'A'
+          }, {
+            name: '2014-02',
+            value: 10,
+            group: 'B'
+          }, {
+            name: '2014-03',
+            value: 12,
+            group: 'A'
+          }, {
+            name: '2014-03',
+            value: 16,
+            group: 'B'
+          }, {
+            name: '2014-04',
+            value: 15,
+            group: 'A'
+          }, {
+            name: '2014-04',
+            value: 14.5,
+            group: 'B'
+          }, {
+            name: '2014-05',
+            value: 12,
+            group: 'A'
+          }, {
+            name: '2014-05',
+            value: 18,
+            group: 'B'
+          }, {
+            name: '2014-06',
+            value: 19,
+            group: 'A'
+          }, {
+            name: '2014-06',
+            value: 16,
+            group: 'B'
+          }
+        ],
+        yAxisIndex: 0,
         color: '',
-      }).bars({
-        url: '',
-        asy: false,
-        data: [{
-          name: '2014-01',
-          value: 200,
-          group: 'A'
-        }, {
-          name: '2014-01',
-          value: 400,
-          group: 'B'
-        }, {
-          name: '2014-02',
-          value: 300,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 100,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 120,
-          group: 'A'
-        }, {
-          name: '2014-03',
-          value: 160,
-          group: 'B'
-        }, {
-          name: '2014-04',
-          value: 150,
-          group: 'A'
-        }, {
-          name: '2014-04',
-          value: 145,
-          group: 'B'
-        }, {
-          name: '2014-05',
-          value: 120,
-          group: 'A'
-        }, {
-          name: '2014-05',
-          value: 180,
-          group: 'B'
-        }],
-        yAxisIndex: 1,
-        color: '',
-        stack: false
       })
+
+      //x轴为数据坐标
+      var horizontalBarChart = new chartFactory({
+        id: 'textChart3',
+        themeType: 'wonderland',
+        xAxis: [{
+          type: 'value',
+          name: '亿元'
+        }]
+
+      })
+      horizontalBarChart.horizontalBar({
+        data: [
+          {
+            name: '2014-01',
+            value: 20,
+            group: 'A1'
+          }, {
+            name: '2014-01',
+            value: 40,
+            group: 'B1'
+          }, {
+            name: '2014-02',
+            value: 30,
+            group: 'A1'
+          }, {
+            name: '2014-02',
+            value: 10,
+            group: 'B1'
+          }, {
+            name: '2014-03',
+            value: 200,
+            group: 'A1'
+          }, {
+            name: '2014-03',
+            value: 60,
+            group: 'B1'
+          }, {
+            name: '2014-04',
+            value: 50,
+            group: 'A1'
+          }, {
+            name: '2014-04',
+            value: 45,
+            group: 'B1'
+          }, {
+            name: '2014-05',
+            value: 110,
+            group: 'A1'
+          }, {
+            name: '2014-05',
+            value: 80,
+            group: 'B1'
+          }, {
+            name: '2014-06',
+            value: 90,
+            group: 'A1'
+          }, {
+            name: '2014-06',
+            value: 60,
+            group: 'B1'
+          }
+        ]
+      })
+
     })
   </script>
 </body>
