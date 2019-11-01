@@ -38,6 +38,32 @@
         }
       }
       return result;
+    },
+    _deepClone:function (obj) { // 深克隆
+      if (typeof obj === 'function') { // 函数
+        return new Function('return ' + obj.toString())()
+      }
+      if (typeof obj !== 'object') { // 基本类型
+        return obj
+      }
+      // 对象，数组
+      var value, target = {}
+      if (Object.prototype.toString.call(obj) === '[object Array]') { // 数组
+        target = []
+      }
+      for (var name in obj) {
+        value = obj[name]
+        if (value === obj) { // 避免死循环
+          continue;
+        }
+        if (typeof obj[name] === 'function' || typeof obj[name] === 'object') { // 函数或者对象/数组则递归复制
+          target[name] = util._deepClone(obj[name])
+        } else {
+          target[name] = obj[name]
+        }
+      }
+      return target
+    
     }
   }
 
@@ -86,7 +112,6 @@
         data: datas
       };
     },
-    // 
     FormateGroupData: function (data, type, is_stack,yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
       var chart_type = 'line';
       if (type)
@@ -94,23 +119,27 @@
       var xAxis = []
       var group = [];
       var series = [];
+      var indicator = [];
       for (var i = 0; i < data.length; i++) {
         xAxis.push(data[i].name)
         group.push(data[i].group)
+        indicator.push(data[i].max)
       }
       xAxis = util._unique(xAxis)
       group = util._unique(group)
+      indicator = util._unique(indicator)
       for (var i = 0; i < group.length; i++) {
         var temp = [];
         for (var j = 0; j < data.length; j++) {
           if (group[i] == data[j].group) {
-            if (type == "map")
+            if (type == "map") {
               temp.push({
                 name: data[j].name,
                 value: data[i].value
               });
-            else
+            } else {
               temp.push(data[j].value);
+            }
           }
         }
         switch (type) {
@@ -119,7 +148,6 @@
               name: group[i],
               data: temp,
               type: chart_type,
-              yAxisIndex:yAxisIndex
             };
             if (is_stack)
               series_temp = $.extend({}, {
@@ -131,31 +159,41 @@
               name: group[i],
               data: temp,
               type: chart_type,
-              yAxisIndex:yAxisIndex
             };
             if (is_stack)
               series_temp = $.extend({}, {
                 stack: 'stack'
               }, series_temp);
             break;
+          case 'radar':
+            var series_temp = {
+              name: group[i],
+              value: temp,
+              type: chart_type,
+          };
           default:
             var series_temp = {
               name: group[i],
               data: temp,
               type: chart_type,
-              yAxisIndex:yAxisIndex
+              // yAxisIndex:yAxisIndex
             };
+        }
+        if(yAxisIndex) {
+          series_temp.yAxisIndex = yAxisIndex
         }
         series.push(series_temp);
       }
       return {
         category: group,
+        indicator: indicator,
         xAxis: xAxis,
         series: series
       };
     }
   }
   var chartOptionTemplates = {
+    // 饼图
     pie: function (obj) {
       var _self = this;
       var data = this.initData(obj)
@@ -189,6 +227,7 @@
       this.tasks.push(fn);
       return this;
     },
+    // 折线图
     line: function (obj) {
       var _self = this;
       var data = this.initData(obj)
@@ -203,11 +242,10 @@
             boundaryGap: true //数值轴两端的空白策略
           }];
           var series = stackline_datas.series
-          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
-          $.extend(true, chartCommonOption.xAxis, xAxis)
-          chartCommonOption.series.push.apply(chartCommonOption.series,series)
-          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
-          _self.renderChart(chartCommonOption)
+          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data,legendData)
+          $.extend(true, _self.chartCommonOption.xAxis, xAxis)
+          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series,series)
+          _self.renderChart(_self.chartCommonOption)
           _self._next()
         }
 
@@ -215,6 +253,7 @@
       this.tasks.push(fn);
       return this;
     },
+    // 柱状图
     bars: function (obj) {
       var _self = this;
       var data = this.initData(obj)
@@ -228,11 +267,10 @@
             boundaryGap: true //数值轴两端的空白策略
           }];
           var series = bars_dates.series
-          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
-          $.extend(true, chartCommonOption.xAxis, xAxis)
-          chartCommonOption.series.push.apply(chartCommonOption.series,series)
-          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
-          _self.renderChart(chartCommonOption)
+          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data,legendData)
+          $.extend(true, _self.chartCommonOption.xAxis, xAxis)
+          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series,series)
+          _self.renderChart(_self.chartCommonOption)
           _self._next()
         }
 
@@ -240,27 +278,40 @@
       this.tasks.push(fn);
       return this;
     },
+    // 横向柱状图
     horizontalBar:function(obj) {
       var _self = this;
       var data = this.initData(obj)
       var fn = (function (obj) {
         return function () {
-          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack,obj.yAxisIndex);
+          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
           var legendData = bars_dates.category;
-          var xAxis = [{
+          var yAxis = [{
             type: 'category', //X轴均为category，Y轴均为value
             data: bars_dates.xAxis,
-            boundaryGap: true //数值轴两端的空白策略
+            //boundaryGap: true //数值轴两端的空白策略
           }];
           var series = bars_dates.series
-          chartCommonOption.legend.data.push.apply(chartCommonOption.legend.data,legendData)
-          $.extend(true, chartCommonOption.xAxis, xAxis)
-          chartCommonOption.series.push.apply(chartCommonOption.series,series)
-          // return $.extend({}, ECharts.ChartOptionTemplates.CommonLineOption, option);
-          _self.renderChart(chartCommonOption)
+          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data,legendData)
+          $.extend(true, _self.chartCommonOption.yAxis, yAxis)
+          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series,series)
+          _self.renderChart(_self.chartCommonOption)
           _self._next()
         }
 
+      })(obj)
+      this.tasks.push(fn);
+      return this;
+    },
+    // 雷达图
+    radar: function (obj) {
+      var _self = this;
+      var data = initData(obj);
+      var fn = (function(obj) {
+        return function () {
+          var radars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
+          var dataArr = 
+        }
       })(obj)
       this.tasks.push(fn);
       return this;
@@ -280,9 +331,10 @@
       _self.setChartOptionTemplates();
       var fn = (function (opts) {
         return function () {
-          _self.opts = $.extend(ChartFactory._defaultOpts, opts);
+          _self.opts = $.extend({},ChartFactory._defaultOpts, opts);
           _self.setChartTheme(_self.opts.themeType);
-          _self._extendyAxis()
+          _self._setChartOption()
+          _self._extendxyAxis()
           _self._next()
         }
       })(opts)
@@ -292,9 +344,19 @@
       }, 0)
 
     },
-    _extendyAxis: function () {
-      $.extend(true, chartCommonOption.yAxis, this.opts.yAxis)
+    // 克隆CommOption，以便给多个实例使用
+    _setChartOption: function () {
+      this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
     },
+    // 继承线图，柱图类型的x,y坐标
+    _extendxyAxis: function () {
+      if(this.opts.yAxis){
+        $.extend(true, this.chartCommonOption.yAxis, this.opts.yAxis)
+      }else if(this.opts.xAxis){
+        $.extend(true, this.chartCommonOption.xAxis, this.opts.xAxis)
+      }
+    },
+    //初始化数据
     initData: function (obj) {
       var data = [];
       if (obj.asy) {
@@ -312,6 +374,7 @@
 
       return data
     },
+    // 配置图表主题
     setChartTheme: function (themeType) {
       var themes = {
         wonderland: '../json/wonderland.json', // 配置主题的路径,
@@ -327,19 +390,20 @@
           }
         }
       })
+      
       if (!this.opts.id) {
         return
       }
       this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
     },
     chartDataFormate: function (data) {
-
+      
     },
+    // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
       $.extend(ChartFactory.prototype, chartOptionTemplates)
     },
     renderChart: function (chartOptions) {
-      
       if (this.tasks && this.tasks.length === 0) {
         this.chart.setOption(chartOptions)
         this.resize()
