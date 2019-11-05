@@ -11,94 +11,48 @@
 <body>
   <div id="textChart0" style="width:50%;height:400px;"></div>
   <div id="textChart1" style="width:50%;height:400px;"></div>
-<<<<<<< HEAD
-  <div id="textChart2" style="width:50%;height:400px;"></div>
-  <div id="textChart3" style="width:50%;height:400px;"></div>
-=======
   <div id="textChart2" style="width:80%;height:400px;"></div>
   <div id="textChart3" style="width:80%;height:400px;"></div>
->>>>>>> bb65171bb26b38426e46a4d176e9cb85027fc3e3
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
-      var pieChart = new chartFactory({
-        id: 'textChart3',
-        themeType:'essos',
-      })
-      pieChart.pie({
-        data: [{
-          name: '2014-01',
-          value: 200,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 400,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 400,
-          group: 'B'
-        }]
-      })
-      var radarChart = new chartFactory({
+      var scatterChart = new chartFactory({
         id: 'textChart0',
-        themeType:'essos',
-      })
-      radarChart.radar({
+        themeType: 'essos'
+      });
+      scatterChart.scatter({
         data: [
-          {
-            name: '小型车',
-            group: '设计车位',
-            value: 40,
-            max:100
-          }, {
-            name: '小型车',
-            group: '车辆数',
-            value: 30,
-            max:100
-          }, {
-            name: '中型车',
-            group: '设计车位',
-            value: 54,
-            max:100
-          }, {
-            name: '中型车',
-            group: '车辆数',
-            value: 53,
-            max:100
-          }, {
-            name: '大型车',
-            group: '设计车位',
-            value: 63,
-            max:100
-          }, {
-            name: '大型车',
-            group: '车辆数',
-            value: 53,
-            max:100
-          }, {
-            name: '货车',
-            group: '设计车位',
-            value: 89,
-            max:100
-          }, {
-            name: '货车',
-            group: '车辆数',
-            value: 73,
-            max:100
-          }
-        ],
+            [4.0, 8.04],
+            [8.0, 6.95],
+            [3.0, 7.58],
+            [9.0, 8.81],
+            [1.0, 8.33],
+            [4.0, 9.96],
+            [6.0, 7.24],
+            [4.0, 4.26],
+            [2.0, 9.84],
+            [7.0, 4.82],
+            [5.0, 5.68]
+        ]
       })
       var pieChart = new chartFactory({
         id: 'textChart1',
-        themeType:'essos'
+        themeType: 'essos'
       })
       pieChart.pie({
-        data:[
-          { name: 'olive', value: 40 }, 
-          { name: 'only', value: 30 }, 
-          { name: 'momo', value: 20}
+        data: [{
+            name: 'olive',
+            value: 40
+          },
+          {
+            name: 'only',
+            value: 30
+          },
+          {
+            name: 'momo',
+            value: 20
+          }
         ]
       })
 
@@ -116,57 +70,55 @@
       chartObj.line({
         url: '',
         asy: false,
-        data: [
-          {
-            name: '2014-01',
-            value: 20,
-            group: 'A'
-          }, {
-            name: '2014-01',
-            value: 40,
-            group: 'B'
-          }, {
-            name: '2014-02',
-            value: 100,
-            group: 'A'
-          }, {
-            name: '2014-02',
-            value: 10,
-            group: 'B'
-          }, {
-            name: '2014-03',
-            value: 12,
-            group: 'A'
-          }, {
-            name: '2014-03',
-            value: 16,
-            group: 'B'
-          }, {
-            name: '2014-04',
-            value: 15,
-            group: 'A'
-          }, {
-            name: '2014-04',
-            value: 14.5,
-            group: 'B'
-          }, {
-            name: '2014-05',
-            value: 12,
-            group: 'A'
-          }, {
-            name: '2014-05',
-            value: 18,
-            group: 'B'
-          }, {
-            name: '2014-06',
-            value: 19,
-            group: 'A'
-          }, {
-            name: '2014-06',
-            value: 16,
-            group: 'B'
-          }
-        ],
+        data: [{
+          name: '2014-01',
+          value: 20,
+          group: 'A'
+        }, {
+          name: '2014-01',
+          value: 40,
+          group: 'B'
+        }, {
+          name: '2014-02',
+          value: 100,
+          group: 'A'
+        }, {
+          name: '2014-02',
+          value: 10,
+          group: 'B'
+        }, {
+          name: '2014-03',
+          value: 12,
+          group: 'A'
+        }, {
+          name: '2014-03',
+          value: 16,
+          group: 'B'
+        }, {
+          name: '2014-04',
+          value: 15,
+          group: 'A'
+        }, {
+          name: '2014-04',
+          value: 14.5,
+          group: 'B'
+        }, {
+          name: '2014-05',
+          value: 12,
+          group: 'A'
+        }, {
+          name: '2014-05',
+          value: 18,
+          group: 'B'
+        }, {
+          name: '2014-06',
+          value: 19,
+          group: 'A'
+        }, {
+          name: '2014-06',
+          value: 16,
+          group: 'B'
+        }],
         yAxisIndex: 0,
         color: '',
       })
@@ -182,57 +134,55 @@
 
       })
       horizontalBarChart.horizontalBar({
-        data: [
-          {
-            name: '2014-01',
-            value: 20,
-            group: 'A1'
-          }, {
-            name: '2014-01',
-            value: 40,
-            group: 'B1'
-          }, {
-            name: '2014-02',
-            value: 30,
-            group: 'A1'
-          }, {
-            name: '2014-02',
-            value: 10,
-            group: 'B1'
-          }, {
-            name: '2014-03',
-            value: 200,
-            group: 'A1'
-          }, {
-            name: '2014-03',
-            value: 60,
-            group: 'B1'
-          }, {
-            name: '2014-04',
-            value: 50,
-            group: 'A1'
-          }, {
-            name: '2014-04',
-            value: 45,
-            group: 'B1'
-          }, {
-            name: '2014-05',
-            value: 110,
-            group: 'A1'
-          }, {
-            name: '2014-05',
-            value: 80,
-            group: 'B1'
-          }, {
-            name: '2014-06',
-            value: 90,
-            group: 'A1'
-          }, {
-            name: '2014-06',
-            value: 60,
-            group: 'B1'
-          }
-        ]
+        data: [{
+          name: '2014-01',
+          value: 20,
+          group: 'A1'
+        }, {
+          name: '2014-01',
+          value: 40,
+          group: 'B1'
+        }, {
+          name: '2014-02',
+          value: 30,
+          group: 'A1'
+        }, {
+          name: '2014-02',
+          value: 10,
+          group: 'B1'
+        }, {
+          name: '2014-03',
+          value: 200,
+          group: 'A1'
+        }, {
+          name: '2014-03',
+          value: 60,
+          group: 'B1'
+        }, {
+          name: '2014-04',
+          value: 50,
+          group: 'A1'
+        }, {
+          name: '2014-04',
+          value: 45,
+          group: 'B1'
+        }, {
+          name: '2014-05',
+          value: 110,
+          group: 'A1'
+        }, {
+          name: '2014-05',
+          value: 80,
+          group: 'B1'
+        }, {
+          name: '2014-06',
+          value: 90,
+          group: 'A1'
+        }, {
+          name: '2014-06',
+          value: 60,
+          group: 'B1'
+        }]
       })
 
     })

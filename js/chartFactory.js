@@ -89,6 +89,9 @@
     yAxis: [],
     series: []
 
+  }   
+  var chartScatterOption = {
+
   }
   var chartPieOption = {
 
@@ -97,6 +100,21 @@
 
   }
   var chartDataFormate = {
+    formatGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
+      var categories = [];
+      var datasNum = [];
+      for (var i = 0; i < data.length; i++) {
+        categories.push("");
+        datasNum.push(
+          data[i],
+        );
+        console.log(data[i])
+      };
+      return {
+        category: categories,
+        data: datasNum
+      };
+    },
     FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
       var categories = [];
       var datas = [];
@@ -111,6 +129,7 @@
         category: categories,
         data: datas
       };
+      console.log(datas)
     },
     FormateGroupData: function (data, type, is_stack,yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
       var chart_type = 'line';
@@ -193,34 +212,41 @@
     }
   }
   var chartOptionTemplates = {
-    scatter:function(obj){
+    scatter:function(obj,i){
       var _self = this;
       var data = this.initData(obj)
       var fn = (function (obj) {
         return function () {
-          var scatter_datas = chartDataFormate.FormateNOGroupData(data);
-          var option = {
+          var scatter_datas = chartDataFormate.formatGroupData(data);
+          option = {
             xAxis: {
-              scale: true
+              min:0,
+              max:10,
+              splitLine: {
+                  lineStyle: {
+                      type: 'dashed'
+                  }
+              }
           },
           yAxis: {
+            type:'value',
+            min:0,
+              max:10,
+              splitLine: {
+                  lineStyle: {
+                      type: 'dashed'
+                  }
+              },
               scale: true
           },
             series: [{
-              type: 'effectScatter',
-              symbolSize: 20,
-              data: [
-                  [172.7, 105.2],
-                  [153.4, 42]
-              ]
-          }, {
-              name: obj.name || "",
-              type: 'scatter',
-              data: scatter_datas.data
+                symbolSize: 10,
+                data: scatter_datas.data,
+                type: 'effectScatter'
             }]
           };
           var scatterOptions = $.extend(chartScatterOption, option);
-          _self.scatterChart(scatterOptions)
+          _self.renderChart(scatterOptions)
           _self._next()
         }
       })(obj)
@@ -265,7 +291,6 @@
     line: function (obj) {
       var _self = this;
       var data = this.initData(obj)
-      
       var fn = (function (obj) {
         return function () {
           var stackline_datas = chartDataFormate.FormateGroupData(data, 'line', obj.stack,obj.yAxisIndex);
@@ -343,8 +368,8 @@
       var data = initData(obj);
       var fn = (function(obj) {
         return function () {
-          var radars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
-          var dataArr = 
+        //   var radars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
+        //  var dataArr = 
         }
       })(obj)
       this.tasks.push(fn);
