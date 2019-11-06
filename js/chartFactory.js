@@ -30,27 +30,27 @@
       }
       var result = [],
         hash = {};
-        firstItem = arr[0] 
-      if(firstItem instanceof Object) {
-        for(var i=0;i<arr.length;i++) {
-          if(!hash[arr[i].name]) {
+      firstItem = arr[0]
+      if (firstItem instanceof Object) {
+        for (var i = 0; i < arr.length; i++) {
+          if (!hash[arr[i].name]) {
             result.push(arr[i])
             hash[arr[i].name] = true
           }
         }
         return result;
-      }else {
+      } else {
         for (var i = 0, elem;
           (elem = arr[i]) != null; i++) {
           if (!hash[elem]) {
             result.push(elem);
             hash[elem] = true;
-          } 
+          }
         }
         return result
       }
-      
-      
+
+
     },
     _deepClone: function (obj) { // 深克隆
       if (typeof obj === 'function') { // 函数
@@ -102,9 +102,23 @@
     yAxis: [],
     series: []
 
-  }   
+  }
   var chartScatterOption = {
-
+    xAxis: {
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
+    },
+    yAxis: {
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      },
+      scale: true
+    },
   }
   // 饼图基本配置
   var pieCommonOption = {
@@ -136,19 +150,19 @@
         fontSize: 12,
         color: '#666666',
         formatter: function (value, indicator) {
-            console.log(value)
-            return indicator.name + '  {valueStyle|' + indicator.max + '}'
+          console.log(value)
+          return indicator.name + '  {valueStyle|' + indicator.max + '}'
         },
         rich: {
           valueStyle: {
-              color: '#0646ba',
-              fontSize: 20,
-              align: 'center'
+            color: '#0646ba',
+            fontSize: 20,
+            align: 'center'
           },
 
         },
         textStyle: {
-            color: '#666666'
+          color: '#666666'
         }
       },
       indicator: [],
@@ -169,15 +183,13 @@
           width: 1, // 分隔线线宽
         }
       }
-     
+
     },
     series: [{
       type: 'radar',
       symbolSize: 8
     }]
   }
-
-  
   var radarStyles = [{
     itemStyle: {
       normal: {
@@ -249,24 +261,8 @@
       // }
     }
   }]
-
   // 图表数据格式化
   var chartDataFormate = {
-    formatGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
-      var categories = [];
-      var datasNum = [];
-      for (var i = 0; i < data.length; i++) {
-        categories.push("");
-        datasNum.push(
-          data[i],
-        );
-        console.log(data[i])
-      };
-      return {
-        category: categories,
-        data: datasNum
-      };
-    },
     FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
       var categories = [];
       var datas = [];
@@ -281,7 +277,6 @@
         category: categories,
         data: datas
       };
-      console.log(datas)
     },
     FormateGroupData: function (data, type, is_stack, yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
       var chart_type = 'line';
@@ -292,8 +287,8 @@
       var series = [];
       var indicator = [];
       for (var i = 0; i < data.length; i++) {
-        xAxis.push(data[i].name)
-        group.push(data[i].group)
+       xAxis.push(data[i].name)
+       group.push(data[i].group)
       }
       xAxis = util._unique(xAxis)
       group = util._unique(group)
@@ -306,13 +301,15 @@
                 name: data[j].name,
                 value: data[i].value
               });
-            } else if(type == "radar") {
+            } else if (type == "radar") {
               indicator.push({
-                name:data[j].name,
-                max:data[j].max
+                name: data[j].name,
+                max: data[j].max
               })
               temp.push(data[j].value);
-            }else {
+            } else if (type == 'scatter') {
+              temp.push.apply(temp, data[j].value)
+            } {
               temp.push(data[j].value);
             }
           }
@@ -346,6 +343,15 @@
               value: temp
               // type: chart_type,
             };
+          break;
+          case 'scatter':
+            var series_temp = {
+              name: group[i],
+              data: temp,
+              type: chart_type,
+              symbol: data[i].symbol,
+              symbolSize: data[i].symbolSize
+            }
           default:
             // var series_temp = {
             //   // name: group[i],
@@ -369,41 +375,20 @@
   }
   // 各种类型图表胚子
   var chartOptionTemplates = {
-    scatter:function(obj,i){
+    scatter: function (obj, i) {
       var _self = this;
       var data = this.initData(obj)
       var fn = (function (obj) {
         return function () {
-          var scatter_datas = chartDataFormate.formatGroupData(data);
-          option = {
-            xAxis: {
-              min:0,
-              max:10,
-              splitLine: {
-                  lineStyle: {
-                      type: 'dashed'
-                  }
-              }
-          },
-          yAxis: {
-            type:'value',
-            min:0,
-              max:10,
-              splitLine: {
-                  lineStyle: {
-                      type: 'dashed'
-                  }
-              },
-              scale: true
-          },
-            series: [{
-                symbolSize: 10,
-                data: scatter_datas.data,
-                type: 'effectScatter'
-            }]
-          };
-          var scatterOptions = $.extend(chartScatterOption, option);
-          _self.renderChart(scatterOptions)
+          var scatter_datas = chartDataFormate.FormateGroupData(data, 'scatter', obj.stack, obj.yAxisIndex);
+          var scatterOptions = {
+            legend: {
+              data: scatter_datas.category
+            },
+            series: scatter_datas.series
+          }
+          $.extend(true,chartScatterOption, scatterOptions)
+          _self.renderChart(chartScatterOption)
           _self._next()
         }
       })(obj)
@@ -426,7 +411,7 @@
               data: pie_datas.data
             }]
           };
-          var pieOptions = $.extend(true,pieCommonOption, option);
+          var pieOptions = $.extend(true, pieCommonOption, option);
           _self.renderChart(pieOptions)
           _self._next()
         }
@@ -518,9 +503,10 @@
           var dataArr = radars_dates.series;
           var legendData = radars_dates.category;
           var indicator = radars_dates.indicator
-          $.each(dataArr,function(index,item){
+          $.each(dataArr, function (index, item) {
             $.extend(true, item, radarStyles[index])
           })
+          console.log(dataArr)
           var radarOptions = {
             legend: {
               data: legendData,
@@ -532,7 +518,7 @@
               data: dataArr
             }]
           }
-          $.extend(true,radarCommonOption, radarOptions)
+          $.extend(true, radarCommonOption, radarOptions)
           _self.renderChart(radarCommonOption)
           _self._next()
         }

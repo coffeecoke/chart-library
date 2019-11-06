@@ -212,23 +212,42 @@
       })
       var scatterChart = new chartFactory({
         id: 'textChart4',
-        themeType: ''
+        themeType: '',
       });
       scatterChart.scatter({
-        data: [ 
-            [4.0, 8.04],
-            [8.0, 6.95],
-            [3.0, 7.58],
-            [9.0, 8.81],
-            [1.0, 8.33],
-            [4.0, 9.96],
-            [6.0, 7.24],
-            [4.0, 4.26],
-            [2.0, 9.84],
-            [7.0, 4.82],
-            [5.0, 5.68]
+        data:[
+          {
+            group:'2018',
+            value:[
+              [4.0, 8.04],
+              [8.0, 6.95],
+              [3.0, 7.58],
+              [9.0, 8.81],
+              [1.0, 8.33],
+            ],
+            symbol:'',
+            symbolSize:function (data) {
+              return 20
+            },
+          },
+          {
+            group:'2019',
+            value:[
+              [4.0, 9.96],
+              [6.0, 7.24],
+              [4.0, 4.26],
+              [2.0, 9.84],
+              [7.0, 4.82],
+              [5.0, 5.68]
+            ],
+            symbol:'',
+            symbolSize:function (data) {
+              return 30
+            },
+          }
         ]
       })
+      
     })
   </script>
 </body>
