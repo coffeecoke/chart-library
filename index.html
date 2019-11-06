@@ -20,7 +20,7 @@
 
       var radarChart = new chartFactory({
         id: 'textChart0',
-        themeType:'essos',
+        themeType:'',
       })
       radarChart.radar({
         data: [
@@ -69,7 +69,7 @@
       })
       var pieChart = new chartFactory({
         id: 'textChart1',
-        themeType:'essos'
+        themeType:''
       })
       pieChart.pie({
         data:[
@@ -81,7 +81,7 @@
 
       var chartObj = new chartFactory({
         id: 'textChart2',
-        themeType: 'essos',
+        themeType: '',
         yAxis: [{
           type: 'value',
           name: '亿元'
@@ -151,12 +151,11 @@
       //x轴为数据坐标
       var horizontalBarChart = new chartFactory({
         id: 'textChart3',
-        themeType: 'wonderland',
+        themeType: '',
         xAxis: [{
           type: 'value',
           name: '亿元'
         }]
-
       })
       horizontalBarChart.horizontalBar({
         data: [
@@ -211,7 +210,6 @@
           }
         ]
       })
-
     })
   </script>
 </body>
