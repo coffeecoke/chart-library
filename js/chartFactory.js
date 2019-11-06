@@ -177,6 +177,79 @@
     }]
   }
 
+  
+  var radarStyles = [{
+    itemStyle: {
+      normal: {
+        lineStyle: {
+          // color: '#4A99FF',
+          // shadowColor: '#4A99FF',
+          // shadowBlur: 10,
+        },
+        // shadowColor: '#4A99FF',
+        // shadowBlur: 10,
+      },
+    },
+    areaStyle: {
+      // normal: { // 单项区域填充样式
+      //   color: {
+      //     type: 'linear',
+      //     x: 0, //右
+      //     y: 0, //下
+      //     x2: 1, //左
+      //     y2: 1, //上
+      //     colorStops: [{
+      //       offset: 0,
+      //       color: '#4A99FF'
+      //     }, {
+      //       offset: 0.5,
+      //       color: 'rgba(0,0,0,0)'
+      //     }, {
+      //       offset: 1,
+      //       color: '#4A99FF'
+      //     }],
+      //     globalCoord: false
+      //   },
+      //   opacity: 1 // 区域透明度
+      // }
+    }
+  }, {
+    itemStyle: {
+      normal: {
+        lineStyle: {
+          // color: 'red',
+          // shadowColor: '#4BFFFC',
+          // shadowBlur: 10,
+        },
+        // shadowColor: '#4BFFFC',
+        // shadowBlur: 10,
+      },
+    },
+    areaStyle: {
+      // normal: { // 单项区域填充样式
+      //   color: {
+      //     type: 'linear',
+      //     x: 0, //右
+      //     y: 0, //下
+      //     x2: 1, //左
+      //     y2: 1, //上
+      //     colorStops: [{
+      //       offset: 0,
+      //       color: '#4BFFFC'
+      //     }, {
+      //       offset: 0.5,
+      //       color: 'rgba(0,0,0,0)'
+      //     }, {
+      //       offset: 1,
+      //       color: '#4BFFFC'
+      //     }],
+      //     globalCoord: false
+      //   },
+      //   opacity: 1 // 区域透明度
+      // }
+    }
+  }]
+
   // 图表数据格式化
   var chartDataFormate = {
     formatGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
@@ -445,77 +518,6 @@
           var dataArr = radars_dates.series;
           var legendData = radars_dates.category;
           var indicator = radars_dates.indicator
-          var radarStyles = [{
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                  // color: '#4A99FF',
-                  // shadowColor: '#4A99FF',
-                  // shadowBlur: 10,
-                },
-                // shadowColor: '#4A99FF',
-                // shadowBlur: 10,
-              },
-            },
-            areaStyle: {
-              // normal: { // 单项区域填充样式
-              //   color: {
-              //     type: 'linear',
-              //     x: 0, //右
-              //     y: 0, //下
-              //     x2: 1, //左
-              //     y2: 1, //上
-              //     colorStops: [{
-              //       offset: 0,
-              //       color: '#4A99FF'
-              //     }, {
-              //       offset: 0.5,
-              //       color: 'rgba(0,0,0,0)'
-              //     }, {
-              //       offset: 1,
-              //       color: '#4A99FF'
-              //     }],
-              //     globalCoord: false
-              //   },
-              //   opacity: 1 // 区域透明度
-              // }
-            }
-          }, {
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                  // color: 'red',
-                  // shadowColor: '#4BFFFC',
-                  // shadowBlur: 10,
-                },
-                // shadowColor: '#4BFFFC',
-                // shadowBlur: 10,
-              },
-            },
-            areaStyle: {
-              // normal: { // 单项区域填充样式
-              //   color: {
-              //     type: 'linear',
-              //     x: 0, //右
-              //     y: 0, //下
-              //     x2: 1, //左
-              //     y2: 1, //上
-              //     colorStops: [{
-              //       offset: 0,
-              //       color: '#4BFFFC'
-              //     }, {
-              //       offset: 0.5,
-              //       color: 'rgba(0,0,0,0)'
-              //     }, {
-              //       offset: 1,
-              //       color: '#4BFFFC'
-              //     }],
-              //     globalCoord: false
-              //   },
-              //   opacity: 1 // 区域透明度
-              // }
-            }
-          }]
           $.each(dataArr,function(index,item){
             $.extend(true, item, radarStyles[index])
           })
