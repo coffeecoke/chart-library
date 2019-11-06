@@ -17,7 +17,6 @@
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
-
       var radarChart = new chartFactory({
         id: 'textChart0',
         themeType:'',
@@ -208,6 +207,25 @@
             value: 60,
             group: 'B1'
           }
+        ]
+      })
+      var scatterChart = new chartFactory({
+        id: 'textChart4',
+        themeType: 'essos'
+      });
+      scatterChart.scatter({
+        data: [ 
+            [4.0, 8.04],
+            [8.0, 6.95],
+            [3.0, 7.58],
+            [9.0, 8.81],
+            [1.0, 8.33],
+            [4.0, 9.96],
+            [6.0, 7.24],
+            [4.0, 4.26],
+            [2.0, 9.84],
+            [7.0, 4.82],
+            [5.0, 5.68]
         ]
       })
     })
