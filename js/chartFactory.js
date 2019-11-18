@@ -103,23 +103,6 @@
     series: []
 
   }
-  var chartScatterOption = {
-    xAxis: {
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-    },
-    yAxis: {
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      },
-      scale: true
-    },
-  }
   // 饼图基本配置
   var pieCommonOption = {
     tooltip: {
@@ -150,7 +133,6 @@
         fontSize: 12,
         color: '#666666',
         formatter: function (value, indicator) {
-          console.log(value)
           return indicator.name + '  {valueStyle|' + indicator.max + '}'
         },
         rich: {
@@ -261,6 +243,10 @@
       // }
     }
   }]
+  // 地图基本配置
+  var riskMapCommonOption = {
+    
+  }
   // 图表数据格式化
   var chartDataFormate = {
     FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
@@ -387,8 +373,9 @@
             },
             series: scatter_datas.series
           }
-          $.extend(true,chartScatterOption, scatterOptions)
-          _self.renderChart(chartScatterOption)
+          $.extend(true,_self.chartCommonOption, scatterOptions)
+          console.log(_self.chartCommonOption)
+          _self.renderChart(_self.chartCommonOption)
           _self._next()
         }
       })(obj)
@@ -506,7 +493,6 @@
           $.each(dataArr, function (index, item) {
             $.extend(true, item, radarStyles[index])
           })
-          console.log(dataArr)
           var radarOptions = {
             legend: {
               data: legendData,
@@ -526,8 +512,18 @@
       this.tasks.push(fn);
       return this;
     },
-    map: function () {
-      this.renderMap()
+    // 风险地图
+    riskMap: function () {
+      var _self = this;
+      var data = this.initData(obj);
+      var fn = (function(obj){
+        return function() {
+
+
+        }
+      })(obj)
+      this.tasks.push(fn);
+      return this
     }
 
   }
@@ -560,10 +556,9 @@
     },
     // 继承线图，柱图类型的x,y坐标
     _extendxyAxis: function () {
-      if (this.opts.yAxis) {
-        $.extend(true, this.chartCommonOption.yAxis, this.opts.yAxis)
-      } else if (this.opts.xAxis) {
-        $.extend(true, this.chartCommonOption.xAxis, this.opts.xAxis)
+      if (this.opts.yAxis || this.opts.xAxis) {
+        $.extend(true, this.chartCommonOption.yAxis, this.opts.yAxis || [])
+        $.extend(true, this.chartCommonOption.xAxis, this.opts.xAxis || [])
       }
     },
     //初始化数据

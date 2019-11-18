@@ -9,17 +9,19 @@
 </head>
 
 <body>
-  <div id="textChart0" style="width:50%;height:400px;"></div>
-  <div id="textChart1" style="width:50%;height:400px;"></div>
-  <div id="textChart2" style="width:80%;height:400px;"></div>
-  <div id="textChart3" style="width:80%;height:400px;"></div>
-  <div id="textChart4" style="width:80%;height:400px;"></div>
+  <div id="testChart0" style="width:50%;height:400px;"></div>
+  <div id="testChart1" style="width:50%;height:400px;"></div>
+  <div id="testChart2" style="width:80%;height:400px;"></div>
+  <div id="testChart3" style="width:80%;height:400px;"></div>
+  <div id="testChart4" style="width:80%;height:400px;"></div>
+  <div id="testChart5" style="width:80%;height:400px;"></div>
+  <div id="highMapChart" style="width:80%;height:400px;"></div>
   <script src="js/require.js"></script>
   <script src="js/require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
       var radarChart = new chartFactory({
-        id: 'textChart0',
+        id: 'testChart0',
         themeType:'',
       })
       radarChart.radar({
@@ -68,7 +70,7 @@
         ],
       })
       var pieChart = new chartFactory({
-        id: 'textChart1',
+        id: 'testChart1',
         themeType:''
       })
       pieChart.pie({
@@ -80,7 +82,7 @@
       })
 
       var chartObj = new chartFactory({
-        id: 'textChart2',
+        id: 'testChart2',
         themeType: '',
         yAxis: [{
           type: 'value',
@@ -150,7 +152,7 @@
 
       //x轴为数据坐标
       var horizontalBarChart = new chartFactory({
-        id: 'textChart3',
+        id: 'testChart3',
         themeType: '',
         xAxis: [{
           type: 'value',
@@ -210,9 +212,16 @@
           }
         ]
       })
+      // 散点图
       var scatterChart = new chartFactory({
-        id: 'textChart4',
+        id: 'testChart4',
         themeType: '',
+        xAxis: [{
+          name: '人数'
+        }],
+        yAxis: [{
+          name: '产值'
+        }],
       });
       scatterChart.scatter({
         data:[
@@ -227,7 +236,8 @@
             ],
             symbol:'',
             symbolSize:function (data) {
-              return 20
+              var size = data[0] + data[1]
+              return size*2
             },
           },
           {
@@ -242,10 +252,38 @@
             ],
             symbol:'',
             symbolSize:function (data) {
-              return 30
+              var size = data[0] + data[1]
+              return size*2
             },
           }
         ]
+      })
+      // 风险地图
+      var riskMapChart = new chartFactory({
+        id:'testChart5',
+        themeType:'',
+        url:'',
+      })
+      riskMapChart.riskMap({
+        geoJsonUrl:'json/hebei.json', //地图轮廓数据
+        map:'hebei',
+        data:[{
+          geoCoordMap:{
+          },
+          dataT:[
+            {"name":"石家庄市","value":"10"},
+            {"name":"唐山市","value":"30"},
+            {"name":"秦皇岛市","value":"40"},
+            {"name":"邯郸市","value":"5"},
+            {"name":"邢台市","value":"7"},
+            {"name":"保定市","value":"19"},
+            {"name":"张家口市","value":"30"},
+            {"name":"承德市","value":"30"},
+            {"name":"沧州市","value":"21"},
+            {"name":"廊坊市","value":"60"},
+            {"name":"衡水市","value":"29"}
+          ]
+        }]
       })
       
     })
