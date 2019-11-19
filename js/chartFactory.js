@@ -245,7 +245,7 @@
   }]
   // 地图基本配置
   var riskMapCommonOption = {
-    
+
   }
   // 图表数据格式化
   var chartDataFormate = {
@@ -265,6 +265,7 @@
       };
     },
     FormateGroupData: function (data, type, is_stack, yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
+      console.log(data)
       var chart_type = 'line';
       if (type)
         chart_type = type || 'line';
@@ -273,8 +274,8 @@
       var series = [];
       var indicator = [];
       for (var i = 0; i < data.length; i++) {
-       xAxis.push(data[i].name)
-       group.push(data[i].group)
+        xAxis.push(data[i].name)
+        group.push(data[i].group)
       }
       xAxis = util._unique(xAxis)
       group = util._unique(group)
@@ -287,6 +288,16 @@
                 name: data[j].name,
                 value: data[i].value
               });
+            } else if (type == "riskMap") {
+              $.each(data[i].dataT, function (key, item) {
+                var geoCoord = data[i].geoCoordMap[item.name]
+                if (geoCoord) {
+                  temp.push({
+                    name: item.name,
+                    value: geoCoord.concat(item.value)
+                  })
+                }
+              })
             } else if (type == "radar") {
               indicator.push({
                 name: data[j].name,
@@ -329,7 +340,7 @@
               value: temp
               // type: chart_type,
             };
-          break;
+            break;
           case 'scatter':
             var series_temp = {
               name: group[i],
@@ -337,6 +348,13 @@
               type: chart_type,
               symbol: data[i].symbol,
               symbolSize: data[i].symbolSize
+            }
+            console.log(series_temp)
+            break;
+          case 'riskMap':
+            var series_temp = {
+              name: group[i],
+              data: temp
             }
           default:
             // var series_temp = {
@@ -367,14 +385,14 @@
       var fn = (function (obj) {
         return function () {
           var scatter_datas = chartDataFormate.FormateGroupData(data, 'scatter', obj.stack, obj.yAxisIndex);
+          console.log(scatter_datas)
           var scatterOptions = {
             legend: {
               data: scatter_datas.category
             },
             series: scatter_datas.series
           }
-          $.extend(true,_self.chartCommonOption, scatterOptions)
-          console.log(_self.chartCommonOption)
+          $.extend(true, _self.chartCommonOption, scatterOptions)
           _self.renderChart(_self.chartCommonOption)
           _self._next()
         }
@@ -513,13 +531,23 @@
       return this;
     },
     // 风险地图
-    riskMap: function () {
+    riskMap: function (obj) {
       var _self = this;
       var data = this.initData(obj);
-      var fn = (function(obj){
-        return function() {
-
-
+      var fn = (function (obj) {
+        return function () {
+          var mapJson;
+          $.ajax({
+            url:obj.geoJsonUrl,
+            dataType:'json',
+            async: false,
+            success: function (data) {
+              mapJson = data
+            }
+          })
+          echarts.registerMap(obj.map, mapJson);
+          var riskMap_datas = chartDataFormate.FormateGroupData(data, 'riskMap', obj.stack);
+         _self.renderMap(riskMap_datas, obj.map)
         }
       })(obj)
       this.tasks.push(fn);
@@ -614,8 +642,170 @@
         this.resize()
       }
     },
-    renderMap: function () {
+    renderMap: function (riskMap_datas, map) {
+      var riskSymbolStyles = [{
+          name: '低风险',
+          value: {
+            type: 'scatter',
+            symbol: 'circle',
+            symbolSize: function (val) {
+              if(val) {
+                return val[2] / 2;
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: '#f4e925',
+              }
+            },
+          }
+        },
+        {
+          name: '高风险',
+          value: {
+            type: 'effectScatter',
+            symbol: 'circle',
+            symbolSize: function (val) {
+              if(val) {
+                return val[2] / 6;
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: '#f4e925',
+              }
+            },
+          }
+        }
 
+      ]
+      var series = [{
+        type: 'map',
+        map: map,
+        geoIndex: 1,
+        aspectScale: 0.75,
+        label: {
+          normal: {
+            show: true,
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          emphasis: {
+            textStyle: {
+              color: '#fff'
+            }
+          }
+        },
+        itemStyle: {
+          normal: {
+            borderColor: 'rgba(147, 235, 248, 1)',
+            borderWidth: 1,
+            areaColor: {
+              type: 'radial',
+              x: 0.5,
+              y: 0.5,
+              r: 0.8,
+              colorStops: [{
+                offset: 0,
+                color: 'rgba(53, 142, 228, 0)' // 0% 处的颜色
+              }, {
+                offset: 0.8,
+                color: 'rgba(53, 142, 228, .4)' // 0% 处的颜色
+              }, {
+                offset: 1,
+                color: 'rgba(53, 142, 228, .8)' // 100% 处的颜色
+              }],
+              globalCoord: false // 缺省为 false
+            },
+          },
+          emphasis: {
+            areaColor: '#389BB7',
+            borderWidth: 0
+          }
+        },
+        roam: false, //地图设置不可拖拽，固定的
+        zoom: 1.2
+      }]
+      $.each(riskMap_datas.series, function (index, item) {
+        
+        var currSeriesObj = {
+          name: item.name,
+          coordinateSystem: 'geo',
+          data: item.data,
+          label: {
+            normal: {
+              formatter: function () {
+                return ''
+              },
+              position: 'right',
+              show: false
+            }
+          },
+        }
+        $.each(riskSymbolStyles, function(key,v) {
+          if(v.name === item.name) {
+            $.extend(currSeriesObj, v.value)
+          }
+        })
+        series.push(currSeriesObj)
+        
+      })
+      var option = {
+        geo: {
+          show: true,
+          map: map,
+          aspectScale: 0.75,
+  
+          itemStyle: {
+            normal: {
+              areaColor: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.8,
+                colorStops: [{
+                  offset: 0,
+                  color: 'rgba(53, 142, 228, 0)' // 0% 处的颜色
+                }, {
+                  offset: 1,
+                  color: 'rgba(53, 142, 228, .8)' // 100% 处的颜色
+                }],
+                globalCoord: false // 缺省为 false
+              },
+              shadowColor: 'rgba(12, 35, 63, 1)',
+              shadowOffsetX: 10,
+              shadowOffsetY: 10,
+              shadowBlur: 6,
+            },
+  
+            emphasis: {
+              areaColor: '#389BB7',
+              borderWidth: 0
+            }
+          },
+          roam: false, //地图设置不可拖拽，固定的
+          zoom: 1.2
+        },
+        tooltip: {
+          show: true,
+          backgroundColor: 'transparent',
+          formatter: function (params) {
+            if (params.seriesType === "effectScatter" || params.seriesType === "scatter") {
+              return '<div class="tooltip">' +
+                '<p class="name" style="word-wrap:break-word;">' + params.name + '</p>' +
+                '<p>风险等级 <span>' + parseInt(params.data.value[2] / 10) + '</span>级</p>' +
+                '</div>'
+            }
+  
+          }
+        },
+        toolbox: {
+          show: true
+        },
+        series: series
+      }
+      this.renderChart(option)
     },
     resize: function () {
       var _self = this;
