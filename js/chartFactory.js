@@ -357,12 +357,12 @@
               data: temp
             }
           default:
-            // var series_temp = {
-            //   // name: group[i],
-            //   // data: temp,
-            //   // type: chart_type,
-            //   // yAxisIndex:yAxisIndex
-            // };
+          // var series_temp = {
+          //   // name: group[i],
+          //   // data: temp,
+          //   // type: chart_type,
+          //   // yAxisIndex:yAxisIndex
+          // };
         }
         if (yAxisIndex) {
           series_temp.yAxisIndex = yAxisIndex
@@ -385,7 +385,6 @@
       var fn = (function (obj) {
         return function () {
           var scatter_datas = chartDataFormate.FormateGroupData(data, 'scatter', obj.stack, obj.yAxisIndex);
-          console.log(scatter_datas)
           var scatterOptions = {
             legend: {
               data: scatter_datas.category
@@ -479,6 +478,7 @@
       var data = this.initData(obj)
       var fn = (function (obj) {
         return function () {
+          
           var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
           var legendData = bars_dates.category;
           var yAxis = [{
@@ -538,8 +538,8 @@
         return function () {
           var mapJson;
           $.ajax({
-            url:obj.geoJsonUrl,
-            dataType:'json',
+            url: obj.geoJsonUrl,
+            dataType: 'json',
             async: false,
             success: function (data) {
               mapJson = data
@@ -547,7 +547,7 @@
           })
           echarts.registerMap(obj.map, mapJson);
           var riskMap_datas = chartDataFormate.FormateGroupData(data, 'riskMap', obj.stack);
-         _self.renderMap(riskMap_datas, obj.map)
+          _self.renderMap(riskMap_datas, obj.map)
         }
       })(obj)
       this.tasks.push(fn);
@@ -644,39 +644,39 @@
     },
     renderMap: function (riskMap_datas, map) {
       var riskSymbolStyles = [{
-          name: '低风险',
-          value: {
-            type: 'scatter',
-            symbol: 'circle',
-            symbolSize: function (val) {
-              if(val) {
-                return val[2] / 2;
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#f4e925',
-              }
-            },
-          }
-        },
-        {
-          name: '高风险',
-          value: {
-            type: 'effectScatter',
-            symbol: 'circle',
-            symbolSize: function (val) {
-              if(val) {
-                return val[2] / 6;
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#f4e925',
-              }
-            },
-          }
+        name: '低风险',
+        value: {
+          type: 'scatter',
+          symbol: 'circle',
+          symbolSize: function (val) {
+            if (val) {
+              return val[2] / 2;
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: '#f4e925',
+            }
+          },
         }
+      },
+      {
+        name: '高风险',
+        value: {
+          type: 'effectScatter',
+          symbol: 'circle',
+          symbolSize: function (val) {
+            if (val) {
+              return val[2] / 6;
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: '#f4e925',
+            }
+          },
+        }
+      }
 
       ]
       var series = [{
@@ -728,7 +728,7 @@
         zoom: 1.2
       }]
       $.each(riskMap_datas.series, function (index, item) {
-        
+
         var currSeriesObj = {
           name: item.name,
           coordinateSystem: 'geo',
@@ -743,20 +743,20 @@
             }
           },
         }
-        $.each(riskSymbolStyles, function(key,v) {
-          if(v.name === item.name) {
+        $.each(riskSymbolStyles, function (key, v) {
+          if (v.name === item.name) {
             $.extend(currSeriesObj, v.value)
           }
         })
         series.push(currSeriesObj)
-        
+
       })
       var option = {
         geo: {
           show: true,
           map: map,
           aspectScale: 0.75,
-  
+
           itemStyle: {
             normal: {
               areaColor: {
@@ -778,12 +778,13 @@
               shadowOffsetY: 10,
               shadowBlur: 6,
             },
-  
+
             emphasis: {
               areaColor: '#389BB7',
               borderWidth: 0
             }
           },
+
           roam: false, //地图设置不可拖拽，固定的
           zoom: 1.2
         },
@@ -797,7 +798,7 @@
                 '<p>风险等级 <span>' + parseInt(params.data.value[2] / 10) + '</span>级</p>' +
                 '</div>'
             }
-  
+
           }
         },
         toolbox: {
