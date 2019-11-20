@@ -1,7 +1,19 @@
 (function (root, factory) {
-
   if (typeof define === 'function' && define.amd) {
-    define(['jquery', 'echarts'], factory);
+    define([
+      'jquery',
+      'echarts',
+      'modules/util',
+      'modules/chartDataFormate',
+      'modules/chartCommonOption',
+      'modules/pie',
+      'modules/scatter',
+      'modules/line',
+      'modules/bars',
+      'modules/horizontalBar',
+      'modules/radar',
+      'modules/riskMap'
+    ], factory);
   } else if (typeof exports === 'object') {
     // Node.js
     module.exports = factory;
@@ -9,7 +21,21 @@
     // Browser globals
     root.JSLite = root.JSLite || factory(jQuery);
   }
-})(this, function ($, echarts) {
+})(this, function (
+  $,
+  echarts,
+  util,
+  chartDataFormate,
+  chartCommonOption,
+  pieModule,
+  scatter,
+  line,
+  bars,
+  horizontalBar,
+  radar,
+  riskMap
+) {
+
   function ChartFactory(opts) {
     this.tasks = []
     this.init(opts)
@@ -23,538 +49,21 @@
     themeType: ''
 
   }
-  var util = {
-    _unique: function (arr) {
-      if (!arr) {
-        return false;
-      }
-      var result = [],
-        hash = {};
-      firstItem = arr[0]
-      if (firstItem instanceof Object) {
-        for (var i = 0; i < arr.length; i++) {
-          if (!hash[arr[i].name]) {
-            result.push(arr[i])
-            hash[arr[i].name] = true
-          }
-        }
-        return result;
-      } else {
-        for (var i = 0, elem;
-          (elem = arr[i]) != null; i++) {
-          if (!hash[elem]) {
-            result.push(elem);
-            hash[elem] = true;
-          }
-        }
-        return result
-      }
 
 
-    },
-    _deepClone: function (obj) { // 深克隆
-      if (typeof obj === 'function') { // 函数
-        return new Function('return ' + obj.toString())()
-      }
-      if (typeof obj !== 'object') { // 基本类型
-        return obj
-      }
-      // 对象，数组
-      var value, target = {}
-      if (Object.prototype.toString.call(obj) === '[object Array]') { // 数组
-        target = []
-      }
-      for (var name in obj) {
-        value = obj[name]
-        if (value === obj) { // 避免死循环
-          continue;
-        }
-        if (typeof obj[name] === 'function' || typeof obj[name] === 'object') { // 函数或者对象/数组则递归复制
-          target[name] = util._deepClone(obj[name])
-        } else {
-          target[name] = obj[name]
-        }
-      }
-      return target
 
-    }
-  }
-  // 折线图，柱状图，散点图带坐标柱的基本配置
-  var chartCommonOption = { //通用的图表基本配置
-    tooltip: {
-      trigger: 'axis' //tooltip触发方式:axis以X轴线触发,item以每一个数据项触发
-    },
-    toolbox: {
-      show: false, //是否显示工具栏
-      feature: {
-        mark: true,
-        dataView: {
-          readOnly: false
-        }, //数据预览
-        restore: true, //复原
-        saveAsImage: true //是否保存图片
-      }
-    },
-    legend: {
-      data: []
-    },
-    xAxis: [],
-    yAxis: [],
-    series: []
-
-  }
-  // 饼图基本配置
-  var pieCommonOption = {
-    tooltip: {
-      trigger: 'item',
-      formatter: '{b} : {c} ({d}/%)',
-      show: true
-    },
-    legend: {
-      orient: 'vertical',
-      x: 'left',
-      data: []
-    },
-    series: [{
-      name: "",
-      type: 'pie',
-      radius: '65%',
-      center: ['50%', '50%'],
-    }]
-  }
-  // 雷达图基本配置
-  var radarCommonOption = {
-    legend: {
-      data: []
-    },
-    radar: {
-      shape: 'circle',
-      name: {
-        fontSize: 12,
-        color: '#666666',
-        formatter: function (value, indicator) {
-          return indicator.name + '  {valueStyle|' + indicator.max + '}'
-        },
-        rich: {
-          valueStyle: {
-            color: '#0646ba',
-            fontSize: 20,
-            align: 'center'
-          },
-
-        },
-        textStyle: {
-          color: '#666666'
-        }
-      },
-      indicator: [],
-      splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
-        show: true,
-        areaStyle: { // 分隔区域的样式设置。
-          // color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
-        }
-      },
-      axisLine: { //指向外圈文本的分隔线样式
-        lineStyle: {
-          color: '#153269'
-        }
-      },
-      splitLine: {
-        lineStyle: {
-          color: '#113865', // 分隔线颜色
-          width: 1, // 分隔线线宽
-        }
-      }
-
-    },
-    series: [{
-      type: 'radar',
-      symbolSize: 8
-    }]
-  }
-  var radarStyles = [{
-    itemStyle: {
-      normal: {
-        lineStyle: {
-          // color: '#4A99FF',
-          // shadowColor: '#4A99FF',
-          // shadowBlur: 10,
-        },
-        // shadowColor: '#4A99FF',
-        // shadowBlur: 10,
-      },
-    },
-    areaStyle: {
-      // normal: { // 单项区域填充样式
-      //   color: {
-      //     type: 'linear',
-      //     x: 0, //右
-      //     y: 0, //下
-      //     x2: 1, //左
-      //     y2: 1, //上
-      //     colorStops: [{
-      //       offset: 0,
-      //       color: '#4A99FF'
-      //     }, {
-      //       offset: 0.5,
-      //       color: 'rgba(0,0,0,0)'
-      //     }, {
-      //       offset: 1,
-      //       color: '#4A99FF'
-      //     }],
-      //     globalCoord: false
-      //   },
-      //   opacity: 1 // 区域透明度
-      // }
-    }
-  }, {
-    itemStyle: {
-      normal: {
-        lineStyle: {
-          // color: 'red',
-          // shadowColor: '#4BFFFC',
-          // shadowBlur: 10,
-        },
-        // shadowColor: '#4BFFFC',
-        // shadowBlur: 10,
-      },
-    },
-    areaStyle: {
-      // normal: { // 单项区域填充样式
-      //   color: {
-      //     type: 'linear',
-      //     x: 0, //右
-      //     y: 0, //下
-      //     x2: 1, //左
-      //     y2: 1, //上
-      //     colorStops: [{
-      //       offset: 0,
-      //       color: '#4BFFFC'
-      //     }, {
-      //       offset: 0.5,
-      //       color: 'rgba(0,0,0,0)'
-      //     }, {
-      //       offset: 1,
-      //       color: '#4BFFFC'
-      //     }],
-      //     globalCoord: false
-      //   },
-      //   opacity: 1 // 区域透明度
-      // }
-    }
-  }]
-  // 地图基本配置
-  var riskMapCommonOption = {
-
-  }
-  // 图表数据格式化
-  var chartDataFormate = {
-    FormateNOGroupData: function (data) { //data的格式如上的Result1，这种格式的数据，多用于饼图、单一的柱形图的数据源
-      var categories = [];
-      var datas = [];
-      for (var i = 0; i < data.length; i++) {
-        categories.push(data[i].name || "");
-        datas.push({
-          name: data[i].name,
-          value: data[i].value || 0
-        });
-      };
-      return {
-        category: categories,
-        data: datas
-      };
-    },
-    FormateGroupData: function (data, type, is_stack, yAxisIndex) { //data的格式如上的Result2，type为要渲染的图表类型：可以为line，bar，is_stack表示为是否是堆积图，这种格式的数据多用于展示多条折线图、分组的柱图
-      console.log(data)
-      var chart_type = 'line';
-      if (type)
-        chart_type = type || 'line';
-      var xAxis = []
-      var group = [];
-      var series = [];
-      var indicator = [];
-      for (var i = 0; i < data.length; i++) {
-        xAxis.push(data[i].name)
-        group.push(data[i].group)
-      }
-      xAxis = util._unique(xAxis)
-      group = util._unique(group)
-      for (var i = 0; i < group.length; i++) {
-        var temp = [];
-        for (var j = 0; j < data.length; j++) {
-          if (group[i] == data[j].group) {
-            if (type == "map") {
-              temp.push({
-                name: data[j].name,
-                value: data[i].value
-              });
-            } else if (type == "riskMap") {
-              $.each(data[i].dataT, function (key, item) {
-                var geoCoord = data[i].geoCoordMap[item.name]
-                if (geoCoord) {
-                  temp.push({
-                    name: item.name,
-                    value: geoCoord.concat(item.value)
-                  })
-                }
-              })
-            } else if (type == "radar") {
-              indicator.push({
-                name: data[j].name,
-                max: data[j].max
-              })
-              temp.push(data[j].value);
-            } else if (type == 'scatter') {
-              temp.push.apply(temp, data[j].value)
-            } {
-              temp.push(data[j].value);
-            }
-          }
-        }
-        switch (type) {
-          case 'bar':
-            var series_temp = {
-              name: group[i],
-              data: temp,
-              type: chart_type,
-            };
-            if (is_stack)
-              series_temp = $.extend({}, {
-                stack: 'stack'
-              }, series_temp);
-            break;
-          case 'line':
-            var series_temp = {
-              name: group[i],
-              data: temp,
-              type: chart_type,
-            };
-            if (is_stack)
-              series_temp = $.extend({}, {
-                stack: 'stack'
-              }, series_temp);
-            break;
-          case 'radar':
-            var series_temp = {
-              name: group[i],
-              value: temp
-              // type: chart_type,
-            };
-            break;
-          case 'scatter':
-            var series_temp = {
-              name: group[i],
-              data: temp,
-              type: chart_type,
-              symbol: data[i].symbol,
-              symbolSize: data[i].symbolSize
-            }
-            console.log(series_temp)
-            break;
-          case 'riskMap':
-            var series_temp = {
-              name: group[i],
-              data: temp
-            }
-          default:
-          // var series_temp = {
-          //   // name: group[i],
-          //   // data: temp,
-          //   // type: chart_type,
-          //   // yAxisIndex:yAxisIndex
-          // };
-        }
-        if (yAxisIndex) {
-          series_temp.yAxisIndex = yAxisIndex
-        }
-        series.push(series_temp);
-      }
-      return {
-        category: group,
-        indicator: util._unique(indicator),
-        xAxis: xAxis,
-        series: series
-      };
-    }
-  }
   // 各种类型图表胚子
-  var chartOptionTemplates = {
-    scatter: function (obj, i) {
-      var _self = this;
-      var data = this.initData(obj)
-      var fn = (function (obj) {
-        return function () {
-          var scatter_datas = chartDataFormate.FormateGroupData(data, 'scatter', obj.stack, obj.yAxisIndex);
-          var scatterOptions = {
-            legend: {
-              data: scatter_datas.category
-            },
-            series: scatter_datas.series
-          }
-          $.extend(true, _self.chartCommonOption, scatterOptions)
-          _self.renderChart(_self.chartCommonOption)
-          _self._next()
-        }
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 饼图
-    pie: function (obj) {
-      var _self = this;
-      var data = this.initData(obj)
-      var fn = (function (obj) {
-        return function () {
-          var pie_datas = chartDataFormate.FormateNOGroupData(data);
-          var option = {
-            legend: {
-              data: pie_datas.category
-            },
-            series: [{
-              name: obj.name || "",
-              data: pie_datas.data
-            }]
-          };
-          var pieOptions = $.extend(true, pieCommonOption, option);
-          _self.renderChart(pieOptions)
-          _self._next()
-        }
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 折线图
-    line: function (obj) {
-      var _self = this;
-      var data = this.initData(obj)
-      var fn = (function (obj) {
-        return function () {
-          var stackline_datas = chartDataFormate.FormateGroupData(data, 'line', obj.stack, obj.yAxisIndex);
-          var legendData = stackline_datas.category;
-          var xAxis = [{
-            type: 'category', //X轴均为category，Y轴均为value
-            data: stackline_datas.xAxis,
-            boundaryGap: true //数值轴两端的空白策略
-          }];
-          var series = stackline_datas.series
-          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
-          $.extend(true, _self.chartCommonOption.xAxis, xAxis)
-          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
-          _self.renderChart(_self.chartCommonOption)
-          _self._next()
-        }
-
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 柱状图
-    bars: function (obj) {
-      var _self = this;
-      var data = this.initData(obj)
-      var fn = (function (obj) {
-        return function () {
-          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack, obj.yAxisIndex);
-          var legendData = bars_dates.category;
-          var xAxis = [{
-            type: 'category', //X轴均为category，Y轴均为value
-            data: bars_dates.xAxis,
-            boundaryGap: true //数值轴两端的空白策略
-          }];
-          var series = bars_dates.series
-          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
-          $.extend(true, _self.chartCommonOption.xAxis, xAxis)
-          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
-          _self.renderChart(_self.chartCommonOption)
-          _self._next()
-        }
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 横向柱状图
-    horizontalBar: function (obj) {
-      var _self = this;
-      var data = this.initData(obj)
-      var fn = (function (obj) {
-        return function () {
-          
-          var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
-          var legendData = bars_dates.category;
-          var yAxis = [{
-            type: 'category', //X轴均为category，Y轴均为value
-            data: bars_dates.xAxis,
-            //boundaryGap: true //数值轴两端的空白策略
-          }];
-          var series = bars_dates.series
-          _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
-          $.extend(true, _self.chartCommonOption.yAxis, yAxis)
-          _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
-          _self.renderChart(_self.chartCommonOption)
-          _self._next()
-        }
-
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 雷达图
-    radar: function (obj) {
-      var _self = this;
-      var data = this.initData(obj);
-      var fn = (function (obj) {
-        return function () {
-          var radars_dates = chartDataFormate.FormateGroupData(data, 'radar', obj.stack);
-          var dataArr = radars_dates.series;
-          var legendData = radars_dates.category;
-          var indicator = radars_dates.indicator
-          $.each(dataArr, function (index, item) {
-            $.extend(true, item, radarStyles[index])
-          })
-          var radarOptions = {
-            legend: {
-              data: legendData,
-            },
-            radar: {
-              indicator: indicator,
-            },
-            series: [{
-              data: dataArr
-            }]
-          }
-          $.extend(true, radarCommonOption, radarOptions)
-          _self.renderChart(radarCommonOption)
-          _self._next()
-        }
-      })(obj)
-      this.tasks.push(fn);
-      return this;
-    },
-    // 风险地图
-    riskMap: function (obj) {
-      var _self = this;
-      var data = this.initData(obj);
-      var fn = (function (obj) {
-        return function () {
-          var mapJson;
-          $.ajax({
-            url: obj.geoJsonUrl,
-            dataType: 'json',
-            async: false,
-            success: function (data) {
-              mapJson = data
-            }
-          })
-          echarts.registerMap(obj.map, mapJson);
-          var riskMap_datas = chartDataFormate.FormateGroupData(data, 'riskMap', obj.stack);
-          _self.renderMap(riskMap_datas, obj.map)
-        }
-      })(obj)
-      this.tasks.push(fn);
-      return this
-    }
-
-  }
+  var chartOptionTemplates = {}
+  $.extend(
+    chartOptionTemplates,
+    pieModule,
+    scatter,
+    line,
+    bars,
+    horizontalBar,
+    radar,
+    riskMap
+  )
   ChartFactory.prototype = {
     _next: function () {
       var fn = this.tasks.shift()
@@ -580,7 +89,9 @@
     },
     // 克隆CommOption，以便给多个实例使用
     _setChartOption: function () {
+      
       this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
+      console.log(this.chartCommonOption)
     },
     // 继承线图，柱图类型的x,y坐标
     _extendxyAxis: function () {
@@ -604,7 +115,6 @@
       } else {
         data = obj.data
       }
-
       return data
     },
     // 配置图表主题
@@ -629,9 +139,7 @@
       }
       this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
     },
-    chartDataFormate: function (data) {
-
-    },
+    chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
       $.extend(ChartFactory.prototype, chartOptionTemplates)
@@ -641,172 +149,6 @@
         this.chart.setOption(chartOptions)
         this.resize()
       }
-    },
-    renderMap: function (riskMap_datas, map) {
-      var riskSymbolStyles = [{
-        name: '低风险',
-        value: {
-          type: 'scatter',
-          symbol: 'circle',
-          symbolSize: function (val) {
-            if (val) {
-              return val[2] / 2;
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: '#f4e925',
-            }
-          },
-        }
-      },
-      {
-        name: '高风险',
-        value: {
-          type: 'effectScatter',
-          symbol: 'circle',
-          symbolSize: function (val) {
-            if (val) {
-              return val[2] / 6;
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: '#f4e925',
-            }
-          },
-        }
-      }
-
-      ]
-      var series = [{
-        type: 'map',
-        map: map,
-        geoIndex: 1,
-        aspectScale: 0.75,
-        label: {
-          normal: {
-            show: true,
-            textStyle: {
-              color: '#fff'
-            }
-          },
-          emphasis: {
-            textStyle: {
-              color: '#fff'
-            }
-          }
-        },
-        itemStyle: {
-          normal: {
-            borderColor: 'rgba(147, 235, 248, 1)',
-            borderWidth: 1,
-            areaColor: {
-              type: 'radial',
-              x: 0.5,
-              y: 0.5,
-              r: 0.8,
-              colorStops: [{
-                offset: 0,
-                color: 'rgba(53, 142, 228, 0)' // 0% 处的颜色
-              }, {
-                offset: 0.8,
-                color: 'rgba(53, 142, 228, .4)' // 0% 处的颜色
-              }, {
-                offset: 1,
-                color: 'rgba(53, 142, 228, .8)' // 100% 处的颜色
-              }],
-              globalCoord: false // 缺省为 false
-            },
-          },
-          emphasis: {
-            areaColor: '#389BB7',
-            borderWidth: 0
-          }
-        },
-        roam: false, //地图设置不可拖拽，固定的
-        zoom: 1.2
-      }]
-      $.each(riskMap_datas.series, function (index, item) {
-
-        var currSeriesObj = {
-          name: item.name,
-          coordinateSystem: 'geo',
-          data: item.data,
-          label: {
-            normal: {
-              formatter: function () {
-                return ''
-              },
-              position: 'right',
-              show: false
-            }
-          },
-        }
-        $.each(riskSymbolStyles, function (key, v) {
-          if (v.name === item.name) {
-            $.extend(currSeriesObj, v.value)
-          }
-        })
-        series.push(currSeriesObj)
-
-      })
-      var option = {
-        geo: {
-          show: true,
-          map: map,
-          aspectScale: 0.75,
-
-          itemStyle: {
-            normal: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.8,
-                colorStops: [{
-                  offset: 0,
-                  color: 'rgba(53, 142, 228, 0)' // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: 'rgba(53, 142, 228, .8)' // 100% 处的颜色
-                }],
-                globalCoord: false // 缺省为 false
-              },
-              shadowColor: 'rgba(12, 35, 63, 1)',
-              shadowOffsetX: 10,
-              shadowOffsetY: 10,
-              shadowBlur: 6,
-            },
-
-            emphasis: {
-              areaColor: '#389BB7',
-              borderWidth: 0
-            }
-          },
-
-          roam: false, //地图设置不可拖拽，固定的
-          zoom: 1.2
-        },
-        tooltip: {
-          show: true,
-          backgroundColor: 'transparent',
-          formatter: function (params) {
-            if (params.seriesType === "effectScatter" || params.seriesType === "scatter") {
-              return '<div class="tooltip">' +
-                '<p class="name" style="word-wrap:break-word;">' + params.name + '</p>' +
-                '<p>风险等级 <span>' + parseInt(params.data.value[2] / 10) + '</span>级</p>' +
-                '</div>'
-            }
-
-          }
-        },
-        toolbox: {
-          show: true
-        },
-        series: series
-      }
-      this.renderChart(option)
     },
     resize: function () {
       var _self = this;
