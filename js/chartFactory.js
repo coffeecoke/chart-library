@@ -91,7 +91,6 @@
     _setChartOption: function () {
       
       this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
-      console.log(this.chartCommonOption)
     },
     // 继承线图，柱图类型的x,y坐标
     _extendxyAxis: function () {
