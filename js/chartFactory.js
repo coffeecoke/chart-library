@@ -39,7 +39,7 @@
   function ChartFactory(opts) {
     this.tasks = []
     this.init(opts)
-
+    
   }
   ChartFactory._defaultOpts = {
     id: '' || [],
@@ -89,7 +89,6 @@
     },
     // 克隆CommOption，以便给多个实例使用
     _setChartOption: function () {
-      
       this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
     },
     // 继承线图，柱图类型的x,y坐标
@@ -115,6 +114,9 @@
         data = obj.data
       }
       return data
+    
+    
+    
     },
     // 配置图表主题
     setChartTheme: function (themeType) {
@@ -126,7 +128,7 @@
         url: themes[themeType],
         async: false,
         success: function (data) {
-          obj = data;
+          var obj = data;
           if (themeType) {
             echarts.registerTheme(themeType, obj)
           }
