@@ -6,23 +6,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
 </head>
 
 <body>
-  <div id="testChart0" style="width:50%;height:400px;"></div>
-  <div id="testChart1" style="width:50%;height:400px;"></div>
-  <div id="testChart2" style="width:80%;height:400px;"></div>
-  <div id="testChart3" style="width:80%;height:400px;"></div>
-  <div id="testChart4" style="width:80%;height:400px;"></div>
-  <div id="testChart5" style="width:80%;height:400px;"></div>
-  <div id="highMapChart" style="width:80%;height:400px;"></div>
+  <div class="container">
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart0" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart1" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart2" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart3" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart4" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="padding-20">
+        <div class="box-header">
+          <h4>饼状图</h4>
+        </div>
+        <div class="box-content">
+          <div class="module" id="testChart5" style="width:100%;height:300px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="module" id="testChart3" style="width:80%;height:400px;"></div>
+    <div class="module" id="testChart4" style="width:80%;height:400px;"></div> -->
+    <!-- <div class="module" id="testChart5" style="width:80%;height:400px;"></div> -->
+    <div class="module" id="highMapChart" style="width:80%;height:400px;"></div>
+  </div>
   <script src="js/require.js"></script>
   <script src="require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
       var radarChart = new chartFactory({
         id: 'testChart0',
-        themeType: '',
+        themeType: 'customed',
       })
       radarChart.radar({
         data: [{
@@ -69,7 +130,7 @@
       })
       var pieChart = new chartFactory({
         id: 'testChart1',
-        themeType: ''
+        themeType: 'customed'
       })
       pieChart.pie({
         data: [{
@@ -83,13 +144,20 @@
           {
             name: 'momo',
             value: 20
+          },{
+            name: 'ha',
+            value: 40
+          },
+          {
+            name: 'hei',
+            value: 30
           }
         ]
       })
 
       var chartObj = new chartFactory({
         id: 'testChart2',
-        themeType: '',
+        themeType: 'customed',
         yAxis: [{
           type: 'value',
           name: '亿元'
@@ -157,7 +225,7 @@
       //x轴为数据坐标
       var horizontalBarChart = new chartFactory({
         id: 'testChart3',
-        themeType: '',
+        themeType: 'customed',
         xAxis: [{
           type: 'value',
           name: '亿元'
@@ -217,7 +285,7 @@
       // 散点图
       var scatterChart = new chartFactory({
         id: 'testChart4',
-        themeType: '',
+        themeType: 'customed',
         xAxis: [{
           name: '人数'
         }],
@@ -262,7 +330,7 @@
       // 风险地图
       var riskMapChart = new chartFactory({
         id: 'testChart5',
-        themeType: '',
+        themeType: 'customed',
         url: '',
       })
       riskMapChart.riskMap({

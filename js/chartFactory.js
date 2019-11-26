@@ -12,7 +12,8 @@
       'modules/bars',
       'modules/horizontalBar',
       'modules/radar',
-      'modules/riskMap'
+      'modules/riskMap',
+      'modules/theme'
     ], factory);
   } else if (typeof exports === 'object') {
     // Node.js
@@ -33,13 +34,13 @@
   bars,
   horizontalBar,
   radar,
-  riskMap
+  riskMap,
+  setChartTheme
 ) {
 
   function ChartFactory(opts) {
     this.tasks = []
     this.init(opts)
-
   }
   ChartFactory._defaultOpts = {
     id: '' || [],
@@ -75,7 +76,7 @@
       var fn = (function (opts) {
         return function () {
           _self.opts = $.extend({}, ChartFactory._defaultOpts, opts);
-          _self.setChartTheme(_self.opts.themeType);
+          setChartTheme.call(_self, _self.opts.themeType,_self.opts);
           _self._setChartOption()
           _self._extendxyAxis()
           _self._next()
@@ -116,28 +117,6 @@
         data = obj.data
       }
       return data
-    },
-    // 配置图表主题
-    setChartTheme: function (themeType) {
-      var themes = {
-        wonderland: '../json/wonderland.json', // 配置主题的路径,
-        essos: '../json/essos.json'
-      }
-      $.ajax({
-        url: themes[themeType],
-        async: false,
-        success: function (data) {
-          obj = data;
-          if (themeType) {
-            echarts.registerTheme(themeType, obj)
-          }
-        }
-      })
-
-      if (!this.opts.id) {
-        return
-      }
-      this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
     },
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
