@@ -90,9 +90,7 @@
     },
     // 克隆CommOption，以便给多个实例使用
     _setChartOption: function () {
-      
       this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
-      console.log(this.chartCommonOption)
     },
     // 继承线图，柱图类型的x,y坐标
     _extendxyAxis: function () {
@@ -117,7 +115,35 @@
         data = obj.data
       }
       return data
+    
+    
+    
     },
+<<<<<<< HEAD
+=======
+    // 配置图表主题
+    setChartTheme: function (themeType) {
+      var themes = {
+        wonderland: '../json/wonderland.json', // 配置主题的路径,
+        essos: '../json/essos.json'
+      }
+      $.ajax({
+        url: themes[themeType],
+        async: false,
+        success: function (data) {
+          var obj = data;
+          if (themeType) {
+            echarts.registerTheme(themeType, obj)
+          }
+        }
+      })
+
+      if (!this.opts.id) {
+        return
+      }
+      this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
+    },
+>>>>>>> d5f0c2a12d9fe926c3b3996e3c547f494ce353c9
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
