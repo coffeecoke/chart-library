@@ -19,6 +19,10 @@ define([
         saveAsImage: true //是否保存图片
       }
     },
+    grid:{
+      left:'18%',
+      right:'10%'
+    },
     legend: {
       data: []
     },

@@ -11,14 +11,14 @@ define([
       show: true
     },
     legend: {
-      orient: 'vertical',
-      x: 'left',
+      orient: 'horizontal',
+      x: '10%',
       data: []
     },
     series: [{
       name: "",
       type: 'pie',
-      radius: '65%',
+      radius: ['45%','55%'],
       center: ['50%', '50%'],
     }]
   }
