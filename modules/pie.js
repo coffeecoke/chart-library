@@ -35,7 +35,7 @@ define([
           },
           series: [{
             name: obj.name || "",
-            data: pie_datas.data
+            data: pie_datas.data,
           }]
         };
         var pieOptions = $.extend(true, pieCommonOption, option);
