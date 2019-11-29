@@ -43,7 +43,7 @@ define([
       return function () {
         var pie_datas = chartDataFormate.FormateNOGroupData(data);
         var option = {
-          legend: {
+          legend: {　                    
             show:false,
             icon: 'circle',
             itemWidth:8,

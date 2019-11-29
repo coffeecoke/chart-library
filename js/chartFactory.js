@@ -35,7 +35,7 @@
   pie2,
   pie3,
   scatter,
-  line,
+  lines,
   bars,
   radar,
   riskMap,
@@ -65,7 +65,7 @@
     pie2,
     pie3,
     scatter,
-    line,
+    lines,
     bars,
     radar,
     riskMap
@@ -124,6 +124,31 @@
     
     
     },
+<<<<<<< HEAD
+=======
+    // 配置图表主题
+    // setChartTheme: function (themeType) {
+    //   var themes = {
+    //     wonderland: '../json/wonderland.json', // 配置主题的路径,
+    //     essos: '../json/essos.json'
+    //   }
+    //   $.ajax({
+    //     url: themes[themeType],
+    //     async: false,
+    //     success: function (data) {
+    //       var obj = data;
+    //       if (themeType) {
+    //         echarts.registerTheme(themeType, obj)
+    //       }
+    //     }
+    //   })
+
+    //   if (!this.opts.id) {
+    //     return
+    //   }
+    //   this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
+    // },
+>>>>>>> ba1671cbf628e7437040772ce1d4e8c16cc3eef1
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
