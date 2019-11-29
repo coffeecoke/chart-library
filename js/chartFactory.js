@@ -124,8 +124,6 @@
     
     
     },
-<<<<<<< HEAD
-=======
     // 配置图表主题
     // setChartTheme: function (themeType) {
     //   var themes = {
@@ -148,7 +146,6 @@
     //   }
     //   this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
     // },
->>>>>>> ba1671cbf628e7437040772ce1d4e8c16cc3eef1
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
