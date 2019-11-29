@@ -36,7 +36,7 @@
   pie2,
   pie3,
   scatter,
-  line,
+  lines,
   bars,
   horizontalBar,
   radar,
@@ -67,7 +67,7 @@
     pie2,
     pie3,
     scatter,
-    line,
+    lines,
     bars,
     horizontalBar,
     radar,
@@ -128,27 +128,27 @@
     
     },
     // 配置图表主题
-    setChartTheme: function (themeType) {
-      var themes = {
-        wonderland: '../json/wonderland.json', // 配置主题的路径,
-        essos: '../json/essos.json'
-      }
-      $.ajax({
-        url: themes[themeType],
-        async: false,
-        success: function (data) {
-          var obj = data;
-          if (themeType) {
-            echarts.registerTheme(themeType, obj)
-          }
-        }
-      })
+    // setChartTheme: function (themeType) {
+    //   var themes = {
+    //     wonderland: '../json/wonderland.json', // 配置主题的路径,
+    //     essos: '../json/essos.json'
+    //   }
+    //   $.ajax({
+    //     url: themes[themeType],
+    //     async: false,
+    //     success: function (data) {
+    //       var obj = data;
+    //       if (themeType) {
+    //         echarts.registerTheme(themeType, obj)
+    //       }
+    //     }
+    //   })
 
-      if (!this.opts.id) {
-        return
-      }
-      this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
-    },
+    //   if (!this.opts.id) {
+    //     return
+    //   }
+    //   this.chart = echarts.init(document.getElementById(this.opts.id), themeType);
+    // },
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
     setChartOptionTemplates: function () {
