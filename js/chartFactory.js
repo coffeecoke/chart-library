@@ -7,6 +7,9 @@
       'modules/chartDataFormate',
       'modules/chartCommonOption',
       'modules/pie',
+      'modules/pie1',
+      'modules/pie2',
+      'modules/pie3',
       'modules/scatter',
       'modules/line',
       'modules/bars',
@@ -29,6 +32,9 @@
   chartDataFormate,
   chartCommonOption,
   pieModule,
+  pie1,
+  pie2,
+  pie3,
   scatter,
   line,
   bars,
@@ -47,8 +53,7 @@
     asy: false,
     data: [],
     url: '',
-    themeType: ''
-
+    themeType: '',
   }
 
 
@@ -58,6 +63,9 @@
   $.extend(
     chartOptionTemplates,
     pieModule,
+    pie1,
+    pie2,
+    pie3,
     scatter,
     line,
     bars,

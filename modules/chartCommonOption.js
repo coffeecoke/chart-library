@@ -20,7 +20,7 @@ define([
       }
     },
     grid:{
-      left:'18%',
+      left:'20%',
       right:'10%'
     },
     legend: {

@@ -10,16 +10,28 @@ define([
       formatter: '{b} : {c} ({d}/%)',
       show: true
     },
+    grid:{
+      top:'0%',
+      left:'2%',
+      right:'2%',
+      bottom:'10%',
+    },
     legend: {
+      show:false,
       orient: 'horizontal',
       x: '10%',
-      data: []
+      data: [],
+      bottom: "20px",
+      show:true,
+      icon: 'circle',
+      itemWidth:8,
+      itemHeight:8,
     },
     series: [{
       name: "",
       type: 'pie',
-      radius: ['45%','55%'],
-      center: ['50%', '50%'],
+      radius:'45%',
+      center: ['50%','40%'],
     }]
   }
   // 饼图
@@ -27,15 +39,21 @@ define([
     var _self = this;
     var data = this.initData(obj)
     var fn = (function (obj) {
+      console.log(obj)
       return function () {
         var pie_datas = chartDataFormate.FormateNOGroupData(data);
         var option = {
           legend: {
+            show:false,
+            icon: 'circle',
+            itemWidth:8,
+            itemHeight:8,
             data: pie_datas.category
           },
           series: [{
             name: obj.name || "",
             data: pie_datas.data,
+            // radius:obj.radius || '50%',
           }]
         };
         var pieOptions = $.extend(true, pieCommonOption, option);
@@ -46,7 +64,6 @@ define([
     this.tasks.push(fn);
     return this;
   }
-
   return {
     pieCommonOption: pieCommonOption,
     pie:pie
