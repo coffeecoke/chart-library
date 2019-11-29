@@ -17,20 +17,40 @@
           <h4>饼状图</h4>
         </div>
         <div class="box-content">
-          <div class="module" id="testChart0" style="width:100%;height:300px;"></div>
+          <div class="module" id="pieChart1" style="width:100%;height:300px;"></div>
         </div>
       </div>
     </div>
     <div class="box">
-      <div class="padding-20">
-        <div class="box-header">
-          <h4>饼状图</h4>
-        </div>
-        <div class="box-content">
-          <div class="module" id="testChart1" style="width:100%;height:300px;"></div>
+        <div class="padding-20">
+          <div class="box-header">
+            <h4>饼状图</h4>
+          </div>
+          <div class="box-content">
+            <div class="module" id="pieChart2" style="width:100%;height:300px;"></div>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="box">
+          <div class="padding-20">
+            <div class="box-header">
+              <h4>饼状图</h4>
+            </div>
+            <div class="box-content">
+              <div class="module" id="pieChart3" style="width:100%;height:300px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+            <div class="padding-20">
+              <div class="box-header">
+                <h4>饼状图</h4>
+              </div>
+              <div class="box-content">
+                <div class="module" id="pieChart4" style="width:100%;height:300px;"></div>
+              </div>
+            </div>
+          </div>
     <div class="box">
       <div class="padding-20">
         <div class="box-header">
@@ -71,7 +91,16 @@
         </div>
       </div>
     </div>
-
+    <div class="box">
+        <div class="padding-20">
+          <div class="box-header">
+            <h4>饼状图</h4>
+          </div>
+          <div class="box-content">
+            <div class="module" id="testChart0" style="width:100%;height:300px;"></div>
+          </div>
+        </div>
+      </div>
     <!-- <div class="module" id="testChart3" style="width:80%;height:400px;"></div>
     <div class="module" id="testChart4" style="width:80%;height:400px;"></div> -->
     <!-- <div class="module" id="testChart5" style="width:80%;height:400px;"></div> -->
@@ -81,55 +110,8 @@
   <script src="require.config.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
-      var radarChart = new chartFactory({
-        id: 'testChart0',
-        themeType: 'customed',
-      })
-      radarChart.radar({
-        data: [{
-          name: '小型车',
-          group: '设计车位',
-          value: 40,
-          max: 100
-        }, {
-          name: '小型车',
-          group: '车辆数',
-          value: 30,
-          max: 100
-        }, {
-          name: '中型车',
-          group: '设计车位',
-          value: 54,
-          max: 100
-        }, {
-          name: '中型车',
-          group: '车辆数',
-          value: 53,
-          max: 100
-        }, {
-          name: '大型车',
-          group: '设计车位',
-          value: 63,
-          max: 100
-        }, {
-          name: '大型车',
-          group: '车辆数',
-          value: 53,
-          max: 100
-        }, {
-          name: '货车',
-          group: '设计车位',
-          value: 89,
-          max: 100
-        }, {
-          name: '货车',
-          group: '车辆数',
-          value: 73,
-          max: 100
-        }],
-      })
       var pieChart = new chartFactory({
-        id: 'testChart1',
+        id: 'pieChart1',
         themeType: 'customed'
       })
       pieChart.pie({
@@ -154,6 +136,93 @@
           }
         ]
       })
+      var pieChart = new chartFactory({
+        id: 'pieChart2',
+        themeType: 'customed'
+      })
+      pieChart.pie1({
+        data: [{
+            name: 'olive',
+            value: 40
+          },
+          {
+            name: 'only',
+            value: 30
+          },
+          {
+            name: 'momo',
+            value: 20
+          },{
+            name: 'ha',
+            value: 40
+          },
+          {
+            name: 'hei',
+            value: 30
+          }
+        ]
+      })
+      var pieChart = new chartFactory({
+        id: 'pieChart3',
+        themeType: 'customed'
+      })
+      pieChart.pie2({
+        radius:['45%','55%'],
+        data: [{
+            name: 'olive',
+            value: 40
+          },
+          {
+            name: 'only',
+            value: 30
+          },
+          {
+            name: 'momo',
+            value: 20
+          },{
+            name: 'ha',
+            value: 40
+          },
+          {
+            name: 'hei',
+            value: 30
+          }
+        ]
+      })
+      var pieChart = new chartFactory({
+        id: 'pieChart4',
+        themeType: 'customed'
+        
+      })
+      pieChart.pie3({
+        radius:['45%','55%'],
+        data: [{
+            name: 'olive',
+            value: 40
+          },
+          {
+            name: 'only',
+            value: 30
+          },
+          {
+            name: 'momo',
+            value: 20
+          },{
+            name: 'ha',
+            value: 40
+          },
+          {
+            name: 'hei',
+            value: 30
+          }
+        ]
+      })
+
+
+
+
+
+
 
       var chartObj = new chartFactory({
         id: 'testChart2',
@@ -327,7 +396,54 @@
           }
         ]
       })
-      // 风险地图
+      var radarChart = new chartFactory({
+        id: 'testChart0',
+        themeType: 'customed',
+      })
+      radarChart.radar({
+        data: [{
+          name: '小型车',
+          group: '设计车位',
+          value: 40,
+          max: 100
+        }, {
+          name: '小型车',
+          group: '车辆数',
+          value: 30,
+          max: 100
+        }, {
+          name: '中型车',
+          group: '设计车位',
+          value: 54,
+          max: 100
+        }, {
+          name: '中型车',
+          group: '车辆数',
+          value: 53,
+          max: 100
+        }, {
+          name: '大型车',
+          group: '设计车位',
+          value: 63,
+          max: 100
+        }, {
+          name: '大型车',
+          group: '车辆数',
+          value: 53,
+          max: 100
+        }, {
+          name: '货车',
+          group: '设计车位',
+          value: 89,
+          max: 100
+        }, {
+          name: '货车',
+          group: '车辆数',
+          value: 73,
+          max: 100
+        }],
+      })
+      //风险地图
       var riskMapChart = new chartFactory({
         id: 'testChart5',
         themeType: 'customed',
