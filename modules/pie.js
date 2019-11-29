@@ -65,7 +65,6 @@ define([
     return this;
   }
   return {
-    pieCommonOption: pieCommonOption,
     pie:pie
   }
 });

@@ -6,6 +6,7 @@ define([
   // 柱状图
   // 配置图表主题
   var setChartTheme=function (themeType,opts) {
+    var _this =this;
     var themes = {
       wonderland: '../json/wonderland.json', // 配置主题的路径,
       essos: '../json/essos.json',
