@@ -21,7 +21,6 @@ define([
           echarts.registerTheme(themeType, obj);
           _this.colors=data.color
         }
-        console.log(data)
       }
       
     })

@@ -8,7 +8,6 @@
       tooltip: {
         trigger: 'item',
         formatter: '{b} : {c} ({d}/%)',
-        show: false
       },
       grid:{
         top:'0%',
@@ -17,20 +16,22 @@
         bottom:'10%',
       },
       legend: {
-        orient: 'horizontal',
+        orient: 'vertical',
         x: 'center',
         data: [],
-        bottom: "40px",
         show:true,
         icon: 'circle',
+        bottom:30,
+        height: "20%",
         itemWidth:8,
         itemHeight:8,
+        padding:20
       },
       series: [{
         name: "",
         type: 'pie',
-        radius:['45%','55%'],
-        center: ['50%','40%'],
+        radius:['35%','45%'],
+        center: ['50%','30%'],
         label: {
           normal: {
               show: false
@@ -39,7 +40,7 @@
       }]
     }
     // 饼图
-    var pie3 = function (obj) {
+    var pieRingLegend = function (obj) {
       var _self = this;
       var data = this.initData(obj)
       var fn = (function (obj) {
@@ -69,7 +70,7 @@
     }
     return {
       pieCommonOption: pieCommonOption,
-      pie3:pie3
+      pieRingLegend:pieRingLegend
     }
   });
     

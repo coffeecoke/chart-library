@@ -21,13 +21,17 @@ define([
     },
     grid:{
       left:'20%',
-      right:'10%'
+      right:'20%'
     },
     legend: {
       data: []
     },
-    xAxis: [],
-    yAxis: [],
+    xAxis: [
+      
+    ],
+    yAxis: [
+      
+    ],
     series: []
 
   }

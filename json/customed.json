@@ -53,6 +53,7 @@
         "smooth": false
     },
     "bar": {
+        "barWidth":"30%",
         "itemStyle": {
             "normal": {
                 "barBorderWidth": 0,
@@ -248,7 +249,9 @@
             }
         }
     },
+    
     "categoryAxis": {
+        
         "axisLine": {
             "show": true,
             "lineStyle": {
@@ -265,7 +268,9 @@
             "show": true,
             "textStyle": {
                 "color": "#d8deec"
-            }
+            },
+            "interval":0,
+            "rotate":40
         },
         "splitLine": {
             "show": false,
@@ -292,6 +297,11 @@
                 "color": "#295093"
             }
         },
+        "nameTextStyle":{
+            "color":"#ffffff",
+            "align":"left",
+            "verticalAlign": "bottom"
+        },
         "axisTick": {
             "show": false,
             "lineStyle": {
@@ -303,6 +313,7 @@
             "textStyle": {
                 "color": "#FFF"
             }
+            
         },
         "splitLine": {
             "show": true,
@@ -339,7 +350,7 @@
         "axisLabel": {
             "show": true,
             "textStyle": {
-                "color": "#333"
+                "color": "#fff"
             }
         },
         "splitLine": {
