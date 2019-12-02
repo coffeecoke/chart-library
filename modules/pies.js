@@ -28,13 +28,12 @@ define([
       center: ['50%','45%'],
       labelLine: {
         normal: {
-            length: 35,
-            length2: 70,
-            lineStyle: {
-                type: 'solid'
-            }
+          length: 35,
+          length2: 70,
+          lineStyle: {
+              type: 'solid'
+          }
         }
-
       },
       label:{
         normal:{
@@ -68,16 +67,16 @@ define([
       formatter: '{b} : {d} %',
     },
     legend: {
-      orient: 'vertical',
-      x: 'center',
+      orient: 'horizontal',
       data: [],
       show:true,
       icon: 'circle',
       bottom:30,
-      height: "20%",
+      width:'50%',
+      // height: "20%",
       itemWidth:8,
       itemHeight:8,
-      padding:20
+      itemGap:20
     },
     series: [{
       name: "",
@@ -156,16 +155,16 @@ define([
       formatter: '{b} : {c} ({d}/%)',
     },
     legend: {
-      orient: 'vertical',
-      x: 'center',
+      orient: 'horizontal',
       data: [],
       show:true,
       icon: 'circle',
       bottom:30,
-      height: "20%",
+      width:'50%',
+      // height: "20%",
       itemWidth:8,
       itemHeight:8,
-      padding:20
+      itemGap:20
     },
     series: [{
       name: "",

@@ -1,2 +1,2 @@
 # chart-library
-基于echart图表的封装
+### echart图表的二次封装
