@@ -66,7 +66,6 @@ define([
     var _self = this;
     var data = this.initData(obj)
     var fn = (function (obj) {
-      console.log(obj)
       return function () {
         var pie_datas = chartDataFormate.FormateNOGroupData(data);
         var option = {

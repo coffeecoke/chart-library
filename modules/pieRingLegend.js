@@ -9,12 +9,6 @@
         trigger: 'item',
         formatter: '{b} : {c} ({d}/%)',
       },
-      grid:{
-        top:'0%',
-        left:'2%',
-        right:'2%',
-        bottom:'10%',
-      },
       legend: {
         orient: 'vertical',
         x: 'center',
