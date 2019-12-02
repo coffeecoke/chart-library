@@ -53,6 +53,23 @@ define([
           series: [{
             name: obj.name || "",
             data: pie_datas.data,
+            label: {
+              normal: {
+                  formatter: ['{d|{d}%}','{b|{b}}'].join('\n'),
+                  rich: {
+                      b: {
+                          color: '#fff',
+                          fontSize: 12,
+                          lineHeight: 20
+                      },
+                      d: {
+                          color: '#d0fffc',
+                          fontSize: 14,
+                          height: 20
+                      },
+                  },
+              }
+          },
             // radius:obj.radius || '50%',
           }]
         };
