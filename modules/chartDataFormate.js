@@ -104,7 +104,6 @@ define([
             symbol: data[i].symbol,
             symbolSize: data[i].symbolSize
           }
-          console.log(series_temp)
           break;
         case 'riskMap':
           var series_temp = {
@@ -126,6 +125,7 @@ define([
     }
     return {
       category: group,
+      // category: group.length > 1? group : [],
       indicator: util._unique(indicator),
       xAxis: xAxis,
       series: series

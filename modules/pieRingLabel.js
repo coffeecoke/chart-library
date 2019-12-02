@@ -10,12 +10,7 @@
         formatter: '{b} : {c} ({d}/%)',
         show: false
       },
-      grid:{
-        top:'0%',
-        left:'2%',
-        right:'2%',
-        bottom:'10%',
-      },
+      
       legend: {
         orient: 'horizontal',
         x: '10%',
@@ -29,12 +24,45 @@
       series: [{
         name: "",
         type: 'pie',
-        radius:['45%','55%'],
-        center: ['50%','40%'],
+        radius:['35%','45%'],
+        center: ['50%','45%'],
+        labelLine: {
+          normal: {
+              length: 40,
+              length2: 60,
+              lineStyle: {
+                  type: 'solid'
+              }
+          }
+  
+        },
+        label:{
+          normal:{
+            formatter: (params)=>{
+              return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+            },
+            align: 'center',
+            padding: [0, -56],
+            height: 60,
+            rich: {
+              b: {
+                  fontSize: 14,
+                  //lineHeight: 20,
+                  color: '#fff',
+              },
+              c: {
+                  fontSize: 14,
+                  //lineHeight:20,
+                  color: '#fff'
+              }
+  
+            }
+          }
+        }
       }]
     }
     // 饼图
-    var pie2 = function (obj) {
+    var pieRingLabel = function (obj) {
       var _self = this;
       var data = this.initData(obj)
       var fn = (function (obj) {
@@ -81,7 +109,7 @@
     }
     return {
       pieCommonOption: pieCommonOption,
-      pie2:pie2
+      pieRingLabel:pieRingLabel
     }
   });
     

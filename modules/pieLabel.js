@@ -10,12 +10,6 @@ define([
       formatter: '{b} : {c} ({d}/%)',
       show: true
     },
-    grid:{
-      top:'0%',
-      left:'2%',
-      right:'2%',
-      bottom:'10%',
-    },
     legend: {
       show:false,
       orient: 'horizontal',
@@ -31,15 +25,47 @@ define([
       name: "",
       type: 'pie',
       radius:'45%',
-      center: ['50%','40%'],
+      center: ['50%','45%'],
+      labelLine: {
+        normal: {
+            length: 35,
+            length2: 70,
+            lineStyle: {
+                type: 'solid'
+            }
+        }
+
+      },
+      label:{
+        normal:{
+          formatter: (params)=>{
+            return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+          },
+          align: 'center',
+          padding: [0, -56],
+          height: 66,
+          rich: {
+            b: {
+                fontSize: 14,
+                //lineHeight: 20,
+                color: '#fff',
+            },
+            c: {
+                fontSize: 14,
+                //lineHeight:20,
+                color: '#fff'
+            }
+
+          }
+        }
+      }
     }]
   }
   // 饼图
-  var pie = function (obj) {
+  var pieLabel = function (obj) {
     var _self = this;
     var data = this.initData(obj)
     var fn = (function (obj) {
-      console.log(obj)
       return function () {
         var pie_datas = chartDataFormate.FormateNOGroupData(data);
         var option = {
@@ -82,7 +108,7 @@ define([
     return this;
   }
   return {
-    pie:pie
+    pieLabel:pieLabel
   }
 });
   

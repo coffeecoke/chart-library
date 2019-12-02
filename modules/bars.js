@@ -35,7 +35,6 @@ define([
     var data = this.initData(obj)
     var fn = (function (obj) {
       return function () {
-
         var bars_dates = chartDataFormate.FormateGroupData(data, 'bar', obj.stack);
         var legendData = bars_dates.category;
         var yAxis = [{
