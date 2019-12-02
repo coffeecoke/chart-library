@@ -390,7 +390,37 @@
           name: '（家）'
         }]
       });
-      chartObj.line({
+      chartObj.bars({
+        url: '',
+        asy: false,
+        yAxisIndex: 1,
+        data: [{
+          name: '2014-01',
+          value: 240,
+          group: 'A1'
+        }, {
+          name: '2014-02',
+          value: 210,
+          group: 'A1'
+        }, {
+          name: '2014-03',
+          value: 142,
+          group: 'A1'
+        }, {
+          name: '2014-04',
+          value: 125,
+          group: 'A1'
+        }, {
+          name: '2014-05',
+          value: 112,
+          group: 'A1'
+        }, {
+          name: '2014-06',
+          value: 129,
+          group: 'A1'
+        }],
+
+      }).line({
         url: '',
         asy: false,
         data: [{
@@ -444,36 +474,6 @@
         }],
         yAxisIndex: 0,
         color: '',
-      }).bars({
-        url: '',
-        asy: false,
-        yAxisIndex: 1,
-        data: [{
-          name: '2014-01',
-          value: 240,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 210,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 142,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 125,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 112,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 129,
-          group: 'A1'
-        }],
-
       })
       //x轴为数据坐标
       var horizontalBarChart = new chartFactory({
