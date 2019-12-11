@@ -193,30 +193,11 @@ define([
       show:true,
       icon: 'circle',
       bottom:30,
-<<<<<<< HEAD
-      height: "25%",
-      itemWidth:8,
-      itemHeight:8,
-      padding:20,
-      formatter: function(name) {
-        let oa = pieRingLegendCommonOption.series[0].data;
-        let total = 0;
-        oa.forEach((item, index) => {
-            total += item.value;
-        });
-        for (let i = 0; i < oa.length; i++) {
-            if (name == oa[i].name) {
-              return name + '  ' + (oa[i].value / total * 100).toFixed(2)+'%';
-            }
-        }
-      },
-=======
       width:'50%',
       // height: "20%",
       itemWidth:8,
       itemHeight:8,
       itemGap:20
->>>>>>> 6af2f47fff75976d1223d283ab1813e07034f515
     },
     series: [{
       name: "",
