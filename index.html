@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="plugins/mxHeight/css/mxjs.css">
-  <link rel="stylesheet" href="pligins/mxHeight/css/prism.css">
+  <link href="plugins/mxHeight/css/prism.css" rel="stylesheet">
+  
 </head>
 
 <body>
@@ -166,8 +166,8 @@
   </div>
 
   <pre class="line-numbers">
-      <code class="language-markup">
-        
+      <code class="language-javascript" id="jsCode">
+          
       </code>
   </pre>
   <script src="js/require.js"></script>
@@ -207,8 +207,8 @@
       }
 
       objWrap.objContent()
-      console.log(objWrap.objContent)
-      $('.language-markup').text(objWrap.objContent.toString())
+      $('#jsCode').text(objWrap.objContent.toString())
+      Prism.highlightElement(document.getElementById('jsCode'),true);
       var pieChart = new chartFactory({
         id: 'pieChart2',
         themeType: 'customed'
