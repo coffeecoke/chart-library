@@ -26,10 +26,20 @@ define([
       type: 'pie',
       radius:'45%',
       center: ['50%','45%'],
+      // labelLine: {
+      //   normal: {
+      //       length: 22,
+      //       length2: 70,
+      //       lineStyle: {
+      //           type: 'solid'
+      //       }
+      //   }
+
+      // },
       labelLine: {
         normal: {
-          length: 35,
-          length2: 70,
+          length: 15,
+          length2: 15,
           lineStyle: {
               type: 'solid'
           }
@@ -72,11 +82,22 @@ define([
       show:true,
       icon: 'circle',
       bottom:30,
-      width:'50%',
-      // height: "20%",
+      itemGap: 15,
+      padding: 20,
       itemWidth:8,
       itemHeight:8,
-      itemGap:20
+      formatter: function(name) {
+        let oa = pieLegendCommonOption.series[0].data;
+        let total = 0;
+        oa.forEach((item, index) => {
+            total += item.value;
+        });
+        for (let i = 0; i < oa.length; i++) {
+            if (name == oa[i].name) {
+              return name + '  ' + (oa[i].value / total * 100).toFixed(2)+'%';
+            }
+        }
+      },
     },
     series: [{
       name: "",
@@ -160,11 +181,22 @@ define([
       show:true,
       icon: 'circle',
       bottom:30,
-      width:'50%',
-      // height: "20%",
+      height: "25%",
       itemWidth:8,
       itemHeight:8,
-      itemGap:20
+      padding:20,
+      formatter: function(name) {
+        let oa = pieRingLegendCommonOption.series[0].data;
+        let total = 0;
+        oa.forEach((item, index) => {
+            total += item.value;
+        });
+        for (let i = 0; i < oa.length; i++) {
+            if (name == oa[i].name) {
+              return name + '  ' + (oa[i].value / total * 100).toFixed(2)+'%';
+            }
+        }
+      },
     },
     series: [{
       name: "",
