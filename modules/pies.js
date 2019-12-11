@@ -41,12 +41,12 @@ define([
             return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
           },
           align: 'center',
-          padding: [0, -56],
-          height: 66,
+          // padding: [0, -56],
+          // height: 66,
           rich: {
             b: {
                 fontSize: 14,
-                //lineHeight: 20,
+                lineHeight: 20,
                 color: '#fff',
             },
             c: {
@@ -113,28 +113,28 @@ define([
       type: 'pie',
       radius:['35%','45%'],
       center: ['50%','45%'],
-      labelLine: {
-        normal: {
-            length: 40,
-            length2: 60,
-            lineStyle: {
-                type: 'solid'
-            }
-        }
+      // labelLine: {
+      //   normal: {
+      //       length: 30,
+      //       length2: 60,
+      //       lineStyle: {
+      //           type: 'solid'
+      //       }
+      //   }
 
-      },
+      // },
       label:{
         normal:{
           formatter: (params)=>{
             return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
           },
           align: 'center',
-          padding: [0, -56],
-          height: 60,
+          // padding: [0, -56],
+          // height: 60,
           rich: {
             b: {
                 fontSize: 14,
-                //lineHeight: 20,
+                lineHeight: 20,
                 color: '#fff',
             },
             c: {

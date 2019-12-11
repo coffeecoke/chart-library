@@ -15,11 +15,20 @@ define([
         var xAxis = [{
           type: 'category', //X轴均为category，Y轴均为value
           data: bars_dates.xAxis,
+          nameLocation:'end',
           boundaryGap: true //数值轴两端的空白策略
+        }];
+        var yAxis = [{
+          nameLocation:'end',
+          nameTextStyle:{
+            fontSize:12,  
+            padding:[0 ,0 ,0 ,-50]
+          },
         }];
         var series = bars_dates.series
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
         $.extend(true, _self.chartCommonOption.xAxis, xAxis)
+        $.extend(true, _self.chartCommonOption.yAxis, yAxis)
         _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
         _self.renderChart(_self.chartCommonOption)
         _self._next()
@@ -40,6 +49,9 @@ define([
         var yAxis = [{
           type: 'category', //X轴均为category，Y轴均为value
           data: bars_dates.xAxis,
+          axisLabel: {  
+            rotate:0  
+         } 
           //boundaryGap: true //数值轴两端的空白策略
         }];
         var series = bars_dates.series
