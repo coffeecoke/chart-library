@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="plugins/mxHeight/css/mxjs.css">
+  <link rel="stylesheet" href="pligins/mxHeight/css/prism.css">
 </head>
 
 <body>
@@ -162,36 +164,52 @@
       </div>
     </div>
   </div>
+
+  <pre class="line-numbers">
+      <code class="language-markup">
+        
+      </code>
+  </pre>
   <script src="js/require.js"></script>
   <script src="require.config.js"></script>
+  <script src="plugins/mxHeight/js/prism.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
-      var pieChart = new chartFactory({
-        id: 'pieChart1',
-        themeType: 'customed'
-      })
-      pieChart.pieLabel({
-        data: [{
-            name: '国有企业',
-            value: 40
-          },
-          {
-            name: '民营企业',
-            value: 30
-          },
-          {
-            name: '中外合资',
-            value: 20
-          }, {
-            name: '外商独资',
-            value: 40
-          },
-          {
-            name: '其他',
-            value: 30
-          }
-        ]
-      })
+      var objWrap = {
+        objContent: function () {
+          var pieChart = new chartFactory({
+            id: 'pieChart1',
+            themeType: 'customed'
+          })
+          pieChart.pieLabel({
+            data: [{
+                name: '国有企业',
+                value: 40
+              },
+              {
+                name: '民营企业',
+                value: 30
+              },
+              {
+                name: '中外合资',
+                value: 20
+              }, {
+                name: '外商独资',
+                value: 40
+              },
+              {
+                name: '其他',
+                value: 30
+              }
+            ]
+          })
+
+        }
+      }
+
+      objWrap.objContent()
+      console.log(objWrap.objContent)
+
       var pieChart = new chartFactory({
         id: 'pieChart2',
         themeType: 'customed'
@@ -218,6 +236,7 @@
           }
         ]
       })
+
       var pieChart = new chartFactory({
         id: 'pieChart3',
         themeType: 'customed'
