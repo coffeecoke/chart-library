@@ -167,7 +167,32 @@
 
   <pre class="line-numbers">
       <code class="language-markup">
-        
+        var pieChart = new chartFactory({
+          id: 'pieChart1',
+          themeType: '<span>customed</span>'
+        })
+        pieChart.pieLabel({
+          data: [{
+              name: '国有企业',
+              value: 40
+            },
+            {
+              name: '民营企业',
+              value: 30
+            },
+            {
+              name: '中外合资',
+              value: 20
+            }, {
+              name: '外商独资',
+              value: 40
+            },
+            {
+              name: '其他',
+              value: 30
+            }
+          ]
+        })
       </code>
   </pre>
   <script src="js/require.js"></script>
