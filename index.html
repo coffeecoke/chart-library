@@ -158,9 +158,12 @@
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
       var pieChart = new chartFactory({
         id: 'pieChart1',
-        themeType: 'customed'
+        themeType: 'essos'
       })
+        //同步执行
       pieChart.pieLabel({
+        url: '',
+        asy: false,
         data: [{
             name: '国有企业',
             value: 40
@@ -268,7 +271,7 @@
         themeType: 'customed',
         yAxis: [{
           type: 'value',
-          name: '(亿元)'
+          name: '(亿元)',
         }]
       });
       chartObj.line({
@@ -659,7 +662,12 @@
         themeType: 'customed',
         yAxis: [{
           type: 'value',
-          name: '（亿元)'
+          name: '（亿元)',
+          nameLocation:'end',
+          nameTextStyle:{
+              fontSize:12,  
+              padding:[0 ,0 ,0 ,-50]
+          },
         }]
       })
       barsChart2.bars({

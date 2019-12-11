@@ -17,9 +17,33 @@ define([
           data: stackline_datas.xAxis,
           boundaryGap: true //数值轴两端的空白策略
         }];
+        var yAxis = [{
+          nameLocation:'end',
+          nameTextStyle:{
+            fontSize:12,  
+            padding:[0 ,0 ,0 ,-50]
+          },
+        }];
+        var legend={
+          data: [],
+          icon: 'circle',
+          itemWidth:8,
+          itemHeight:8,
+        };
         var series = stackline_datas.series;
+        $.each(series,function (index, item) {
+          var itemStyle={
+              color: _self.colors[index],
+          }
+          var symbol='circle';
+          item.itemStyle = itemStyle;
+          item.symbol = symbol;
+          item.yAxis = yAxis;
+        })
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
         $.extend(true, _self.chartCommonOption.xAxis, xAxis)
+        $.extend(true, _self.chartCommonOption.legend, legend)
+        $.extend(true, _self.chartCommonOption.yAxis, yAxis)
         _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
         _self.renderChart(_self.chartCommonOption)
         _self._next()
@@ -41,6 +65,19 @@ define([
           data: stackline_datas.xAxis,
           boundaryGap: true //数值轴两端的空白策略
         }];
+        var yAxis = [{
+          nameLocation:'end',
+          nameTextStyle:{
+            fontSize:12,  
+            padding:[0 ,0 ,0 ,-50]
+          },
+        }];
+        var legend={
+          data: [],
+          icon: 'circle',
+          itemWidth:8,
+          itemHeight:8,
+        };
         var series = stackline_datas.series;
         $.each(series,function (index, item) {
           var currObjAreaStyle = {
@@ -58,10 +95,19 @@ define([
                 shadowBlur: 10
             }
           }
-          item.areaStyle = currObjAreaStyle
+          var itemStyle={
+              color: _self.colors[index],
+          }
+          var symbol='circle';
+          item.areaStyle = currObjAreaStyle;
+          item.itemStyle = itemStyle;
+          item.symbol = symbol;
+          item.yAxis = yAxis;
         })
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
         $.extend(true, _self.chartCommonOption.xAxis, xAxis)
+        $.extend(true, _self.chartCommonOption.legend, legend)
+        $.extend(true, _self.chartCommonOption.yAxis, yAxis)
         _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
         _self.renderChart(_self.chartCommonOption)
         _self._next()

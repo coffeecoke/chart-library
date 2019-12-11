@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .box-pie{
+    width:100%;
+    height:100%;
+    background: #dedede;
+  }
+.pie-left{
+  width:40%;
+  height:100%;
+  float: left;
+}
+.pie-right{
+  width:60%;
+  height:100%;
+  float: left;
+}
+.textarea{
+  width:100%;
+  height:100%;
+  padding:20px 0;
+  resize: none;
+}
+.box{
+  height:100%
+}
+.box-content{
+  height:100%
+}
+
+</style>
+<body>
+  <div class="box-pie">
+    <div class="pie-left">
+      <textarea class="textarea" name="textarea" id="textarea" cols="30" rows="10">
+        var pieChart = new chartFactory({
+              id: 'pieChart1',
+              themeType: 'essos'
+            })
+              //同步执行
+            pieChart.pieLabel({
+              url: '',
+              asy: false,
+              data: [{
+                  name: '国有企业',
+                  value: 40
+                },
+                {
+                  name: '民营企业',
+                  value: 30
+                },
+                {
+                  name: '中外合资',
+                  value: 20
+                }, {
+                  name: '外商独资',
+                  value: 40
+                },
+                {
+                  name: '其他',
+                  value: 30
+                }
+              ]
+            })
+      </textarea>
+    </div>
+    <div class="pie-right">
+      <div class="box">
+        <div class="padding-20">
+          <div class="box-content">
+            <div class="module" id="pieChart1" style="width:100%;height:630px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/require.js"></script>
+  <script src="require.config.js"></script>
+  <script>
+  require(['jquery', 'chartFactory'], function ($, chartFactory) {
+    $(".box-pie").css("height",$(window).height()-50);
+    var pieChart = new chartFactory({
+      id: 'pieChart1',
+      themeType: 'essos'
+    })
+      //同步执行
+    pieChart.pieLabel({
+      url: '',
+      asy: false,
+      data: [{
+          name: '国有企业',
+          value: 40
+        },
+        {
+          name: '民营企业',
+          value: 30
+        },
+        {
+          name: '中外合资',
+          value: 20
+        }, {
+          name: '外商独资',
+          value: 40
+        },
+        {
+          name: '其他',
+          value: 30
+        }
+      ]
+    })
+  })
+</script>
+</body>
+</html>

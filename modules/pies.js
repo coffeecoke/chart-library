@@ -26,28 +26,28 @@ define([
       type: 'pie',
       radius:'45%',
       center: ['50%','45%'],
-      labelLine: {
-        normal: {
-            length: 35,
-            length2: 70,
-            lineStyle: {
-                type: 'solid'
-            }
-        }
+      // labelLine: {
+      //   normal: {
+      //       length: 22,
+      //       length2: 70,
+      //       lineStyle: {
+      //           type: 'solid'
+      //       }
+      //   }
 
-      },
+      // },
       label:{
         normal:{
           formatter: (params)=>{
             return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
           },
           align: 'center',
-          padding: [0, -56],
-          height: 66,
+          // padding: [0, -56],
+          // height: 66,
           rich: {
             b: {
                 fontSize: 14,
-                //lineHeight: 20,
+                lineHeight: 20,
                 color: '#fff',
             },
             c: {
@@ -74,10 +74,23 @@ define([
       show:true,
       icon: 'circle',
       bottom:30,
-      height: "20%",
+      height:"20%",
       itemWidth:8,
       itemHeight:8,
-      padding:20
+      itemGap: 12,
+      padding: [30, 60],
+      formatter: function(name) {
+        let oa = pieLegendCommonOption.series[0].data;
+        let total = 0;
+        oa.forEach((item, index) => {
+            total += item.value;
+        });
+        for (let i = 0; i < oa.length; i++) {
+            if (name == oa[i].name) {
+              return name + '  ' + (oa[i].value / total * 100).toFixed(2)+'%';
+            }
+        }
+      },
     },
     series: [{
       name: "",
@@ -114,28 +127,28 @@ define([
       type: 'pie',
       radius:['35%','45%'],
       center: ['50%','45%'],
-      labelLine: {
-        normal: {
-            length: 40,
-            length2: 60,
-            lineStyle: {
-                type: 'solid'
-            }
-        }
+      // labelLine: {
+      //   normal: {
+      //       length: 30,
+      //       length2: 60,
+      //       lineStyle: {
+      //           type: 'solid'
+      //       }
+      //   }
 
-      },
+      // },
       label:{
         normal:{
           formatter: (params)=>{
             return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
           },
           align: 'center',
-          padding: [0, -56],
-          height: 60,
+          // padding: [0, -56],
+          // height: 60,
           rich: {
             b: {
                 fontSize: 14,
-                //lineHeight: 20,
+                lineHeight: 20,
                 color: '#fff',
             },
             c: {
@@ -162,10 +175,22 @@ define([
       show:true,
       icon: 'circle',
       bottom:30,
-      height: "20%",
+      height: "25%",
       itemWidth:8,
       itemHeight:8,
-      padding:20
+      padding:20,
+      formatter: function(name) {
+        let oa = pieRingLegendCommonOption.series[0].data;
+        let total = 0;
+        oa.forEach((item, index) => {
+            total += item.value;
+        });
+        for (let i = 0; i < oa.length; i++) {
+            if (name == oa[i].name) {
+              return name + '  ' + (oa[i].value / total * 100).toFixed(2)+'%';
+            }
+        }
+      },
     },
     series: [{
       name: "",
