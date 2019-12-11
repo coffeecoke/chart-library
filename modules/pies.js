@@ -26,6 +26,7 @@ define([
       type: 'pie',
       radius:'45%',
       center: ['50%','45%'],
+<<<<<<< HEAD
       // labelLine: {
       //   normal: {
       //       length: 22,
@@ -36,6 +37,17 @@ define([
       //   }
 
       // },
+=======
+      labelLine: {
+        normal: {
+          length: 35,
+          length2: 70,
+          lineStyle: {
+              type: 'solid'
+          }
+        }
+      },
+>>>>>>> 6af2f47fff75976d1223d283ab1813e07034f515
       label:{
         normal:{
           formatter: (params)=>{
@@ -68,12 +80,12 @@ define([
       formatter: '{b} : {d} %',
     },
     legend: {
-      orient: 'vertical',
-      x: 'center',
+      orient: 'horizontal',
       data: [],
       show:true,
       icon: 'circle',
       bottom:30,
+<<<<<<< HEAD
       height:"20%",
       itemWidth:8,
       itemHeight:8,
@@ -91,6 +103,13 @@ define([
             }
         }
       },
+=======
+      width:'50%',
+      // height: "20%",
+      itemWidth:8,
+      itemHeight:8,
+      itemGap:20
+>>>>>>> 6af2f47fff75976d1223d283ab1813e07034f515
     },
     series: [{
       name: "",
@@ -169,12 +188,12 @@ define([
       formatter: '{b} : {c} ({d}/%)',
     },
     legend: {
-      orient: 'vertical',
-      x: 'center',
+      orient: 'horizontal',
       data: [],
       show:true,
       icon: 'circle',
       bottom:30,
+<<<<<<< HEAD
       height: "25%",
       itemWidth:8,
       itemHeight:8,
@@ -191,6 +210,13 @@ define([
             }
         }
       },
+=======
+      width:'50%',
+      // height: "20%",
+      itemWidth:8,
+      itemHeight:8,
+      itemGap:20
+>>>>>>> 6af2f47fff75976d1223d283ab1813e07034f515
     },
     series: [{
       name: "",
