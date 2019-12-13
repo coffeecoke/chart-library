@@ -8,12 +8,12 @@
   <title>Document</title>
   <link rel="stylesheet" href="./css/common.css">
   <link href="plugins/mxHeight/css/prism.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
   <div class="container">
-    <div class="box">
+    <div class="box" data-chartobj="objWrap1">
       <div class="padding-20">
         <div class="box-header">
           <h4>饼状图</h4>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap2">
       <div class="padding-20">
         <div class="box-header">
           <h4>饼状图</h4>
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap3">
       <div class="padding-20">
         <div class="box-header">
           <h4>饼状图</h4>
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap4">
       <div class="padding-20">
         <div class="box-header">
           <h4>饼状图</h4>
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap5">
       <div class="padding-20">
         <div class="box-header">
           <h4>折线图</h4>
@@ -63,7 +63,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap6">
       <div class="padding-20">
         <div class="box-header">
           <h4>面积图</h4>
@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap7">
       <div class="padding-20">
         <div class="box-header">
           <h4>折线柱状混合图</h4>
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap8">
       <div class="padding-20">
         <div class="box-header">
           <h4>横向柱状图</h4>
@@ -93,7 +93,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap9">
       <div class="padding-20">
         <div class="box-header">
           <h4>多类别柱状图</h4>
@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap10">
       <div class="padding-20">
         <div class="box-header">
           <h4>单类别柱状图</h4>
@@ -113,7 +113,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap11">
       <div class="padding-20">
         <div class="box-header">
           <h4>堆叠柱状图</h4>
@@ -123,7 +123,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap12">
       <div class="padding-20">
         <div class="box-header">
           <h4>堆叠横向柱状图</h4>
@@ -133,7 +133,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap15">
       <div class="padding-20">
         <div class="box-header">
           <h4>地图</h4>
@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap14">
       <div class="padding-20">
         <div class="box-header">
           <h4>雷达图</h4>
@@ -153,7 +153,7 @@
         </div>
       </div>
     </div>
-    <div class="box">
+    <div class="box" data-chartobj="objWrap13">
       <div class="padding-20">
         <div class="box-header">
           <h4>散点图</h4>
@@ -164,22 +164,42 @@
       </div>
     </div>
   </div>
-
-  <pre class="line-numbers">
-      <code class="language-javascript" id="jsCode">
-          
-      </code>
-  </pre>
+  <!-- <div class="mask">
+  <div class="left-mask">
+      <pre class="line-numbers">
+          <code class="language-javascript" id="jsCode">
+              
+          </code>
+      </pre>
+  </div>
+  <div class="right-mask">
+    <div class="delect">
+      <img src="./images/del.png" alt="">
+    </div>
+    <div class="module" id="pieChart10" style="width:100%;height:600px;"></div>
+    <div class="themeBox">
+      <ul class="theme-list">
+        <li>download</li>
+        <li>主题1</li>
+        <li>主题2</li>
+        <li>主题3</li>
+      </ul>
+    </div>
+  </div>
+</div> -->
   <script src="js/require.js"></script>
   <script src="require.config.js"></script>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/mask.js"></script>
   <script src="plugins/mxHeight/js/prism.js"></script>
   <script>
     require(['jquery', 'chartFactory'], function ($, chartFactory) {
-      var objWrap = {
-        objContent: function () {
+      var chartFactoryWindow = window.chartFactoryWindow = {}
+      var objWrap1 = chartFactoryWindow.objWrap1 = {
+        objContent: function renderChart (chartId, theme) {
           var pieChart = new chartFactory({
-            id: 'pieChart1',
-            themeType: 'customed'
+            id: chartId,
+            themeType: theme || 'customed'
           })
           pieChart.pieLabel({
             data: [{
@@ -206,830 +226,907 @@
         }
       }
 
-      objWrap.objContent()
-      $('#jsCode').text(objWrap.objContent.toString())
-      Prism.highlightElement(document.getElementById('jsCode'),true);
-      var pieChart = new chartFactory({
-        id: 'pieChart2',
-        themeType: 'customed'
-      })
-      pieChart.pieLegend({
-        data: [{
-            name: '国有企业',
-            value: 40
-          },
-          {
-            name: '民营企业1111',
-            value: 30
-          },
-          {
-            name: '中外合资',
-            value: 20
-          },
-          {
-            name: '外商独资',
-            value: 40
-          },
-          {
-            name: '其他',
-            value: 30
-          }
-        ]
-      })
-
-      var pieChart = new chartFactory({
-        id: 'pieChart3',
-        themeType: 'customed'
-      })
-      pieChart.pieRingLabel({
-        radius: ['45%', '55%'],
-        data: [{
-            name: '国有企业',
-            value: 40
-          },
-          {
-            name: '民营企业',
-            value: 30
-          },
-          {
-            name: '中外合资',
-            value: 20
-          }, {
-            name: '外商独资',
-            value: 40
-          },
-          {
-            name: '其他',
-            value: 30
-          }
-        ]
-      })
-      var pieChart = new chartFactory({
-        id: 'pieChart4',
-        themeType: 'customed'
-
-      })
-      pieChart.pieRingLegend({
-        radius: ['45%', '55%'],
-        data: [{
-            name: '国有企业',
-            value: 40
-          },
-          {
-            name: '民营企业',
-            value: 30
-          },
-          {
-            name: '中外合资',
-            value: 20
-          }, {
-            name: '外商独资',
-            value: 40
-          },
-          {
-            name: '其他',
-            value: 30
-          }
-        ]
-      })
-      var chartObj = new chartFactory({
-        id: 'testChart2',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '(亿元)',
-        }]
-      });
-      chartObj.line({
-        url: '',
-        asy: false,
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A'
-        }, {
-          name: '2014-01',
-          value: 20,
-          group: 'B'
-        }, {
-          name: '2014-02',
-          value: 60,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 12,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 32,
-          group: 'A'
-        }, {
-          name: '2014-03',
-          value: 16,
-          group: 'B'
-        }, {
-          name: '2014-04',
-          value: 24,
-          group: 'A'
-        }, {
-          name: '2014-04',
-          value: 18,
-          group: 'B'
-        }, {
-          name: '2014-05',
-          value: 48,
-          group: 'A'
-        }, {
-          name: '2014-05',
-          value: 26,
-          group: 'B'
-        }, {
-          name: '2014-06',
-          value: 30,
-          group: 'A'
-        }, {
-          name: '2014-06',
-          value: 16,
-          group: 'B'
-        }],
-        yAxisIndex: 0,
-        color: '',
-      })
-      var chartObj = new chartFactory({
-        id: 'lineChart',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '（亿元）'
-        }]
-      });
-      chartObj.lineArea({
-        url: '',
-        asy: false,
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B'
-        }, {
-          name: '2014-02',
-          value: 34,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 34,
-          group: 'A'
-        }, {
-          name: '2014-03',
-          value: 16,
-          group: 'B'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'A'
-        }, {
-          name: '2014-04',
-          value: 14.5,
-          group: 'B'
-        }, {
-          name: '2014-05',
-          value: 15,
-          group: 'A'
-        }, {
-          name: '2014-05',
-          value: 14.5,
-          group: 'B'
-        }],
-      })
-      var chartObj = new chartFactory({
-        id: 'lineBarChart',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '亿元'
-        }, {
-          type: 'value',
-          name: '（家）'
-        }]
-      });
-      chartObj.bars({
-        url: '',
-        asy: false,
-        yAxisIndex: 1,
-        data: [{
-          name: '2014-01',
-          value: 240,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 210,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 142,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 125,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 112,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 129,
-          group: 'A1'
-        }],
-
-      }).line({
-        url: '',
-        asy: false,
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B'
-        }, {
-          name: '2014-02',
-          value: 100,
-          group: 'A'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B'
-        }, {
-          name: '2014-03',
-          value: 12,
-          group: 'A'
-        }, {
-          name: '2014-03',
-          value: 16,
-          group: 'B'
-        }, {
-          name: '2014-04',
-          value: 15,
-          group: 'A'
-        }, {
-          name: '2014-04',
-          value: 14.5,
-          group: 'B'
-        }, {
-          name: '2014-05',
-          value: 12,
-          group: 'A'
-        }, {
-          name: '2014-05',
-          value: 18,
-          group: 'B'
-        }, {
-          name: '2014-06',
-          value: 19,
-          group: 'A'
-        }, {
-          name: '2014-06',
-          value: 16,
-          group: 'B'
-        }],
-        yAxisIndex: 0,
-        color: '',
-      })
-      //x轴为数据坐标
-      var horizontalBarChart = new chartFactory({
-        id: 'testChart3',
-        themeType: 'customed',
-        xAxis: [{
-          type: 'value',
-          name: '（亿元）'
-        }]
-      })
-      horizontalBarChart.horizontalBar({
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'B1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 80,
-          group: 'B1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 60,
-          group: 'B1'
-        }]
-      })
-      var barsChart = new chartFactory({
-        id: 'testChart31',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '（亿元）'
-        }]
-      })
-      barsChart.bars({
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B1'
-        }, {
-          name: '2014-01',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B1'
-        }, {
-          name: '2014-02',
-          value: 15,
-          group: 'C1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-03',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'B1'
-        }, {
-          name: '2014-04',
-          value: 55,
-          group: 'C1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 80,
-          group: 'B1'
-        }, {
-          name: '2014-05',
-          value: 62,
-          group: 'C1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-06',
-          value: 40,
-          group: 'C1'
-        }]
-      })
-      var barsChart1 = new chartFactory({
-        id: 'testChart32',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '（亿元）'
-        }]
-      })
-      barsChart1.bars({
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }]
-      })
-
-      var barsChart2 = new chartFactory({
-        id: 'testChart33',
-        themeType: 'customed',
-        yAxis: [{
-          type: 'value',
-          name: '（亿元)',
-          nameLocation:'end',
-          nameTextStyle:{
-              fontSize:12,  
-              padding:[0 ,0 ,0 ,-50]
-          },
-        }]
-      })
-      barsChart2.bars({
-        stack: true,
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B1'
-        }, {
-          name: '2014-01',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B1'
-        }, {
-          name: '2014-02',
-          value: 15,
-          group: 'C1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-03',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'B1'
-        }, {
-          name: '2014-04',
-          value: 55,
-          group: 'C1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 80,
-          group: 'B1'
-        }, {
-          name: '2014-05',
-          value: 62,
-          group: 'C1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-06',
-          value: 40,
-          group: 'C1'
-        }]
-      })
-      //堆叠横向柱状图
-      var barsChart2 = new chartFactory({
-        id: 'testChart34',
-        themeType: 'customed',
-        xAxis: [{
-          type: 'value',
-          name: '（亿元)'
-        }]
-      })
-      barsChart2.horizontalBar({
-        stack: true,
-        data: [{
-          name: '2014-01',
-          value: 20,
-          group: 'A1'
-        }, {
-          name: '2014-01',
-          value: 40,
-          group: 'B1'
-        }, {
-          name: '2014-01',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-02',
-          value: 30,
-          group: 'A1'
-        }, {
-          name: '2014-02',
-          value: 10,
-          group: 'B1'
-        }, {
-          name: '2014-02',
-          value: 15,
-          group: 'C1'
-        }, {
-          name: '2014-03',
-          value: 200,
-          group: 'A1'
-        }, {
-          name: '2014-03',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-03',
-          value: 30,
-          group: 'C1'
-        }, {
-          name: '2014-04',
-          value: 50,
-          group: 'A1'
-        }, {
-          name: '2014-04',
-          value: 45,
-          group: 'B1'
-        }, {
-          name: '2014-04',
-          value: 55,
-          group: 'C1'
-        }, {
-          name: '2014-05',
-          value: 110,
-          group: 'A1'
-        }, {
-          name: '2014-05',
-          value: 80,
-          group: 'B1'
-        }, {
-          name: '2014-05',
-          value: 62,
-          group: 'C1'
-        }, {
-          name: '2014-06',
-          value: 90,
-          group: 'A1'
-        }, {
-          name: '2014-06',
-          value: 60,
-          group: 'B1'
-        }, {
-          name: '2014-06',
-          value: 40,
-          group: 'C1'
-        }]
-      })
-      // 散点图
-      var scatterChart = new chartFactory({
-        id: 'testChart4',
-        themeType: 'customed',
-        xAxis: [{
-          name: '（人数）'
-        }],
-        yAxis: [{
-          name: '（产值）'
-        }],
-      });
-      scatterChart.scatter({
-        data: [{
-            group: '2018',
-            value: [
-              [4.0, 8.04],
-              [8.0, 6.95],
-              [3.0, 7.58],
-              [9.0, 8.81],
-              [1.0, 8.33],
-            ],
-            symbol: '',
-            symbolSize: function (data) {
-              var size = data[0] + data[1]
-              return size * 2
-            },
-          },
-          {
-            group: '2019',
-            value: [
-              [4.0, 9.96],
-              [6.0, 7.24],
-              [4.0, 4.26],
-              [2.0, 9.84],
-              [7.0, 4.82],
-              [5.0, 5.68]
-            ],
-            symbol: '',
-            symbolSize: function (data) {
-              var size = data[0] + data[1]
-              return size * 2
-            },
-          }
-        ]
-      })
-      var radarChart = new chartFactory({
-        id: 'testChart0',
-        themeType: 'customed',
-      })
-      radarChart.radar({
-        data: [{
-          name: '小型车',
-          group: '设计车位',
-          value: 40,
-          max: 100
-        }, {
-          name: '小型车',
-          group: '车辆数',
-          value: 30,
-          max: 100
-        }, {
-          name: '中型车',
-          group: '设计车位',
-          value: 54,
-          max: 100
-        }, {
-          name: '中型车',
-          group: '车辆数',
-          value: 53,
-          max: 100
-        }, {
-          name: '大型车',
-          group: '设计车位',
-          value: 63,
-          max: 100
-        }, {
-          name: '大型车',
-          group: '车辆数',
-          value: 53,
-          max: 100
-        }, {
-          name: '货车',
-          group: '设计车位',
-          value: 89,
-          max: 100
-        }, {
-          name: '货车',
-          group: '车辆数',
-          value: 73,
-          max: 100
-        }],
-      })
-      //风险地图
-      var riskMapChart = new chartFactory({
-        id: 'testChart5',
-        themeType: 'customed',
-        url: '',
-      })
-      riskMapChart.riskMap({
-        geoJsonUrl: 'json/neimeng.json', //地图轮廓数据
-        map: 'hebei',
-        data: [{
-            group: '低风险',
-            geoCoordMap: {
-              "清水河县农村信用合作联社": [111.66198, 39.90922],
-              "呼和浩特市如意蒙银村镇银行股份有限公司": [111.7576, 40.8431],
-              "呼和浩特金桥河套村镇银行股份有限公司": [111.7077, 40.7813],
-              "内蒙古呼和浩特金谷农村商业银行股份有限公司": [111.4350, 40.4950],
-              "呼和浩特市玉泉蒙银村镇银行股份有限公司": [111.3959, 40.4740],
-            },
-            dataT: [{
-                name: '清水河县农村信用合作联社',
-                value: 20
-              },
-              {
-                name: '呼和浩特市如意蒙银村镇银行股份有限公司',
-                value: 30
-              },
-              {
-                name: '呼和浩特金桥河套村镇银行股份有限公司',
-                value: 38
-              },
-              {
-                name: '内蒙古呼和浩特金谷农村商业银行股份有限公司',
-                value: '19'
-              },
-              {
-                name: '呼和浩特市玉泉蒙银村镇银行股份有限公司',
-                value: '28'
-              },
-            ]
-          },
-          {
-            group: '高风险',
-            geoCoordMap: {
-              "呼和浩特金桥河套村镇银行股份有限公司": [111.7077, 40.7813],
-              "化德包商村镇银行有限责任公司": [114.01458, 41.8899],
-              "化德县农村信用合作联社": [114.035145, 41.911391],
-              "凉城县农村信用合作联社": [112.2926, 40.3151],
-              "察哈尔右翼后旗农村信用联社股份有限公司": [113.11882, 41.26893],
-              "丰镇市农村信用联社股份有限公司": [113.7451, 40.2615]
-            },
-            dataT: [{
-                name: '呼和浩特金桥河套村镇银行股份有限公司',
+      objWrap1.objContent('pieChart1', 'customed');
+      
+      var objWrap2 = chartFactoryWindow.objWrap2 = {
+        objContent: function (chartId, theme) {
+          var pieChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed'
+          })
+          pieChart.pieLegend({
+            data: [{
+                name: '国有企业',
                 value: 40
               },
               {
-                name: '化德包商村镇银行有限责任公司',
-                value: 46
+                name: '民营企业1111',
+                value: 30
               },
               {
-                name: '化德县农村信用合作联社',
-                value: 58
+                name: '中外合资',
+                value: 20
+              }, {
+                name: '外商独资',
+                value: 40
               },
               {
-                name: '凉城县农村信用合作联社',
-                value: 49
-              },
-              {
-                name: '察哈尔右翼后旗农村信用联社股份有限公司',
-                value: 62
-              },
-              {
-                name: '丰镇市农村信用联社股份有限公司',
-                value: 54
-              },
+                name: '其他',
+                value: 30
+              }
             ]
-          }
-        ]
-      })
+          })
+        }
+      }
+      objWrap2.objContent('pieChart2', 'customed');
 
+      var objWrap3 = chartFactoryWindow.objWrap3 = {
+        objContent: function (chartId, theme) {
+          var pieChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed'
+          })
+          pieChart.pieRingLabel({
+            radius: ['45%', '55%'],
+            data: [{
+                name: '国有企业',
+                value: 40
+              },
+              {
+                name: '民营企业',
+                value: 30
+              },
+              {
+                name: '中外合资',
+                value: 20
+              }, {
+                name: '外商独资',
+                value: 40
+              },
+              {
+                name: '其他',
+                value: 30
+              }
+            ]
+          })
+        }
+      }
+      objWrap3.objContent('pieChart3', 'customed');
+
+      var objWrap4 = chartFactoryWindow.objWrap4 = {
+        objContent: function (chartId, theme) {
+          var pieChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed'
+
+          })
+          pieChart.pieRingLegend({
+            radius: ['45%', '55%'],
+            data: [{
+                name: '国有企业',
+                value: 40
+              },
+              {
+                name: '民营企业',
+                value: 30
+              },
+              {
+                name: '中外合资',
+                value: 20
+              }, {
+                name: '外商独资',
+                value: 40
+              },
+              {
+                name: '其他',
+                value: 30
+              }
+            ]
+          })
+        }
+      }
+      objWrap4.objContent('pieChart4', 'customed');
+
+      var objWrap5 = chartFactoryWindow.objWrap5 = {
+        objContent: function (chartId, theme) {
+          var chartObj = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '(亿元)',
+            }]
+          });
+          chartObj.line({
+            url: '',
+            asy: false,
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A'
+            }, {
+              name: '2014-01',
+              value: 20,
+              group: 'B'
+            }, {
+              name: '2014-02',
+              value: 60,
+              group: 'A'
+            }, {
+              name: '2014-02',
+              value: 12,
+              group: 'B'
+            }, {
+              name: '2014-03',
+              value: 32,
+              group: 'A'
+            }, {
+              name: '2014-03',
+              value: 16,
+              group: 'B'
+            }, {
+              name: '2014-04',
+              value: 24,
+              group: 'A'
+            }, {
+              name: '2014-04',
+              value: 18,
+              group: 'B'
+            }, {
+              name: '2014-05',
+              value: 48,
+              group: 'A'
+            }, {
+              name: '2014-05',
+              value: 26,
+              group: 'B'
+            }, {
+              name: '2014-06',
+              value: 30,
+              group: 'A'
+            }, {
+              name: '2014-06',
+              value: 16,
+              group: 'B'
+            }],
+            yAxisIndex: 0,
+            color: '',
+          })
+        }
+      }
+      objWrap5.objContent('testChart2', 'customed');
+
+      var objWrap6 = chartFactoryWindow.objWrap6 = {
+        objContent: function (chartId, theme) {
+          var chartObj = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '（亿元）'
+            }]
+          });
+          chartObj.lineArea({
+            url: '',
+            asy: false,
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B'
+            }, {
+              name: '2014-02',
+              value: 34,
+              group: 'A'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B'
+            }, {
+              name: '2014-03',
+              value: 34,
+              group: 'A'
+            }, {
+              name: '2014-03',
+              value: 16,
+              group: 'B'
+            }, {
+              name: '2014-04',
+              value: 45,
+              group: 'A'
+            }, {
+              name: '2014-04',
+              value: 14.5,
+              group: 'B'
+            }, {
+              name: '2014-05',
+              value: 15,
+              group: 'A'
+            }, {
+              name: '2014-05',
+              value: 14.5,
+              group: 'B'
+            }],
+          })
+        }
+      }
+      objWrap6.objContent('lineChart', 'customed');
+
+      var objWrap7 = chartFactoryWindow.objWrap7 = {
+        objContent: function (chartId, theme) {
+          var chartObj = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '亿元'
+            }, {
+              type: 'value',
+              name: '（家）'
+            }]
+          });
+          chartObj.bars({
+            url: '',
+            asy: false,
+            yAxisIndex: 1,
+            data: [{
+              name: '2014-01',
+              value: 240,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 210,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 142,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 125,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 112,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 129,
+              group: 'A1'
+            }],
+
+          }).line({
+            url: '',
+            asy: false,
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B'
+            }, {
+              name: '2014-02',
+              value: 100,
+              group: 'A'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B'
+            }, {
+              name: '2014-03',
+              value: 12,
+              group: 'A'
+            }, {
+              name: '2014-03',
+              value: 16,
+              group: 'B'
+            }, {
+              name: '2014-04',
+              value: 15,
+              group: 'A'
+            }, {
+              name: '2014-04',
+              value: 14.5,
+              group: 'B'
+            }, {
+              name: '2014-05',
+              value: 12,
+              group: 'A'
+            }, {
+              name: '2014-05',
+              value: 18,
+              group: 'B'
+            }, {
+              name: '2014-06',
+              value: 19,
+              group: 'A'
+            }, {
+              name: '2014-06',
+              value: 16,
+              group: 'B'
+            }],
+            yAxisIndex: 0,
+            color: '',
+          })
+        }
+      }
+      objWrap7.objContent('lineBarChart', 'customed');
+
+
+      //x轴为数据坐标
+      var objWrap8 = chartFactoryWindow.objWrap8 = {
+        objContent: function (chartId, theme) {
+          var horizontalBarChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            xAxis: [{
+              type: 'value',
+              name: '（亿元）'
+            }]
+          })
+          horizontalBarChart.horizontalBar({
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A1'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B1'
+            }, {
+              name: '2014-02',
+              value: 30,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B1'
+            }, {
+              name: '2014-03',
+              value: 200,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-04',
+              value: 50,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 45,
+              group: 'B1'
+            }, {
+              name: '2014-05',
+              value: 110,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 80,
+              group: 'B1'
+            }, {
+              name: '2014-06',
+              value: 90,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 60,
+              group: 'B1'
+            }]
+          })
+        }
+      }
+      objWrap8.objContent('testChart3', 'customed');
+
+      var objWrap9 = chartFactoryWindow.objWrap9 = {
+        objContent: function (chartId, theme) {
+          var barsChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '（亿元）'
+            }]
+          })
+          barsChart.bars({
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A1'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B1'
+            }, {
+              name: '2014-01',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-02',
+              value: 30,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B1'
+            }, {
+              name: '2014-02',
+              value: 15,
+              group: 'C1'
+            }, {
+              name: '2014-03',
+              value: 200,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-03',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-04',
+              value: 50,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 45,
+              group: 'B1'
+            }, {
+              name: '2014-04',
+              value: 55,
+              group: 'C1'
+            }, {
+              name: '2014-05',
+              value: 110,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 80,
+              group: 'B1'
+            }, {
+              name: '2014-05',
+              value: 62,
+              group: 'C1'
+            }, {
+              name: '2014-06',
+              value: 90,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-06',
+              value: 40,
+              group: 'C1'
+            }]
+          })
+        }
+      }
+      objWrap9.objContent('testChart31', 'customed');
+
+      var objWrap10 = chartFactoryWindow.objWrap10 = {
+        objContent: function (chartId, theme) {
+          var barsChart1 = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '（亿元）'
+            }]
+          })
+          barsChart1.bars({
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 30,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 200,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 50,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 110,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 90,
+              group: 'A1'
+            }]
+          })
+        }
+      }
+      objWrap10.objContent('testChart32', 'customed');
+
+      var objWrap11 = chartFactoryWindow.objWrap11 = {
+        objContent: function (chartId, theme) {
+          var barsChart2 = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            yAxis: [{
+              type: 'value',
+              name: '（亿元)',
+              nameLocation: 'end',
+              nameTextStyle: {
+                fontSize: 12,
+                padding: [0, 0, 0, -50]
+              },
+            }]
+          })
+          barsChart2.bars({
+            stack: true,
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A1'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B1'
+            }, {
+              name: '2014-01',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-02',
+              value: 30,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B1'
+            }, {
+              name: '2014-02',
+              value: 15,
+              group: 'C1'
+            }, {
+              name: '2014-03',
+              value: 200,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-03',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-04',
+              value: 50,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 45,
+              group: 'B1'
+            }, {
+              name: '2014-04',
+              value: 55,
+              group: 'C1'
+            }, {
+              name: '2014-05',
+              value: 110,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 80,
+              group: 'B1'
+            }, {
+              name: '2014-05',
+              value: 62,
+              group: 'C1'
+            }, {
+              name: '2014-06',
+              value: 90,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-06',
+              value: 40,
+              group: 'C1'
+            }]
+          })
+        }
+      }
+      objWrap11.objContent('testChart33', 'customed');
+      //堆叠横向柱状图
+      var objWrap12 = chartFactoryWindow.objWrap12 = {
+        objContent: function (chartId, theme) {
+          var barsChart2 = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            xAxis: [{
+              type: 'value',
+              name: '（亿元)'
+            }]
+          })
+          barsChart2.horizontalBar({
+            stack: true,
+            data: [{
+              name: '2014-01',
+              value: 20,
+              group: 'A1'
+            }, {
+              name: '2014-01',
+              value: 40,
+              group: 'B1'
+            }, {
+              name: '2014-01',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-02',
+              value: 30,
+              group: 'A1'
+            }, {
+              name: '2014-02',
+              value: 10,
+              group: 'B1'
+            }, {
+              name: '2014-02',
+              value: 15,
+              group: 'C1'
+            }, {
+              name: '2014-03',
+              value: 200,
+              group: 'A1'
+            }, {
+              name: '2014-03',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-03',
+              value: 30,
+              group: 'C1'
+            }, {
+              name: '2014-04',
+              value: 50,
+              group: 'A1'
+            }, {
+              name: '2014-04',
+              value: 45,
+              group: 'B1'
+            }, {
+              name: '2014-04',
+              value: 55,
+              group: 'C1'
+            }, {
+              name: '2014-05',
+              value: 110,
+              group: 'A1'
+            }, {
+              name: '2014-05',
+              value: 80,
+              group: 'B1'
+            }, {
+              name: '2014-05',
+              value: 62,
+              group: 'C1'
+            }, {
+              name: '2014-06',
+              value: 90,
+              group: 'A1'
+            }, {
+              name: '2014-06',
+              value: 60,
+              group: 'B1'
+            }, {
+              name: '2014-06',
+              value: 40,
+              group: 'C1'
+            }]
+          })
+        }
+      }
+      objWrap12.objContent('testChart34', 'customed');
+      // 散点图
+      var objWrap13 = chartFactoryWindow.objWrap13 = {
+        objContent: function (chartId, theme) {
+          var scatterChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            xAxis: [{
+              name: '（人数）'
+            }],
+            yAxis: [{
+              name: '（产值）'
+            }],
+          });
+          scatterChart.scatter({
+            data: [{
+                group: '2018',
+                value: [
+                  [4.0, 8.04],
+                  [8.0, 6.95],
+                  [3.0, 7.58],
+                  [9.0, 8.81],
+                  [1.0, 8.33],
+                ],
+                symbol: '',
+                symbolSize: function (data) {
+                  var size = data[0] + data[1]
+                  return size * 2
+                },
+              },
+              {
+                group: '2019',
+                value: [
+                  [4.0, 9.96],
+                  [6.0, 7.24],
+                  [4.0, 4.26],
+                  [2.0, 9.84],
+                  [7.0, 4.82],
+                  [5.0, 5.68]
+                ],
+                symbol: '',
+                symbolSize: function (data) {
+                  var size = data[0] + data[1]
+                  return size * 2
+                },
+              }
+            ]
+          })
+        }
+      }
+      objWrap13.objContent('testChart4', 'customed');
+
+      var objWrap14 = chartFactoryWindow.objWrap14 = {
+        objContent: function (chartId, theme) {
+          var radarChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+          })
+          radarChart.radar({
+            data: [{
+              name: '小型车',
+              group: '设计车位',
+              value: 40,
+              max: 100
+            }, {
+              name: '小型车',
+              group: '车辆数',
+              value: 30,
+              max: 100
+            }, {
+              name: '中型车',
+              group: '设计车位',
+              value: 54,
+              max: 100
+            }, {
+              name: '中型车',
+              group: '车辆数',
+              value: 53,
+              max: 100
+            }, {
+              name: '大型车',
+              group: '设计车位',
+              value: 63,
+              max: 100
+            }, {
+              name: '大型车',
+              group: '车辆数',
+              value: 53,
+              max: 100
+            }, {
+              name: '货车',
+              group: '设计车位',
+              value: 89,
+              max: 100
+            }, {
+              name: '货车',
+              group: '车辆数',
+              value: 73,
+              max: 100
+            }],
+          })
+        }
+      }
+      objWrap14.objContent('testChart0', 'customed');
+      //风险地图
+      var objWrap15 = chartFactoryWindow.objWrap15 = {
+        objContent: function (chartId, theme) {
+          var riskMapChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            url: '',
+          })
+          riskMapChart.riskMap({
+            geoJsonUrl: 'json/neimeng.json', //地图轮廓数据
+            map: 'hebei',
+            data: [{
+                group: '低风险',
+                geoCoordMap: {
+                  "清水河县农村信用合作联社": [111.66198, 39.90922],
+                  "呼和浩特市如意蒙银村镇银行股份有限公司": [111.7576, 40.8431],
+                  "呼和浩特金桥河套村镇银行股份有限公司": [111.7077, 40.7813],
+                  "内蒙古呼和浩特金谷农村商业银行股份有限公司": [111.4350, 40.4950],
+                  "呼和浩特市玉泉蒙银村镇银行股份有限公司": [111.3959, 40.4740],
+                },
+                dataT: [{
+                    name: '清水河县农村信用合作联社',
+                    value: 20
+                  },
+                  {
+                    name: '呼和浩特市如意蒙银村镇银行股份有限公司',
+                    value: 30
+                  },
+                  {
+                    name: '呼和浩特金桥河套村镇银行股份有限公司',
+                    value: 38
+                  },
+                  {
+                    name: '内蒙古呼和浩特金谷农村商业银行股份有限公司',
+                    value: '19'
+                  },
+                  {
+                    name: '呼和浩特市玉泉蒙银村镇银行股份有限公司',
+                    value: '28'
+                  },
+                ]
+              },
+              {
+                group: '高风险',
+                geoCoordMap: {
+                  "呼和浩特金桥河套村镇银行股份有限公司": [111.7077, 40.7813],
+                  "化德包商村镇银行有限责任公司": [114.01458, 41.8899],
+                  "化德县农村信用合作联社": [114.035145, 41.911391],
+                  "凉城县农村信用合作联社": [112.2926, 40.3151],
+                  "察哈尔右翼后旗农村信用联社股份有限公司": [113.11882, 41.26893],
+                  "丰镇市农村信用联社股份有限公司": [113.7451, 40.2615]
+                },
+                dataT: [{
+                    name: '呼和浩特金桥河套村镇银行股份有限公司',
+                    value: 40
+                  },
+                  {
+                    name: '化德包商村镇银行有限责任公司',
+                    value: 46
+                  },
+                  {
+                    name: '化德县农村信用合作联社',
+                    value: 58
+                  },
+                  {
+                    name: '凉城县农村信用合作联社',
+                    value: 49
+                  },
+                  {
+                    name: '察哈尔右翼后旗农村信用联社股份有限公司',
+                    value: 62
+                  },
+                  {
+                    name: '丰镇市农村信用联社股份有限公司',
+                    value: 54
+                  },
+                ]
+              }
+            ]
+          })
+        }
+      }
+      objWrap15.objContent('testChart5', 'customed');
     })
   </script>
+  <!-- <script src="./js/mask.js"></script> -->
 </body>
 
 </html>

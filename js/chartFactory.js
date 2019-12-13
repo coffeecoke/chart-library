@@ -47,9 +47,6 @@
     url: '',
     themeType: '',
   }
-
-
-
   // 各种类型图表胚子
   var chartOptionTemplates = {}
   $.extend(
@@ -111,9 +108,6 @@
         data = obj.data
       }
       return data
-    
-    
-    
     },
     chartDataFormate: function (data) {},
     // ChartFactory原型扩展api
@@ -122,8 +116,9 @@
     },
     renderChart: function (chartOptions) {
       if (this.tasks && this.tasks.length === 0) {
-        this.chart.setOption(chartOptions)
-        this.resize()
+          this.chart.clear();
+          this.chart.setOption(chartOptions)
+          this.resize();
       }
     },
     resize: function () {
