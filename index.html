@@ -13,6 +13,11 @@
 
 <body>
   <div class="container">
+    <div class="boxchart-theme-list">
+      <span data-theme="customed" style="color:#fff">主题1</span>
+      <span data-theme="essos" style="color:#fff">主题2</span>
+      <span data-theme="wonderland" style="color:#fff">主题3</span>
+    </div>
     <div class="box" data-chartobj="objWrap1">
       <div class="padding-20">
         <div class="box-header">
@@ -164,36 +169,16 @@
       </div>
     </div>
   </div>
-  <!-- <div class="mask">
-  <div class="left-mask">
-      <pre class="line-numbers">
-          <code class="language-javascript" id="jsCode">
-              
-          </code>
-      </pre>
-  </div>
-  <div class="right-mask">
-    <div class="delect">
-      <img src="./images/del.png" alt="">
-    </div>
-    <div class="module" id="pieChart10" style="width:100%;height:600px;"></div>
-    <div class="themeBox">
-      <ul class="theme-list">
-        <li>download</li>
-        <li>主题1</li>
-        <li>主题2</li>
-        <li>主题3</li>
-      </ul>
-    </div>
-  </div>
-</div> -->
+ 
   <script src="js/require.js"></script>
   <script src="require.config.js"></script>
   <script src="js/jquery-2.1.4.min.js"></script>
+  <!-- <script src="js/echarts.js"></script> -->
   <script src="js/mask.js"></script>
   <script src="plugins/mxHeight/js/prism.js"></script>
   <script>
-    require(['jquery', 'chartFactory'], function ($, chartFactory) {
+    require(['jquery', 'chartFactory','echarts'], function ($, chartFactory,echarts) {
+      window.echarts = echarts
       var chartFactoryWindow = window.chartFactoryWindow = {}
       var objWrap1 = chartFactoryWindow.objWrap1 = {
         objContent: function renderChart (chartId, theme) {

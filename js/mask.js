@@ -34,14 +34,38 @@ $(".container").on("click", ".box", function () {
   $('.mask #jsCode').text(codeString)
   Prism.highlightElement(document.getElementById('jsCode'), true);
   chartFactoryWindow[chartobj].objContent(chartId,'customed');
-  
-  $(document).on("click",".theme-list li",function () {
-    
+  $('.theme-list li').on("click",function () {
+    var modelChart = echarts.getInstanceByDom(document.getElementById(chartId));
     var chartTheme = $(this).data('theme');
-    chartFactoryWindow[chartobj].objContent(chartId,chartTheme)
+    if(modelChart) {
+      echarts.dispose(modelChart);
+      chartFactoryWindow[chartobj].objContent(chartId,chartTheme)
+    }
+  })
 
+  $('.delect').on("click",function () {
+    var modelChart = echarts.getInstanceByDom(document.getElementById(chartId));
+    if(modelChart) {
+      echarts.dispose(modelChart);
+    }
+    $(this).parents(".mask").remove()
   })
 })
-$(document).on("click",".delect",function () {
-  $(this).parents(".mask").remove()
+$('.boxchart-theme-list span').on('click',function () {
+  var theme = $(this).data('theme')
+  renderBoxChartTheme(theme)
 })
+function renderBoxChartTheme (theme) {
+  $('.module').each(function () {
+    var chartId = $(this).attr('id')
+    var chart = echarts.getInstanceByDom(document.getElementById(chartId));
+    if(chart) {
+      echarts.dispose(chart);
+      var chartobj = $(this).parents('.box').data('chartobj')
+      chartFactoryWindow[chartobj].objContent(chartId,theme)
+    }
+  })
+}
+
+
+
