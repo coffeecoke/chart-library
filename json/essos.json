@@ -48,6 +48,7 @@
         "smooth": true
     },
     "bar": {
+        "barWidth":"30%",
         "itemStyle": {
             "normal": {
                 "barBorderWidth": 0,
