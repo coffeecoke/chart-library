@@ -1,4 +1,6 @@
+var boxTheme;
 $(".container").on("click", ".box", function () {
+  var chartTheme;
   var chartobj = $(this).data('chartobj')
   if(!chartFactoryWindow[chartobj]) {
     return;
@@ -36,13 +38,18 @@ $(".container").on("click", ".box", function () {
   chartFactoryWindow[chartobj].objContent(chartId,'customed');
   $('.theme-list li').on("click",function () {
     var modelChart = echarts.getInstanceByDom(document.getElementById(chartId));
-    var chartTheme = $(this).data('theme');
+    chartTheme = $(this).data('theme');
     if(modelChart) {
       echarts.dispose(modelChart);
       chartFactoryWindow[chartobj].objContent(chartId,chartTheme)
+      var codeChartTheme = '"'+chartTheme+'"'
+      $('.string').eq(0).text(codeChartTheme)
     }
   })
-
+  var timer = setTimeout(function () {
+    clearTimeout(timer)
+    $(".theme-list li[data-theme="+boxTheme+"]").click()
+  },150)
   $('.delect').on("click",function () {
     var modelChart = echarts.getInstanceByDom(document.getElementById(chartId));
     if(modelChart) {
@@ -52,9 +59,11 @@ $(".container").on("click", ".box", function () {
   })
 })
 $('.boxchart-theme-list span').on('click',function () {
-  var theme = $(this).data('theme')
-  renderBoxChartTheme(theme)
+  boxTheme = $(this).data('theme')
+  renderBoxChartTheme(boxTheme)
+  
 })
+
 function renderBoxChartTheme (theme) {
   $('.module').each(function () {
     var chartId = $(this).attr('id')
