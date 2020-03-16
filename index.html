@@ -171,7 +171,7 @@
     <div class="box" data-chartobj="objWrap13">
         <div class="padding-20">
           <div class="box-header">
-            <h4>散点图</h4>
+            <h4>盾牌图</h4>
           </div>
           <div class="box-content">
             <div class="processFiled"></div>
@@ -179,20 +179,18 @@
         </div>
       </div>
   </div>
- 
-  <script src="js/require.js"></script>
-  <script src="require.config.js"></script>
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/lodash//lodash-core-4.17.10.js"></script>
-  <script src="js/progressCanvas.js"></script>
-  <!-- <script src="js/echarts.js"></script> -->
   <script src="js/mask.js"></script>
   <script src="plugins/mxHeight/js/prism.js"></script>
+  <script src="js/progressCanvas.js"></script>
+  <script src="js/require.js"></script>
+  <script src="require.config.js"></script>
   <script>
   var initProgress = function() {
 	    var opts={
 	        width:350,
-	        height:350,
+	        height:300,
 	        bgColors:'#111',
 	        lineCap:'round',
 	        showShadow:true,
@@ -205,10 +203,11 @@
 	        shadowBlur:5
 	    };
 	    shieldProgress=new ProgressUtil.default(opts);
-	    shieldProgress.render();
+      shieldProgress.render();
+      shieldProgress.update(65);
   };
   initProgress()
-    require(['jquery', 'chartFactory','echarts'], function ($, chartFactory,echarts) {
+  require(['jquery', 'chartFactory','echarts'], function ($, chartFactory,echarts) {
       window.echarts = echarts
       var chartFactoryWindow = window.chartFactoryWindow = {}
       var objWrap1 = chartFactoryWindow.objWrap1 = {
