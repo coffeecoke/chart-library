@@ -178,6 +178,26 @@
           </div>
         </div>
       </div>
+      <div class="box" data-chartobj="objWrap16">
+        <div class="padding-20">
+          <div class="box-header">
+            <h4>象形柱状图</h4>
+          </div>
+          <div class="box-content">
+            <div class="module" id="pictorialBar1" style="width:100%;height:300px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="box" data-chartobj="objWrap17">
+        <div class="padding-20">
+          <div class="box-header">
+            <h4>饼状图</h4>
+          </div>
+          <div class="box-content">
+            <div class="module" id="pieChart5" style="width:100%;height:300px;"></div>
+          </div>
+        </div>
+      </div>
   </div>
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/lodash//lodash-core-4.17.10.js"></script>
@@ -204,7 +224,7 @@
 	    };
 	    shieldProgress=new ProgressUtil.default(opts);
       shieldProgress.render();
-      shieldProgress.update(65);
+      shieldProgress.update(100);
   };
   initProgress()
   require(['jquery', 'chartFactory','echarts'], function ($, chartFactory,echarts) {
@@ -241,7 +261,7 @@
         }
       }
 
-      objWrap1.objContent('pieChart1', 'customed');
+      objWrap1.objContent('pieChart1', 'customed11');
       
       var objWrap2 = chartFactoryWindow.objWrap2 = {
         objContent: function (chartId, theme) {
@@ -1139,7 +1159,111 @@
         }
       }
       objWrap15.objContent('testChart5', 'customed');
+
+
+      var objWrap16 = chartFactoryWindow.objWrap16 = {
+        objContent: function (chartId, theme) {
+          var barsChart2 = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed',
+            xAxis: [{
+              type: 'value',
+              name: '（亿元)'
+            }]
+          })
+          barsChart2.pictorialBar({
+            type: 'pictorialBar',
+            symbol: 'rect',
+            symbolRepeat: 'fixed',
+            symbolMargin: '20%',
+            symbolClip: true,
+            symbolSize: [6,20],
+            symbolBoundingData: 2000,
+            data: [{
+              name: '小型车',
+              group: '设计车位',
+              value: 40,
+              max: 100
+            }, {
+              name: '小型车',
+              group: '车辆数',
+              value: 30,
+              max: 100
+            }, {
+              name: '中型车',
+              group: '设计车位',
+              value: 54,
+              max: 100
+            }, {
+              name: '中型车',
+              group: '车辆数',
+              value: 53,
+              max: 100
+            }, {
+              name: '大型车',
+              group: '设计车位',
+              value: 63,
+              max: 100
+            }, {
+              name: '大型车',
+              group: '车辆数',
+              value: 53,
+              max: 100
+            }, {
+              name: '货车',
+              group: '设计车位',
+              value: 89,
+              max: 100
+            }, {
+              name: '货车',
+              group: '车辆数',
+              value: 73,
+              max: 100
+            }],z: 99999999,
+            animationEasing: 'elasticOut',
+            animationDelay: function(dataIndex, params) {
+                return params.index * 30;
+            }
+        })
+        }
+      }
+      objWrap16.objContent('pictorialBar1', 'customed');
+
+      var objWrap17 = chartFactoryWindow.objWrap17 = {
+        objContent: function renderChart (chartId, theme) {
+          var pieChart = new chartFactory({
+            id: chartId,
+            themeType: theme || 'customed'
+          })
+          pieChart.pieLabel1({
+            data: [{
+                name: '国有企业',
+                value: 40
+              },
+              {
+                name: '民营企业',
+                value: 30
+              },
+              {
+                name: '中外合资',
+                value: 20
+              }, {
+                name: '外商独资',
+                value: 40
+              },
+              {
+                name: '其他',
+                value: 30
+              }
+            ]
+          })
+        }
+      }
+
+      objWrap17.objContent('pieChart5', 'customed');
+      
     })
+
   </script>
   <!-- <script src="./js/mask.js"></script> -->
 </body>

@@ -34,8 +34,65 @@ define([
       //           type: 'solid'
       //       }
       //   }
-
       // },
+      labelLine: {
+        normal: {
+          length: 15,
+          length2: 15,
+          lineStyle: {
+              type: 'solid'
+          }
+        }
+      },
+      label:{
+        normal:{
+          formatter: (params)=>{
+            return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+          },
+          align: 'center',
+          // padding: [0, -56],
+          // height: 66,
+          rich: {
+            b: {
+                fontSize: 14,
+                lineHeight: 20,
+                color: '#fff',
+            },
+            c: {
+                fontSize: 14,
+                //lineHeight:20,
+                color: '#fff'
+            }
+
+          }
+        }
+      }
+    }]
+  }
+
+  var pieLabelCommonOption1 = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b} : {c} ({d}/%)',
+      show: true
+    },
+    legend: {
+      show:false,
+      orient: 'horizontal',
+      x: '10%',
+      data: [],
+      bottom: "20px",
+      show:true,
+      icon: 'circle',
+      itemWidth:8,
+      itemHeight:8,
+    },
+    series: [{
+      name: "",
+      type: 'pie',
+      roseType: 'radius',
+      radius:'45%',
+      center: ['50%','45%'],
       labelLine: {
         normal: {
           length: 15,
@@ -241,6 +298,35 @@ define([
     return this;
   }
 
+  var pieLabel1 = function (obj) {
+    var _self = this;
+    var data = this.initData(obj)
+    var fn = (function (obj) {
+      return function () {
+        var pie_datas = chartDataFormate.FormateNOGroupData(data);
+        var option = {
+          legend: {　                    
+            show:false,
+            icon: 'circle',
+            itemWidth:8,
+            itemHeight:8,
+            data: pie_datas.category
+          },
+          series: [{
+            name: obj.name || "",
+            data: pie_datas.data,
+            // radius:obj.radius || '50%',
+          }]
+        };
+        var pieOptions = $.extend(true, pieLabelCommonOption1, option);
+        _self.renderChart(pieOptions)
+        _self._next()
+      }
+    })(obj)
+    this.tasks.push(fn);
+    return this;
+  }
+
   // 图例在下方的饼图
   var pieLegend = function (obj) {
     var _self = this;
@@ -329,6 +415,7 @@ define([
   }
   return {
     pieLabel:pieLabel,
+    pieLabel1:pieLabel1,
     pieLegend:pieLegend,
     pieRingLabel:pieRingLabel,
     pieRingLegend:pieRingLegend

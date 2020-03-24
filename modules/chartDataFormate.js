@@ -23,6 +23,7 @@ define([
     var chart_type = 'line';
     if (type)
       chart_type = type || 'line';
+      chart_animation=''
     var xAxis = []
     var group = [];
     var series = [];
@@ -72,6 +73,12 @@ define([
             name: group[i],
             data: temp,
             type: chart_type,
+            symbolRepeat: data[i].symbolRepeat,
+            symbolMargin: data[i].symbolMargin,
+            symbolClip: data[i].symbolClip,
+            symbolBoundingData: data[i].symbolBoundingData,
+            animationEasing: 'elasticOut',
+            
           };
           if (is_stack)
             series_temp = $.extend({}, {
