@@ -5,5 +5,6 @@ require.config({
       'jquery':"js/jquery-2.1.4.min",
       'chartFactory':'js/chartFactory',
       'echarts':'js/echarts',
+      'progressCanvas':'js/progressCanvas',
   }
 });
