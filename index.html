@@ -207,7 +207,7 @@
   <script src="js/require.js"></script>
   <script src="require.config.js"></script>
   <script>
-    require(['jquery', 'chartFactory', 'echarts','progressCanvas'], function ($, chartFactory, echarts,progressCanvas) {
+    require(['jquery', 'chartFactory', 'echarts'], function ($, chartFactory, echarts) {
       window.echarts = echarts
       var chartFactoryWindow = window.chartFactoryWindow = {}
       var objWrap1 = chartFactoryWindow.objWrap1 = {
@@ -243,30 +243,21 @@
       objWrap1.objContent('pieChart1', 'customed11');
 
       var objWrap20 = chartFactoryWindow.objWrap20 = {
-        objContent: function renderChart(chartId, theme) {
-          var initProgress = function () {
-            var opts = {
-              width: 350,
-              height: 300,
-              bgColors: '#111',
-              lineCap: 'round',
-              showShadow: true,
-              shadowBlur: 8,
-              shadowColor: '#101856',
-              type: 'shield',
-              wrapDom: $('.processFiled')[0],
-              lineWidth: 8,
-              lineColors: '#122147', //  array or string
-              shadowBlur: 5
-            };
-            shieldProgress = new ProgressUtil.default(opts);
-            shieldProgress.render();
-            shieldProgress.update(100);
-          };
-          initProgress()
+        objContent: function (chartId, theme) {
+          var shieldChart = new chartFactory({
+            id:chartId,
+            type:'others',
+            themeType: theme || 'customed'
+          })
+          shieldChart.shield({
+            name:'哈哈哈哈',
+            value:100
+          })
+
         }
       }
       objWrap20.objContent('processFiled', 'customed');
+
 
 
       var objWrap2 = chartFactoryWindow.objWrap2 = {

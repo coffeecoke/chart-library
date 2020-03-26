@@ -12,6 +12,7 @@
       'modules/bars',
       'modules/radar',
       'modules/riskMap',
+      'modules/shield',
       'modules/theme'
     ], factory);
   } else if (typeof exports === 'object') {
@@ -33,6 +34,7 @@
   bars,
   radar,
   riskMap,
+  shield,
   setChartTheme
 ) {
 
@@ -56,7 +58,8 @@
     lines,
     bars,
     radar,
-    riskMap
+    riskMap,
+    shield
   )
   ChartFactory.prototype = {
     _next: function () {
@@ -65,13 +68,19 @@
     },
     init: function (opts) {
       var _self = this;
+      this.id = opts.id
       _self.setChartOptionTemplates();
       var fn = (function (opts) {
         return function () {
           _self.opts = $.extend({}, ChartFactory._defaultOpts, opts);
-          setChartTheme.call(_self, _self.opts.themeType,_self.opts);
-          _self._setChartOption()
-          _self._extendxyAxis()
+          if(!opts.type || opts.type==='echarts') {
+            setChartTheme.call(_self, _self.opts.themeType,_self.opts);
+            _self._setChartOption()
+            _self._extendxyAxis()
+
+          }else {
+
+          }
           _self._next()
         }
       })(opts)
@@ -81,6 +90,7 @@
       }, 0)
 
     },
+    
     // 克隆CommOption，以便给多个实例使用
     _setChartOption: function () {
       this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
