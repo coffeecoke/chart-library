@@ -18,7 +18,7 @@ $(".container").on("click", ".box", function () {
   maskBox += '<div class="delect">'
   maskBox += '<img src="./images/del.png" alt="">'
   maskBox += '</div>'
-  maskBox += '<div class="module" id="' + chartId + '" style="width:100%;height:600px;"></div>'
+  maskBox += '<div class="modul processFiled" id="' + chartId + '" style="width:100%;height:600px;"></div>'
   maskBox += '<div class="themeBox">'
   maskBox += '<ul class="theme-list">'
   maskBox += '<li data-theme="customed">主题1</li>'
@@ -61,17 +61,15 @@ $(".container").on("click", ".box", function () {
 $('.boxchart-theme-list span').on('click',function () {
   boxTheme = $(this).data('theme')
   renderBoxChartTheme(boxTheme)
-  
 })
-
 function renderBoxChartTheme (theme) {
   $('.module').each(function () {
-    var chartId = $(this).attr('id')
+    var chartId = $(this).attr('id');
     var chart = echarts.getInstanceByDom(document.getElementById(chartId));
     if(chart) {
       echarts.dispose(chart);
-      var chartobj = $(this).parents('.box').data('chartobj')
-      chartFactoryWindow[chartobj].objContent(chartId,theme)
+      var chartobj = $(this).parents('.box').data('chartobj');
+      chartFactoryWindow[chartobj].objContent(chartId,theme);
     }
   })
 }
