@@ -2,7 +2,7 @@ define([
   'jquery',
   'echarts',
   'modules/chartDataFormate'
-], function($, echarts, chartDataFormate) {
+], function ($, echarts, chartDataFormate) {
   'use strict';
   // 柱状图
   var bars = function (obj) {
@@ -15,14 +15,14 @@ define([
         var xAxis = [{
           type: 'category', //X轴均为category，Y轴均为value
           data: bars_dates.xAxis,
-          nameLocation:'end',
+          nameLocation: 'end',
           boundaryGap: true //数值轴两端的空白策略
         }];
         var yAxis = [{
-          nameLocation:'end',
-          nameTextStyle:{
-            fontSize:12,  
-            padding:[0 ,0 ,0 ,-50]
+          nameLocation: 'end',
+          nameTextStyle: {
+            fontSize: 12,
+            padding: [0, 0, 0, -50]
           },
         }];
         var series = bars_dates.series
@@ -49,9 +49,9 @@ define([
         var yAxis = [{
           type: 'category', //X轴均为category，Y轴均为value
           data: bars_dates.xAxis,
-          axisLabel: {  
-            rotate:0  
-         } 
+          axisLabel: {
+            rotate: 0
+          }
           //boundaryGap: true //数值轴两端的空白策略
         }];
         var series = bars_dates.series
@@ -66,32 +66,38 @@ define([
     this.tasks.push(fn);
     return this;
   }
-
-  var pictorialBar=function(obj){
+  // 象形图
+  var pictorialBar = function (obj) {
     var _self = this;
     var data = this.initData(obj)
     var fn = (function (obj) {
       return function () {
-        var bars_dates = chartDataFormate.FormateGroupData(data, 'bar');
+        var bars_dates = chartDataFormate.FormateGroupData(data, 'pictorialBar');
+
         var legendData = bars_dates.category;
+        var xAxis = [{
+          max:2000,
+          show: false
+        }];
         var yAxis = [{
-          show:false,
-          axisTick: 'none',
-          axisLine: 'none',
-          offset: '2',
+          data: bars_dates.xAxis,
           axisLabel: {
-              textStyle: {
-                  color: '#ffffff',
-                  fontSize: '16',
-              }
+            inside: false,
+            verticalAlign: 'middle',
+            color: '#fff',
+            fontSize: 12
           },
-        data: bars_dates.xAxis
-          //boundaryGap: true //数值轴两端的空白策略
+          axisLine: {
+            show: true
+          }
         }];
         var series = bars_dates.series
+        console.log(series)
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
+        $.extend(true, _self.chartCommonOption.xAxis, xAxis)
         $.extend(true, _self.chartCommonOption.yAxis, yAxis)
         _self.chartCommonOption.series.push.apply(_self.chartCommonOption.series, series)
+        
         _self.renderChart(_self.chartCommonOption)
         _self._next()
       }
@@ -103,7 +109,7 @@ define([
 
   return {
     bars: bars,
-    horizontalBar:horizontalBar,
-    pictorialBar:pictorialBar
+    horizontalBar: horizontalBar,
+    pictorialBar: pictorialBar
   }
 });

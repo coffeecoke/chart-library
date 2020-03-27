@@ -77,9 +77,7 @@
             setChartTheme.call(_self, _self.opts.themeType,_self.opts);
             _self._setChartOption()
             _self._extendxyAxis()
-
           }else {
-
           }
           _self._next()
         }

@@ -452,7 +452,6 @@ window.BezierCurveUtil={};
                     ctx = me.ctx,
                     center_x = me.width / 2,
                     center_y = me.height / 2;
-                console.log(me)    
                 ctx.font = '300 60px "Microsoft YaHei"';
                 ctx.textAlign = 'center';
                 ctx.fillText(this.curVal, center_x-20, center_y + 45);

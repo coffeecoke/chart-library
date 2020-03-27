@@ -62,7 +62,7 @@ define([
             temp.push(data[j].value);
           } else if (type == 'scatter') {
             temp.push.apply(temp, data[j].value)
-          } {
+          } else {
             temp.push(data[j].value);
           }
         }
@@ -117,6 +117,74 @@ define([
             name: group[i],
             data: temp
           }
+          break;
+        case 'pictorialBar' : 
+          var series_temp = [
+            {
+              name:'',
+              type:'pictorialBar',
+              // itemStyle: {
+              //   normal: {
+              //       color: '#6c92e3'
+              //   }
+              // },
+              z:1,
+              data:[],
+              symbol: 'rect',
+              symbolRepeat: 'fixed',
+              symbolMargin: '10%',
+              symbolClip: true,
+              symbolSize: [6,20],
+              animationEasing: 'elasticOut',
+              // symbolBoundingData: 2000,
+              animationDelay: function(dataIndex, params) {
+                  return params.index * 30;
+              }
+            },
+            {
+              name:'',
+              type:'pictorialBar',
+              // itemStyle: {
+              //   normal: {
+              //       color: 'red'
+              //   }
+              // },
+              data:[],
+              label: {
+                normal: {
+                    show: true,
+                    formatter: function(value, index) {
+                        return `${value.value}`
+                    },
+                    position: 'right',
+                    offset: [5, 0],
+                    // offset: [0, 4],
+                    color: '#6DE8FA',
+                    fontSize: 20
+                }
+              },
+              z:10,
+              symbol: 'rect',
+              symbolRepeat: 'fixed',
+              symbolMargin: '10%',
+              symbolClip: true,
+              symbolSize: [6,20],
+              animationEasing: 'elasticOut',
+              // symbolBoundingData: 2000,
+              animationDelay: function(dataIndex, params) {
+                  return params.index * 30;
+              }
+            }
+          ]
+          var innerData = []
+          var outerData = []
+          data.forEach(function (item, index) {
+            innerData.push(item.value)
+            outerData.push(item.max)
+          })
+          series_temp[0].data = outerData 
+          series_temp[1].data = innerData
+          break;
         default:
         // var series_temp = {
         //   // name: group[i],
@@ -128,7 +196,12 @@ define([
       if (yAxisIndex) {
         series_temp.yAxisIndex = yAxisIndex
       }
-      series.push(series_temp);
+      if(Object.prototype.toString.call(series_temp) === '[object Object]'){
+        series.push(series_temp);
+      }else if(Object.prototype.toString.call(series_temp) === '[object Array]') {
+        series.push.apply(series,series_temp); //考虑象形图
+      }
+      
     }
     return {
       category: group,
