@@ -431,7 +431,6 @@ window.BezierCurveUtil={};
                         ctx.beginPath();
                         ctx.arc(dotPoint[0], dotPoint[1], 10, 0, Math.PI * 3);
                         ctx.fill();
-
                         // draw label
                         ctx.fillStyle = color;
                         ctx.shadowBlur = 0;

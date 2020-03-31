@@ -12,6 +12,7 @@
         "#546570",
         "#c4ccd3"
     ],
+    "pieLabelColor":"#fff",
     "backgroundColor": "rgba(0, 0, 0, 0)",
     "textStyle": {},
     "title": {

@@ -43,30 +43,8 @@ define([
               type: 'solid'
           }
         }
-      },
-      label:{
-        normal:{
-          formatter: (params)=>{
-            return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
-          },
-          align: 'center',
-          // padding: [0, -56],
-          // height: 66,
-          rich: {
-            b: {
-                fontSize: 14,
-                lineHeight: 20,
-                color: '#fff',
-            },
-            c: {
-                fontSize: 14,
-                //lineHeight:20,
-                color: '#fff'
-            }
-
-          }
-        }
       }
+      
     }]
   }
 
@@ -114,12 +92,12 @@ define([
             b: {
                 fontSize: 14,
                 lineHeight: 20,
-                color: '#fff',
+                // color: '#fff',
             },
             c: {
                 fontSize: 14,
                 //lineHeight:20,
-                color: '#fff'
+                // color: '#fff'
             }
 
           }
@@ -213,12 +191,12 @@ define([
             b: {
                 fontSize: 14,
                 lineHeight: 20,
-                color: '#fff',
+                // color: '#fff',
             },
             c: {
                 fontSize: 14,
                 //lineHeight:20,
-                color: '#fff'
+                // color: '#fff'
             }
 
           }
@@ -287,6 +265,29 @@ define([
             name: obj.name || "",
             data: pie_datas.data,
             // radius:obj.radius || '50%',
+            label:{
+              normal:{
+                formatter: (params)=>{
+                  return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+                },
+                align: 'center',
+                // padding: [0, -56],
+                // height: 66,
+                rich: {
+                  b: {
+                      fontSize: 14,
+                      lineHeight: 20,
+                      color:_self.pieLabelColor
+                  },
+                  c: {
+                      fontSize: 14,
+                      //lineHeight:20,
+                      color:_self.pieLabelColor
+                  }
+      
+                }
+              }
+            }
           }]
         };
         var pieOptions = $.extend(true, pieLabelCommonOption, option);
@@ -316,6 +317,29 @@ define([
             name: obj.name || "",
             data: pie_datas.data,
             // radius:obj.radius || '50%',
+            label:{
+              normal:{
+                formatter: (params)=>{
+                  return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+                },
+                align: 'center',
+                // padding: [0, -56],
+                // height: 66,
+                rich: {
+                  b: {
+                      fontSize: 14,
+                      lineHeight: 20,
+                      color:_self.pieLabelColor
+                  },
+                  c: {
+                      fontSize: 14,
+                      //lineHeight:20,
+                      color:_self.pieLabelColor
+                  }
+      
+                }
+              }
+            }
           }]
         };
         var pieOptions = $.extend(true, pieLabelCommonOption1, option);
@@ -373,6 +397,29 @@ define([
             name: obj.name || "",
             data: pie_datas.data,
             // radius:obj.radius || '50%',
+            label:{
+              normal:{
+                formatter: (params)=>{
+                  return '{c|'+params.percent.toFixed(0)+'%}\n' + '{b|'+params.name+'} '
+                },
+                align: 'center',
+                // padding: [0, -56],
+                // height: 66,
+                rich: {
+                  b: {
+                      fontSize: 14,
+                      lineHeight: 20,
+                      color:_self.pieLabelColor
+                  },
+                  c: {
+                      fontSize: 14,
+                      //lineHeight:20,
+                      color:_self.pieLabelColor
+                  }
+      
+                }
+              }
+            }
           }]
         };
         var pieOptions = $.extend(true, pieRingLabelCommonOption, option);

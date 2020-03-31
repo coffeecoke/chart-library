@@ -9,7 +9,7 @@ define([
     var _this = this
     var themes = {
       wonderland: '../json/wonderland.json', // 配置主题的路径,
-      customed11:'../json/customed11.json',
+      theme4:'../json/theme4.json',
       essos: '../json/essos.json',
       customed: '../json/customed.json'
     }
@@ -21,6 +21,7 @@ define([
         if (themeType) {
           echarts.registerTheme(themeType, obj);
           _this.colors=data.color
+          _this.pieLabelColor = data.pieLabelColor
         }
       }
       
