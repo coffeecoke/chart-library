@@ -22,6 +22,7 @@ define([
           echarts.registerTheme(themeType, obj);
           _this.colors=data.color
           _this.pieLabelColor = data.pieLabelColor
+          _this.shieldColor = data.shieldColor
         }
       }
       

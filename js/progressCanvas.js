@@ -417,7 +417,8 @@ window.BezierCurveUtil={};
 
                         curPos = percent * pointSize || 1;
                         var nodes = this.totalPoints.slice(0, curPos);
-                        var color = this.getColorByVal(percent);
+                        //var color = this.getColorByVal(percent);
+                        var color = me.options.color;
                         ctx.strokeStyle = color;
                         ctx.shadowBlur = 0;
                         _bezierCurve2.default.drawCurveByNodes(ctx, nodes);
