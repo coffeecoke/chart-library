@@ -15,8 +15,7 @@
   <div class="container">
     <div class="boxchart-theme-list">
       <span data-theme="customed" style="color:#fff">主题1</span>
-      <span data-theme="essos" style="color:#fff">主题2</span>
-      <span data-theme="wonderland" style="color:#fff">主题3</span>
+      <span data-theme="theme4" style="color:#fff">主题2</span>
     </div>
     <div class="box" data-chartobj="objWrap1">
       <div class="padding-20">
@@ -240,25 +239,7 @@
           })
         }
       }
-      objWrap1.objContent('pieChart1', 'customed11');
-
-      var objWrap20 = chartFactoryWindow.objWrap20 = {
-        objContent: function (chartId, theme) {
-          var shieldChart = new chartFactory({
-            id: chartId,
-            type: 'others',
-            themeType: theme || 'customed'
-          })
-          shieldChart.shield({
-            name: '哈哈哈哈',
-            value: 70
-          })
-
-        }
-      }
-      objWrap20.objContent('processFiled', 'customed');
-
-
+      objWrap1.objContent('pieChart1', 'customed');
 
       var objWrap2 = chartFactoryWindow.objWrap2 = {
         objContent: function (chartId, theme) {
@@ -588,7 +569,6 @@
         }
       }
       objWrap7.objContent('lineBarChart', 'customed');
-
 
       //x轴为数据坐标
       var objWrap8 = chartFactoryWindow.objWrap8 = {
@@ -1230,6 +1210,22 @@
         }
       }
       objWrap17.objContent('pieChart5', 'customed');
+
+      var objWrap20 = chartFactoryWindow.objWrap20 = {
+        objContent: function (chartId, theme) {
+          var shieldChart = new chartFactory({
+            id: chartId,
+            type: 'others',
+            themeType: theme || 'customed'
+          })
+          shieldChart.shield({
+            name: '哈哈哈哈',
+            value: 70
+          })
+
+        }
+      }
+      objWrap20.objContent('processFiled', 'customed');
 
     })
   </script>

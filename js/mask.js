@@ -54,12 +54,18 @@ $(".container").on("click", ".box", function () {
     var modelChart = echarts.getInstanceByDom(document.getElementById(chartId));
     if(modelChart) {
       echarts.dispose(modelChart);
-    }
-    $(this).parents(".mask").remove()
+    };
+    $(this).parents(".mask").remove();
   })
 })
 $('.boxchart-theme-list span').on('click',function () {
-  boxTheme = $(this).data('theme')
+  boxTheme = $(this).data('theme');
+  var index=$(this).index();
+  if(index=="0"){
+    $(document).find(".box").removeClass("toggle");
+  }else{
+    $(document).find(".box").addClass("toggle");
+  }
   renderBoxChartTheme(boxTheme)
 })
 function renderBoxChartTheme (theme) {

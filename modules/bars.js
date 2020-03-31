@@ -84,14 +84,13 @@ define([
           axisLabel: {
             inside: false,
             verticalAlign: 'middle',
-            // color: '#fff',
             fontSize: 12
           },
           axisLine: {
             show: true
           }
         }];
-        var series = bars_dates.series
+        var series = bars_dates.series;
         console.log(series)
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
         $.extend(true, _self.chartCommonOption.xAxis, xAxis)

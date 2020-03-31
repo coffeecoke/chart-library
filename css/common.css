@@ -76,3 +76,15 @@ body{
   color: #000;
   text-decoration: none;
 }
+.modul{
+  position: relative;
+}
+.toggle{
+  background:#fff;
+}
+/* .modul canvas{
+	position: absolute;
+	top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+} */
