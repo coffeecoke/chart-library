@@ -1,0 +1,16 @@
+{
+  "name": "chart-library-resoft",
+  "version": "1.0.1",
+  "description": "二次封装echarts图表，统一主题，缩减配置项，便于开发复用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zq tangbuku",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "echarts": "^4.7.0",
+    "lodash": "^4.17.15"
+  }
+}

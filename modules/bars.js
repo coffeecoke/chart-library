@@ -84,7 +84,7 @@ define([
           axisLabel: {
             inside: false,
             verticalAlign: 'middle',
-            color: '#fff',
+            // color: '#fff',
             fontSize: 12
           },
           axisLine: {

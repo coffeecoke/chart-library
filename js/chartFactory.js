@@ -1,6 +1,7 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([
+      '_',
       'jquery',
       'echarts',
       'modules/util',
@@ -23,6 +24,7 @@
     root.JSLite = root.JSLite || factory(jQuery);
   }
 })(this, function (
+  _,
   $,
   echarts,
   util,
@@ -51,7 +53,7 @@
   }
   // 各种类型图表胚子
   var chartOptionTemplates = {}
-  $.extend(
+  _.assign(
     chartOptionTemplates,
     pies,
     scatter,
@@ -72,7 +74,7 @@
       _self.setChartOptionTemplates();
       var fn = (function (opts) {
         return function () {
-          _self.opts = $.extend({}, ChartFactory._defaultOpts, opts);
+          _self.opts = _.assign({}, ChartFactory._defaultOpts, opts);
           if(!opts.type || opts.type==='echarts') {
             setChartTheme.call(_self, _self.opts.themeType,_self.opts);
             _self._setChartOption()
@@ -91,13 +93,13 @@
     
     // 克隆CommOption，以便给多个实例使用
     _setChartOption: function () {
-      this.chartCommonOption = $.extend(true, {}, chartCommonOption) //clone
+      this.chartCommonOption = _.cloneDeep(chartCommonOption) //clone
     },
     // 继承线图，柱图类型的x,y坐标
     _extendxyAxis: function () {
       if (this.opts.yAxis || this.opts.xAxis) {
-        $.extend(true, this.chartCommonOption.yAxis, this.opts.yAxis || [])
-        $.extend(true, this.chartCommonOption.xAxis, this.opts.xAxis || [])
+        _.assign(this.chartCommonOption.yAxis, this.opts.yAxis || [])
+        _.assign(this.chartCommonOption.xAxis, this.opts.xAxis || [])
       }
     },
     //初始化数据

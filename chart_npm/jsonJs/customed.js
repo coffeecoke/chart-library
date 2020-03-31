@@ -1,4 +1,4 @@
-{
+let customed = {
     "color": [
         "rgba(53,97,192)",
         "rgba(217,87,65)",
@@ -12,7 +12,6 @@
         "#546570",
         "#c4ccd3"
     ],
-    
     "backgroundColor": "rgba(0, 0, 0, 0)",
     "textStyle": {},
     "title": {
@@ -512,3 +511,4 @@
         }
     }
 }
+export default customed
