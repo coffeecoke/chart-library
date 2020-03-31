@@ -26,28 +26,28 @@ define([
             fontSize: 20,
             align: 'center'
           },
-
         },
-        textStyle: {
-          color: '#fff'
-        }
+        // textStyle: {
+        //   color: '#fff'
+        // }
       },
       indicator: [],
       splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
         show: true,
         areaStyle: { // 分隔区域的样式设置。
-          // color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+          color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
         }
       },
       axisLine: { //指向外圈文本的分隔线样式
         lineStyle: {
-          color: '#153269'
+          type:"dashed",
+          color: '#cccccc'
         }
       },
       splitLine: {
         lineStyle: {
-          color: '#113865', // 分隔线颜色
-          width: 1, // 分隔线线宽
+          color: '#cccccc', // 分隔线颜色
+          width: 2, // 分隔线线宽
         }
       }
 
@@ -90,7 +90,7 @@ define([
         var radars_dates = chartDataFormate.FormateGroupData(data, 'radar', obj.stack);
         var dataArr = radars_dates.series;
         var legendData = radars_dates.category;
-        var indicator = radars_dates.indicator
+        var indicator = radars_dates.indicator;
         $.each(dataArr, function (index, item) {
           $.extend(true, item, radarStyles[index])
         })
@@ -106,6 +106,7 @@ define([
           }]
         }
         $.extend(true, radarCommonOption, radarOptions)
+        console.log(radarCommonOption)
         _self.renderChart(radarCommonOption)
         _self._next()
       }

@@ -82,6 +82,9 @@ body{
 .toggle{
   background:#fff;
 }
+.toggle .box-header h4{
+  color: #000;
+}
 /* .modul canvas{
 	position: absolute;
 	top:50%;

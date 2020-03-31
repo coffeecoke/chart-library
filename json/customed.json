@@ -13,6 +13,7 @@
         "#c4ccd3"
     ],
     "pieLabelColor":"#fff",
+    "shieldColor":"f00",
     "backgroundColor": "rgba(0, 0, 0, 0)",
     "textStyle": {},
     "title": {
@@ -39,6 +40,11 @@
         "smooth": false
     },
     "radar": {
+        "name":{
+            "textStyle": {
+                "color": "#ffffff"
+            }
+        },
         "itemStyle": {
             "normal": {
                 "borderWidth": 1
