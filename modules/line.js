@@ -32,11 +32,11 @@ define([
         };
         var series = stackline_datas.series;
         $.each(series,function (index, item) {
-          var itemStyle={
-              color: _self.colors[index],
-          }
+          // var itemStyle={
+          //     color: _self.colors[index],
+          // }
           var symbol='circle';
-          item.itemStyle = itemStyle;
+          // item.itemStyle = itemStyle;
           item.symbol = symbol;
           item.yAxis = yAxis;
         })

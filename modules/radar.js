@@ -17,7 +17,6 @@ define([
       radius: 80,
       name: {
         fontSize: 12,
-        color: '#666666',
         formatter: function (value, indicator) {
           return indicator.name + '  {valueStyle|' + indicator.max + '}'
         },
@@ -84,6 +83,7 @@ define([
   // 雷达图
   var radar = function (obj) {
     var _self = this;
+    console.log(_self)
     var data = this.initData(obj);
     var fn = (function (obj) {
       return function () {

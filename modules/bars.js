@@ -91,7 +91,6 @@ define([
           }
         }];
         var series = bars_dates.series;
-        console.log(series)
         _self.chartCommonOption.legend.data.push.apply(_self.chartCommonOption.legend.data, legendData)
         $.extend(true, _self.chartCommonOption.xAxis, xAxis)
         $.extend(true, _self.chartCommonOption.yAxis, yAxis)

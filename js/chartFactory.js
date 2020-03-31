@@ -75,8 +75,8 @@
       var fn = (function (opts) {
         return function () {
           _self.opts = _.assign({}, ChartFactory._defaultOpts, opts);
+          setChartTheme.call(_self, _self.opts.themeType,_self.opts);
           if(!opts.type || opts.type==='echarts') {
-            setChartTheme.call(_self, _self.opts.themeType,_self.opts);
             _self._setChartOption()
             _self._extendxyAxis()
           }else {
@@ -125,6 +125,7 @@
       $.extend(ChartFactory.prototype, chartOptionTemplates)
     },
     renderChart: function (chartOptions) {
+      // 当tasks里面的任务执行完了，在进行渲染
       if (this.tasks && this.tasks.length === 0) {
           this.chart.clear();
           this.chart.setOption(chartOptions)
