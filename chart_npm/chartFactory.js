@@ -26,8 +26,8 @@ ChartFactory.prototype = {
     var fn = (function (opts) {
       return function () {
         _self.opts = _.assign({}, ChartFactory._defaultOpts, opts);
+        setChartTheme.call(_self, _self.opts.themeType,_self.opts);
         if(!opts.type || opts.type==='echarts') {
-          setChartTheme.call(_self, _self.opts.themeType,_self.opts);
           _self._setChartOption()
           _self._extendxyAxis()
         }else {

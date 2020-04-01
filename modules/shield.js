@@ -22,7 +22,6 @@ define([
           lineColors: '#cccccc', //  array or string
           color:_self.shieldColor
         };
-        console.log(opts);
         var shieldProgress = new ProgressUtil.default(opts);
         shieldProgress.render();
         shieldProgress.update(obj.value);

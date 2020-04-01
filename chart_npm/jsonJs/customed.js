@@ -12,6 +12,8 @@ let customed = {
         "#546570",
         "#c4ccd3"
     ],
+    "pieLabelColor":"#fff",
+    "shieldColor":"f00",
     "backgroundColor": "rgba(0, 0, 0, 0)",
     "textStyle": {},
     "title": {
