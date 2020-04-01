@@ -2,6 +2,7 @@ var boxTheme;
 $(".container").on("click", ".box", function () {
   var chartTheme;
   var chartobj = $(this).data('chartobj')
+  console.log(chartFactoryWindow[chartobj])
   if(!chartFactoryWindow[chartobj]) {
     return;
   }
