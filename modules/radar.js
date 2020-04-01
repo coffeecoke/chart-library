@@ -83,7 +83,6 @@ define([
   // 雷达图
   var radar = function (obj) {
     var _self = this;
-    console.log(_self)
     var data = this.initData(obj);
     var fn = (function (obj) {
       return function () {

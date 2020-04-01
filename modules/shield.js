@@ -6,7 +6,6 @@ define([
   // 折线图
   var shield = function (obj) {
     var _self = this;
-    console.log(_self)  
     var fn = (function (obj) {
       return function () {
         var opts = {

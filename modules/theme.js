@@ -19,19 +19,19 @@ define([
       success: function (data) {
         var obj = data;
         if (themeType) {
-          echarts.registerTheme(themeType, obj);
           _this.colors=data.color
           _this.pieLabelColor = data.pieLabelColor
           _this.shieldColor = data.shieldColor
+          if(!opts.type || opts.type==='echarts') {
+            echarts.registerTheme(themeType, obj);
+            _this.chart = echarts.init(document.getElementById(opts.id), themeType);
+          }
         }
       }
       
     })
 
-    if (!opts.id) {
-      return
-    }
-    this.chart = echarts.init(document.getElementById(opts.id), themeType);
+    
   }
   return setChartTheme
 });
