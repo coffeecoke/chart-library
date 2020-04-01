@@ -19,10 +19,11 @@ define([
           type: 'shield',
           wrapDom: $('#'+_self.id)[0],
           lineWidth: 8,
+          textColor:_self.shieldColor,
           lineColors: '#cccccc', //  array or string
           color:_self.shieldColor
         };
-        console.log(opts);
+        console.log(opts)
         var shieldProgress = new ProgressUtil.default(opts);
         shieldProgress.render();
         shieldProgress.update(obj.value);
